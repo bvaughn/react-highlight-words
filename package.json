@@ -1,5 +1,5 @@
 {
-  "name": "react-text-highlighter",
+  "name": "react-highlight-words",
   "version": "0.1.0",
   "description": "React component to highlight words within a larger body of text",
   "main": "dist/main.js",
