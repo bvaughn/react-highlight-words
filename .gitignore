@@ -1,0 +1,19 @@
+# Logs
+/log/*
+!/log/.keep
+/tmp
+*.log
+
+# Dependency directory
+node_modules
+
+# Test stuff
+coverage
+
+# OS X
+.DS_Store
+
+# Misc
+node_modules
+npm-debug.log
+build

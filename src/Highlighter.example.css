@@ -1,0 +1,12 @@
+.LabelAndInputRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.Label {
+  font-weight: bold;
+}
+.Label:after {
+  content: ': '
+}
