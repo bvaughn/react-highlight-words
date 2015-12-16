@@ -21,14 +21,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bvaughn/react-text-highlighter.git"
+    "url": "git+https://github.com/bvaughn/react-highlight-words.git"
   },
   "author": "Brian Vaughn",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bvaughn/react-text-highlighter/issues"
+    "url": "https://github.com/bvaughn/react-highlight-words/issues"
   },
-  "homepage": "https://github.com/bvaughn/react-text-highlighter#readme",
+  "homepage": "https://github.com/bvaughn/react-highlight-words#readme",
   "keywords": [
     "react",
     "reactjs",

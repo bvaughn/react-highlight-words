@@ -1,12 +1,12 @@
-# react-text-highlighter
+# react-highlight-words
 
 React component to highlight words within a larger body of text.
 
-Check out a demo [here](https://bvaughn.github.io/react-text-highlighter).
+Check out a demo [here](https://bvaughn.github.io/react-highlight-words).
 
 ## Installation
 ```
-npm i --save react-text-highlighter
+npm i --save react-highlight-words
 ```
 
 ## License
