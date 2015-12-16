@@ -1,7 +1,7 @@
 {
   "name": "react-text-highlighter",
   "version": "0.1.0",
-  "description": "React text highlighting component",
+  "description": "React component to highlight words within a larger body of text",
   "main": "dist/main.js",
   "scripts": {
     "build": "npm run build:website && npm run build:dist",
