@@ -1,0 +1,33 @@
+.headerRow {
+  height: 300px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background-color: #263238;
+}
+
+.logo {
+  display: block;
+}
+
+.body {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 20px 20px;
+  background-color: #eceff1;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .05);
+  border-radius: .5em;
+  margin: 1rem;
+}
+
+.footer {
+  text-align: center;
+  color: #37474f;
+  font-size: .8em;
+}

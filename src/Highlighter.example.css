@@ -1,12 +1,24 @@
-.LabelAndInputRow {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+.Header {
+  margin: 0 0 .5rem;
+  font-size: 1.25em;
+  font-weight: normal;
 }
 
-.Label {
-  font-weight: bold;
+.Input {
+  width: 100%;
+  border: 1px solid #78909c;
+  line-height: 1.4;
+  padding: .3em .5em;
+  border-radius: .3em;
+  margin-bottom: 1em;
+  font-size: 1em;
 }
-.Label:after {
-  content: ': '
+
+.Highlight {
+  background-color: #ffd54f;
+  font-weight: normal;
+}
+
+.Footer {
+  margin-bottom: 0;
 }

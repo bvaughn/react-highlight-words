@@ -7,8 +7,8 @@ export default class HighlighterExample extends Component {
     super(props)
 
     this.state = {
-      searchText: 'is',
-      textToHighlight: 'This is some text.'
+      searchText: 'and or the',
+      textToHighlight: `When in the Course of human events it becomes necessary for one people to dissolve the political bands which have connected them with another and to assume among the powers of the earth, the separate and equal station to which the Laws of Nature and of Nature's God entitle them, a decent respect to the opinions of mankind requires that they should declare the causes which impel them to the separation.`
     }
   }
   render () {
@@ -18,22 +18,38 @@ export default class HighlighterExample extends Component {
 
     return (
       <div {...props}>
-        <div className={styles.LabelAndInputRow}>
-          <label className={styles.Label}>Search terms</label>
-          <input
-            name='searchTerms'
-            value={searchText}
-            onChange={event => this.setState({ searchText: event.target.value })}/>
-          <label className={styles.Label}>Text to highlight</label>
-          <input
-            name='textToHighlight'
-            value={textToHighlight}
-            onChange={event => this.setState({ textToHighlight: event.target.value })}/>
-        </div>
+        <h4 className={styles.Header}>
+          Search terms
+        </h4>
+        <input
+          className={styles.Input}
+          name='searchTerms'
+          value={searchText}
+          onChange={event => this.setState({ searchText: event.target.value })}/>
 
+        <h4 className={styles.Header}>
+          Body of Text
+        </h4>
+        <textarea
+          className={styles.Input}
+          name='textToHighlight'
+          value={textToHighlight}
+          onChange={event => this.setState({ textToHighlight: event.target.value })}/>
+
+        <h4 className={styles.Header}>
+          Output
+        </h4>
         <Highlighter
+          highlightClassName={styles.Highlight}
           searchWords={searchWords}
-          textToHighlight={textToHighlight}/>
+          textToHighlight={textToHighlight}
+        />
+
+        <p className={styles.Footer}>
+          <a href='https://github.com/bvaughn/react-highlight-words/blob/master/src/Highlighter.example.js'>
+            View the source
+          </a>
+        </p>
       </div>
     )
   }
