@@ -1,4 +1,4 @@
-# react-highlight-words
+<img src="https://cloud.githubusercontent.com/assets/29597/11904023/3335e2e2-a572-11e5-8d89-8ce724e00f03.png" width="258" height="125">
 
 React component to highlight words within a larger body of text.
 
