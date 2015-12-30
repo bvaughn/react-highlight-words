@@ -41,6 +41,7 @@ export default class HighlighterExample extends Component {
         </h4>
         <Highlighter
           highlightClassName={styles.Highlight}
+          highlightStyle={{ fontWeight: 'normal' }}
           searchWords={searchWords}
           textToHighlight={textToHighlight}
         />

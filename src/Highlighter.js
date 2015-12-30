@@ -4,6 +4,7 @@ import styles from './Highlighter.css'
 
 Highlighter.propTypes = {
   highlightClassName: PropTypes.string,
+  highlightStyle: PropTypes.object,
   searchWords: PropTypes.arrayOf(PropTypes.string).isRequired,
   textToHighlight: PropTypes.string.isRequired
 }
@@ -14,6 +15,7 @@ Highlighter.propTypes = {
  */
 export default function Highlighter ({
   highlightClassName = '',
+  highlightStyle = {},
   searchWords,
   textToHighlight }
 ) {
@@ -49,6 +51,7 @@ export default function Highlighter ({
               <span
                 key={++uidCounter}
                 className={highlightClassNames}
+                style={highlightStyle}
               >
                 {substring.substring(startIndex, endIndex)}
               </span>

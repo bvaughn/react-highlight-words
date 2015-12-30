@@ -2,8 +2,13 @@ import Highlighter from './Highlighter'
 import expect from 'expect.js'
 
 describe('Highlighter', () => {
-  function getHighlighterChildren (textToHighlight, searchWords, highlightClassName) {
-    const instance = Highlighter({ textToHighlight, searchWords, highlightClassName })
+  function getHighlighterChildren (textToHighlight, searchWords, highlightClassName, highlightStyle) {
+    const instance = Highlighter({
+      highlightClassName,
+      highlightStyle,
+      textToHighlight,
+      searchWords
+    })
 
     return instance.props.children
   }
@@ -60,5 +65,10 @@ describe('Highlighter', () => {
     const matches = getHighlighterChildren('This is text', ['text'], 'customClass')
     expect(matches.length).to.equal(2)
     expect(matches[1].props.className).to.contain('customClass')
+  })
+
+  it('should use the :highlightStyle if specified', () => {
+    const matches = getHighlighterChildren('This is text', ['text'], undefined, { color: 'red' })
+    expect(matches[1].props.style.color).to.contain('red')
   })
 })
