@@ -9,6 +9,47 @@ Highlighter.propTypes = {
 }
 
 /**
+ * Takes an array of {start:number, end:number} objects and combines chunks that overlap into single chunks.
+ */
+const combineChunks = (chunks) => {
+  chunks = chunks
+    .sort((first, second) => first.start - second.start)
+    .reduce((processedChunks, nextChunk) => {
+      // First chunk just goes straight in the array...
+      if (processedChunks.length === 0) {
+        return [nextChunk]
+      } else {
+        // ... subsequent chunks get checked to see if they overlap...
+        const prevChunk = processedChunks.pop()
+        if (nextChunk.start <= prevChunk.end) {
+          processedChunks.push({start: prevChunk.start, end: nextChunk.end})
+        } else {
+          processedChunks.push(prevChunk, nextChunk)
+        }
+        return processedChunks
+      }
+    }, [])
+
+  return chunks
+}
+
+/**
+ * Examine textToSearch for any matches.
+ * If we find matches, add them to the returned array as a "chunk" object ({start:number, end:number}).
+ */
+const findChunks = (textToSearch, wordsToFind) =>
+  wordsToFind
+    .filter(searchWord => searchWord) // Remove empty words
+    .reduce((chunks, searchWord) => {
+        const regex = new RegExp(searchWord, 'gi')
+        let match
+        while ((match = regex.exec(textToSearch)) != null) {
+          chunks.push({start: match.index, end: regex.lastIndex})
+        }
+        return chunks
+    }, [])
+
+/**
  * Highlights all occurrences of search terms (searchText) within a string (textToHighlight).
  * This function returns an array of strings and <span>s (wrapping highlighted words).
  */
