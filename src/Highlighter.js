@@ -20,19 +20,30 @@ export default function Highlighter ({
   searchWords,
   textToHighlight }
 ) {
-  const chunks = Chunks.findAll(searchWords, textToHighlight)
+  const chunks = Chunks.findAll(textToHighlight, searchWords)
   const highlightClassNames = `${styles.Term} ${highlightClassName}`
 
   return (
     <span>
-      {chunks.map((chunk, index) =>
-      <span
-        key={index}
-        className={chunk.highlight ? highlightClassNames : ''}
-        >
-          {textToHighlight.substr(chunk.start, chunk.end - chunk.start)}
-      </span>
-    )}
+      {chunks.map((chunk, index) => {
+        const text = textToHighlight.substr(chunk.start, chunk.end - chunk.start)
+
+        if (chunk.highlight) {
+          return (
+            <mark
+              className={highlightClassNames}
+              key={index}
+              style={highlightStyle}
+            >
+              {text}
+            </mark>
+          )
+        } else {
+          return (
+            <span key={index}>{text}</span>
+          )
+        }
+      })}
     </span>
   )
 }

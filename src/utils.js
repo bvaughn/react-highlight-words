@@ -1,15 +1,15 @@
 /**
  * Creates an array of chunk objects representing both higlightable and non highlightable pieces of text that match each search word.
  * @param searchWords string[]
- * @param text string
+ * @param textToSearch string
  * @return {start:number, end:number, highlight:boolean}[]
  */
-export const findAll = (searchWords, text) =>
+export const findAll = (textToSearch, wordsToFind) =>
   fillInChunks(
     combineChunks(
-      findChunks(text, searchWords)
+      findChunks(textToSearch, wordsToFind)
     ),
-    text.length
+    textToSearch.length
   )
 
 /**
@@ -53,12 +53,12 @@ export const findChunks = (textToSearch, wordsToFind) =>
   wordsToFind
     .filter(searchWord => searchWord) // Remove empty words
     .reduce((chunks, searchWord) => {
-        const regex = new RegExp(searchWord, 'gi')
-        let match
-        while ((match = regex.exec(textToSearch)) != null) {
-          chunks.push({start: match.index, end: regex.lastIndex})
-        }
-        return chunks
+      const regex = new RegExp(searchWord, 'gi')
+      let match
+      while ((match = regex.exec(textToSearch)) != null) {
+        chunks.push({start: match.index, end: regex.lastIndex})
+      }
+      return chunks
     }, [])
 
 /**
@@ -70,10 +70,14 @@ export const findChunks = (textToSearch, wordsToFind) =>
  */
 export const fillInChunks = (chunksToHighlight, totalLength) => {
   const allChunks = []
-  const append = (start, end, highlight) => allChunks.push({start: start, end: end, highlight: highlight})
+  const append = (start, end, highlight) => {
+    if (end - start > 0) {
+      allChunks.push({start: start, end: end, highlight: highlight})
+    }
+  }
 
-  if (chunksToHighlight.length == 0) {
-    append(0, totalLength, false);
+  if (chunksToHighlight.length === 0) {
+    append(0, totalLength, false)
   } else {
     let lastIndex = 0
     chunksToHighlight.forEach((chunk) => {

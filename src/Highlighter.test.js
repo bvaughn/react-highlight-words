@@ -1,74 +1,98 @@
+import React from 'react'
 import Highlighter from './Highlighter'
+import { render } from './test-utils'
 import expect from 'expect.js'
 
 describe('Highlighter', () => {
-  function getHighlighterChildren (textToHighlight, searchWords, highlightClassName, highlightStyle) {
-    const instance = Highlighter({
-      highlightClassName,
-      highlightStyle,
-      textToHighlight,
-      searchWords
-    })
+  const HIGHLIGHT_CLASS = 'customHighlightClass'
+  const HIGHLIGHT_QUERY_SELECTOR = `.${HIGHLIGHT_CLASS}`
 
-    return instance.props.children
+  function getHighlighterChildren (textToHighlight, searchWords, highlightStyle) {
+    const node = render(
+      <div>
+        <Highlighter
+          highlightClassName={HIGHLIGHT_CLASS}
+          highlightStyle={highlightStyle}
+          searchWords={searchWords}
+          textToHighlight={textToHighlight}
+        />
+      </div>
+    )
+
+    return node.children[0]
   }
 
   it('should properly handle empty searchText', () => {
-    expect(getHighlighterChildren('This is text', [])).to.eql(['This is text'])
-    expect(getHighlighterChildren('This is text', [''])).to.eql(['This is text'])
+    const emptyValues = [[], ['']]
+    emptyValues.forEach((emptyValue) => {
+      const node = getHighlighterChildren('This is text', emptyValue)
+      expect(node.children.length).to.equal(1)
+      expect(node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR).length).to.equal(0)
+      expect(node.textContent).to.eql('This is text')
+    })
   })
 
   it('should properly handle empty textToHighlight', () => {
-    expect(getHighlighterChildren('', ['search']).length).to.eql([])
+    const node = getHighlighterChildren('', ['search'])
+    expect(node.children.length).to.equal(0)
+    expect(node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR).length).to.equal(0)
+    expect(node.textContent).to.eql('')
   })
 
   it('should highlight searchText words that exactly match words in textToHighlight', () => {
-    const matches = getHighlighterChildren('This is text', ['text'])
-    expect(matches.length).to.equal(2)
-    expect(matches[0]).to.equal('This is ')
-    expect(matches[1].props.children).to.equal('text')
+    const node = getHighlighterChildren('This is text', ['text'])
+    expect(node.children.length).to.equal(2)
+    const matches = node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR)
+    expect(matches.length).to.equal(1)
+    expect(matches[0].textContent).to.eql('text')
   })
 
   it('should highlight searchText words that partial-match text in textToHighlight', () => {
-    const matches = getHighlighterChildren('This is text', ['Th'])
-    expect(matches.length).to.equal(2)
-    expect(matches[0].props.children).to.equal('Th')
-    expect(matches[1]).to.equal('is is text')
+    const node = getHighlighterChildren('This is text', ['Th'])
+    expect(node.children.length).to.equal(2)
+    const matches = node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR)
+    expect(matches.length).to.equal(1)
+    expect(matches[0].textContent).to.eql('Th')
+    expect(node.children[0].textContent).to.equal('Th')
+    expect(node.children[1].textContent).to.equal('is is text')
   })
 
   it('should highlight multiple occurrences of a searchText word', () => {
-    const matches = getHighlighterChildren('This is text', ['is'])
-    expect(matches.length).to.equal(5)
-    expect(matches[0]).to.equal('Th')
-    expect(matches[1].props.children).to.equal('is')
-    expect(matches[2]).to.equal(' ')
-    expect(matches[3].props.children).to.equal('is')
-    expect(matches[4]).to.equal(' text')
+    const node = getHighlighterChildren('This is text', ['is'])
+    expect(node.children.length).to.equal(5)
+    expect(node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR).length).to.equal(2)
+    expect(node.textContent).to.eql('This is text')
+    expect(node.children[0].textContent).to.equal('Th')
+    expect(node.children[1].textContent).to.equal('is')
+    expect(node.children[2].textContent).to.equal(' ')
+    expect(node.children[3].textContent).to.equal('is')
+    expect(node.children[4].textContent).to.equal(' text')
   })
 
   it('should highlight multiple searchText words', () => {
-    const matches = getHighlighterChildren('This is text', ['This', 'text'])
-    expect(matches.length).to.equal(3)
-    expect(matches[0].props.children).to.equal('This')
-    expect(matches[1]).to.equal(' is ')
-    expect(matches[2].props.children).to.equal('text')
+    const node = getHighlighterChildren('This is text', ['This', 'text'])
+    expect(node.children.length).to.equal(3)
+    expect(node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR).length).to.equal(2)
+    expect(node.textContent).to.eql('This is text')
+    expect(node.children[0].textContent).to.equal('This')
+    expect(node.children[1].textContent).to.equal(' is ')
+    expect(node.children[2].textContent).to.equal('text')
   })
 
   it('should match terms in a case insensitive way but show their case-sensitive representation', () => {
-    const matches = getHighlighterChildren('This is text', ['this'])
-    expect(matches.length).to.equal(2)
-    expect(matches[0].props.children).to.equal('This')
-    expect(matches[1]).to.equal(' is text')
+    const node = getHighlighterChildren('This is text', ['this'])
+    const matches = node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR)
+    expect(matches.length).to.equal(1)
+    expect(matches[0].textContent).to.equal('This')
   })
 
   it('should use the :highlightClassName if specified', () => {
-    const matches = getHighlighterChildren('This is text', ['text'], 'customClass')
-    expect(matches.length).to.equal(2)
-    expect(matches[1].props.className).to.contain('customClass')
+    const node = getHighlighterChildren('This is text', ['text'])
+    expect(node.querySelector('mark').className).to.contain(HIGHLIGHT_CLASS)
   })
 
   it('should use the :highlightStyle if specified', () => {
-    const matches = getHighlighterChildren('This is text', ['text'], undefined, { color: 'red' })
-    expect(matches[1].props.style.color).to.contain('red')
+    const node = getHighlighterChildren('This is text', ['text'], { color: 'red' })
+    expect(node.querySelector('mark').style.color).to.contain('red')
   })
 })
