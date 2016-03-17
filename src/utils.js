@@ -73,7 +73,7 @@ export const fillInChunks = (chunksToHighlight, totalLength) => {
   const append = (start, end, highlight) => allChunks.push({start: start, end: end, highlight: highlight})
 
   if (chunksToHighlight.length == 0) {
-	append(0, totalLength, false);
+    append(0, totalLength, false);
   } else {
     let lastIndex = 0
     chunksToHighlight.forEach((chunk) => {
