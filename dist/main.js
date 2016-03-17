@@ -78,6 +78,8 @@ module.exports =
 	});
 	exports['default'] = Highlighter;
 	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
 	var _react = __webpack_require__(3);
@@ -88,8 +90,13 @@ module.exports =
 	
 	var _HighlighterCss2 = _interopRequireDefault(_HighlighterCss);
 	
+	var _utilsJs = __webpack_require__(164);
+	
+	var Chunks = _interopRequireWildcard(_utilsJs);
+	
 	Highlighter.propTypes = {
 	  highlightClassName: _react.PropTypes.string,
+	  highlightStyle: _react.PropTypes.object,
 	  searchWords: _react.PropTypes.arrayOf(_react.PropTypes.string).isRequired,
 	  textToHighlight: _react.PropTypes.string.isRequired
 	};
@@ -102,70 +109,38 @@ module.exports =
 	function Highlighter(_ref) {
 	  var _ref$highlightClassName = _ref.highlightClassName;
 	  var highlightClassName = _ref$highlightClassName === undefined ? '' : _ref$highlightClassName;
+	  var _ref$highlightStyle = _ref.highlightStyle;
+	  var highlightStyle = _ref$highlightStyle === undefined ? {} : _ref$highlightStyle;
 	  var searchWords = _ref.searchWords;
 	  var textToHighlight = _ref.textToHighlight;
 	
+	  var chunks = Chunks.findAll(textToHighlight, searchWords);
 	  var highlightClassNames = _HighlighterCss2['default'].Term + ' ' + highlightClassName;
-	  var uidCounter = 0;
-	  var content = searchWords.filter(function (searchWord) {
-	    return searchWord;
-	  }) // Remove empty words
-	  .reduce(function (substrings, searchWord) {
-	    var searchWordLength = searchWord.length;
-	    var regex = new RegExp(searchWord, 'gi');
-	
-	    // Step backwards so that changes to the Array won't cause us to visit the same text twice.
-	    for (var i = substrings.length - 1; i >= 0; i--) {
-	      var substring = substrings[i];
-	
-	      // Examine the current substring for any marker-matches.
-	      // If we find matches, replace the plain text string with a styled <span> wrapper.
-	      // If this element of the array already contains a styled <span> we can ignore it.
-	      // There is no benefit to highlighting text twice.
-	      // (This means that only one of a pair of overlapping words will be highlighted, but that's okay.)
-	      if (typeof substring === 'string') {
-	        var substringReplacements = [];
-	        var startIndex = undefined;
-	
-	        while ((startIndex = substring.search(regex)) >= 0) {
-	          if (startIndex > 0) {
-	            substringReplacements.push(substring.substring(0, startIndex));
-	          }
-	
-	          var endIndex = startIndex + searchWordLength;
-	
-	          substringReplacements.push(_react2['default'].createElement(
-	            'span',
-	            {
-	              key: ++uidCounter,
-	              className: highlightClassNames
-	            },
-	            substring.substring(startIndex, endIndex)
-	          ));
-	
-	          substring = substring.substring(endIndex);
-	        }
-	
-	        // If we didn't find any matches then just leave the current substring as-is.
-	        if (substringReplacements.length) {
-	          // Add any remaining text
-	          if (substring.length) {
-	            substringReplacements.push(substring);
-	          }
-	
-	          // Replace the existing string element with the new mix of plain and styled elements.
-	          substrings.splice.apply(substrings, [i, 1].concat(substringReplacements));
-	        }
-	      }
-	    }
-	
-	    return substrings;
-	  }, [textToHighlight]);
 	
 	  return _react2['default'].createElement(
 	    'span',
 	    null,
-	    content
+	    chunks.map(function (chunk, index) {
+	      var text = textToHighlight.substr(chunk.start, chunk.end - chunk.start);
+	
+	      if (chunk.highlight) {
+	        return _react2['default'].createElement(
+	          'mark',
+	          {
+	            className: highlightClassNames,
+	            key: index,
+	            style: highlightStyle
+	          },
+	          text
+	        );
+	      } else {
+	        return _react2['default'].createElement(
+	          'span',
+	          { key: index },
+	          text
+	        );
+	      }
+	    })
 	  );
 	}
 	
@@ -20100,6 +20075,111 @@ module.exports =
 			URL.revokeObjectURL(oldSrc);
 	}
 
+
+/***/ },
+/* 164 */
+/***/ function(module, exports) {
+
+	/**
+	 * Creates an array of chunk objects representing both higlightable and non highlightable pieces of text that match each search word.
+	 * @param searchWords string[]
+	 * @param textToSearch string
+	 * @return {start:number, end:number, highlight:boolean}[]
+	 */
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	var findAll = function findAll(textToSearch, wordsToFind) {
+	  return fillInChunks(combineChunks(findChunks(textToSearch, wordsToFind)), textToSearch.length);
+	};
+	
+	exports.findAll = findAll;
+	/**
+	 * Takes an array of {start:number, end:number} objects and combines chunks that overlap into single chunks.
+	 * @param chunks {start:number, end:number}[]
+	 * @return {start:number, end:number}[]
+	 */
+	var combineChunks = function combineChunks(chunks) {
+	  chunks = chunks.sort(function (first, second) {
+	    return first.start - second.start;
+	  }).reduce(function (processedChunks, nextChunk) {
+	    // First chunk just goes straight in the array...
+	    if (processedChunks.length === 0) {
+	      return [nextChunk];
+	    } else {
+	      // ... subsequent chunks get checked to see if they overlap...
+	      var prevChunk = processedChunks.pop();
+	      if (nextChunk.start <= prevChunk.end) {
+	        // It may be the case that prevChunk completely surrounds nextChunk, so take the
+	        // largest of the end indeces.
+	        var endIndex = Math.max(prevChunk.end, nextChunk.end);
+	        processedChunks.push({ start: prevChunk.start, end: endIndex });
+	      } else {
+	        processedChunks.push(prevChunk, nextChunk);
+	      }
+	      return processedChunks;
+	    }
+	  }, []);
+	
+	  return chunks;
+	};
+	
+	exports.combineChunks = combineChunks;
+	/**
+	 * Examine textToSearch for any matches.
+	 * If we find matches, add them to the returned array as a "chunk" object ({start:number, end:number}).
+	 * @param textToSearch string
+	 * @param wordsToFind string[]
+	 * @return {start:number, end:number}[]
+	 */
+	var findChunks = function findChunks(textToSearch, wordsToFind) {
+	  return wordsToFind.filter(function (searchWord) {
+	    return searchWord;
+	  }) // Remove empty words
+	  .reduce(function (chunks, searchWord) {
+	    var regex = new RegExp(searchWord, 'gi');
+	    var match = undefined;
+	    while ((match = regex.exec(textToSearch)) != null) {
+	      chunks.push({ start: match.index, end: regex.lastIndex });
+	    }
+	    return chunks;
+	  }, []);
+	};
+	
+	exports.findChunks = findChunks;
+	/**
+	 * Given a set of chunks to highlight, create an additional set of chunks
+	 * to represent the bits of text between the highlighted text.
+	 * @param chunksToHighlight {start:number, end:number}[]
+	 * @param totalLength number
+	 * @return {start:number, end:number, highlight:boolean}[]
+	 */
+	var fillInChunks = function fillInChunks(chunksToHighlight, totalLength) {
+	  var allChunks = [];
+	  var append = function append(start, end, highlight) {
+	    if (end - start > 0) {
+	      allChunks.push({ start: start, end: end, highlight: highlight });
+	    }
+	  };
+	
+	  if (chunksToHighlight.length === 0) {
+	    append(0, totalLength, false);
+	  } else {
+	    (function () {
+	      var lastIndex = 0;
+	      chunksToHighlight.forEach(function (chunk) {
+	        append(lastIndex, chunk.start, false);
+	        append(chunk.start, chunk.end, true);
+	        lastIndex = chunk.end;
+	      });
+	      append(lastIndex, totalLength, false);
+	    })();
+	  }
+	  return allChunks;
+	};
+	exports.fillInChunks = fillInChunks;
 
 /***/ }
 /******/ ]);
