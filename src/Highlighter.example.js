@@ -39,6 +39,7 @@ export default class HighlighterExample extends Component {
         <h4 className={styles.Header}>
           Output
         </h4>
+
         <Highlighter
           highlightClassName={styles.Highlight}
           highlightStyle={{ fontWeight: 'normal' }}
