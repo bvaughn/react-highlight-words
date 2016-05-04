@@ -63,9 +63,14 @@ module.exports =
 	var _Highlighter = __webpack_require__(2);
 	
 	var _Highlighter2 = _interopRequireDefault(_Highlighter);
-
+	
+	var _utils = __webpack_require__(164);
+	
 	exports['default'] = _Highlighter2['default'];
-	module.exports = exports['default'];
+	exports.combineChunks = _utils.combineChunks;
+	exports.fillInChunks = _utils.fillInChunks;
+	exports.findAll = _utils.findAll;
+	exports.findChunks = _utils.findChunks;
 
 /***/ },
 /* 2 */
