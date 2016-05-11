@@ -14,7 +14,7 @@ module.exports = {
   plugins: [
   ],
   externals: {
-    "react": "React",
+    'react': 'React'
   },
   module: {
     loaders: [
