@@ -17,3 +17,4 @@ coverage
 node_modules
 npm-debug.log
 build
+dist
