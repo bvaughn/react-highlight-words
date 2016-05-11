@@ -9,7 +9,7 @@ module.exports = {
     path: 'dist',
     filename: '[name].js',
     libraryTarget: 'commonjs2',
-    library: 'redux-search'
+    library: 'react-highlight-words'
   },
   plugins: [
   ],
