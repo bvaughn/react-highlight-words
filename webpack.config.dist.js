@@ -13,11 +13,15 @@ module.exports = {
   },
   plugins: [
   ],
+  externals: {
+    "react": "React",
+  },
   module: {
     loaders: [
       {
         test: /\.js$/,
         loader: 'babel',
+        exclude: /(node_modules)/,
         include: path.join(__dirname, 'src')
       },
       {
