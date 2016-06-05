@@ -1,6 +1,5 @@
 /* @flow */
 import React, { PropTypes } from 'react'
-import styles from './Highlighter.css'
 import * as Chunks from './utils.js'
 
 Highlighter.propTypes = {
@@ -21,7 +20,6 @@ export default function Highlighter ({
   textToHighlight }
 ) {
   const chunks = Chunks.findAll(textToHighlight, searchWords)
-  const highlightClassNames = `${styles.Term} ${highlightClassName}`
 
   return (
     <span>
@@ -31,7 +29,7 @@ export default function Highlighter ({
         if (chunk.highlight) {
           return (
             <mark
-              className={highlightClassNames}
+              className={highlightClassName}
               key={index}
               style={highlightStyle}
             >
