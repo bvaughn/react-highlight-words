@@ -2,7 +2,7 @@ import React from 'react'
 import Highlighter from './Highlighter'
 import { render } from './test-utils'
 import expect from 'expect.js'
-import latinize from 'latinize';
+import latinize from 'latinize'
 
 describe('Highlighter', () => {
   const HIGHLIGHT_CLASS = 'customHighlightClass'
