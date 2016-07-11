@@ -55,9 +55,11 @@ export const findChunks = (textToSearch, wordsToFind) =>
   wordsToFind
     .filter(searchWord => searchWord) // Remove empty words
     .reduce((chunks, searchWord) => {
-      const regex = new RegExp(latinize(searchWord), 'gi')
+      const normalizedWord = latinize(searchWord)
+      const normalizedText = latinize(textToSearch)
+      const regex = new RegExp(normalizedWord, 'gi')
       let match
-      while ((match = regex.exec(latinize(textToSearch))) != null) {
+      while ((match = regex.exec(normalizedText)) != null) {
         chunks.push({start: match.index, end: regex.lastIndex})
       }
       return chunks
