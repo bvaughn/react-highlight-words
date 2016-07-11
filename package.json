@@ -1,7 +1,7 @@
 {
-  "name": "react-highlight-latinized",
+  "name": "react-highlight-words",
   "version": "0.2.0",
-  "description": "React component to highlight accented words within a larger body of text",
+  "description": "React component to highlight words within a larger body of text",
   "main": "dist/main.js",
   "scripts": {
     "build": "npm run build:website && npm run build:dist",
@@ -21,14 +21,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nathanpower/react-highlight-latinized.git"
+    "url": "git+https://github.com/bvaughn/react-highlight-words.git"
   },
-  "author": "Nathan Power",
+  "author": "Brian Vaughn",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nathanpower/react-highlight-latinized/issues"
+    "url": "https://github.com/bvaughn/react-highlight-words/issues"
   },
-  "homepage": "https://github.com/nathanpower/react-highlight-latinized#readme",
+  "homepage": "https://github.com/bvaughn/react-highlight-words#readme",
   "keywords": [
     "react",
     "reactjs",
