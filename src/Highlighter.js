@@ -7,7 +7,7 @@ Highlighter.propTypes = {
   highlightStyle: PropTypes.object,
   searchWords: PropTypes.arrayOf(PropTypes.string).isRequired,
   textToHighlight: PropTypes.string.isRequired,
-  strFn: PropTypes.function
+  strFn: PropTypes.func
 }
 
 /**
