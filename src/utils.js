@@ -6,10 +6,10 @@ import latinize from 'latinize'
  * @param textToSearch string
  * @return {start:number, end:number, highlight:boolean}[]
  */
-export const findAll = (textToSearch, wordsToFind) =>
+export const findAll = (textToSearch, wordsToFind, strFn) =>
   fillInChunks(
     combineChunks(
-      findChunks(textToSearch, wordsToFind)
+      findChunks(textToSearch, wordsToFind, strFn)
     ),
     textToSearch.length
   )
@@ -51,12 +51,12 @@ export const combineChunks = (chunks) => {
  * @param wordsToFind string[]
  * @return {start:number, end:number}[]
  */
-export const findChunks = (textToSearch, wordsToFind) =>
+export const findChunks = (textToSearch, wordsToFind, strFn) =>
   wordsToFind
     .filter(searchWord => searchWord) // Remove empty words
     .reduce((chunks, searchWord) => {
-      const normalizedWord = latinize(searchWord)
-      const normalizedText = latinize(textToSearch)
+      const normalizedWord = !!strFn ? strFn(searchWord) : searchWord
+      const normalizedText = !!strFn ? strFn(textToSearch) : textToSearch
       const regex = new RegExp(normalizedWord, 'gi')
       let match
       while ((match = regex.exec(normalizedText)) != null) {

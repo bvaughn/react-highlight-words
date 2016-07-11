@@ -2,12 +2,13 @@ import React from 'react'
 import Highlighter from './Highlighter'
 import { render } from './test-utils'
 import expect from 'expect.js'
+import latinize from 'latinize';
 
 describe('Highlighter', () => {
   const HIGHLIGHT_CLASS = 'customHighlightClass'
   const HIGHLIGHT_QUERY_SELECTOR = `.${HIGHLIGHT_CLASS}`
 
-  function getHighlighterChildren (textToHighlight, searchWords, highlightStyle) {
+  function getHighlighterChildren (textToHighlight, searchWords, highlightStyle, strFn) {
     const node = render(
       <div>
         <Highlighter
@@ -15,6 +16,7 @@ describe('Highlighter', () => {
           highlightStyle={highlightStyle}
           searchWords={searchWords}
           textToHighlight={textToHighlight}
+          strFn={strFn}
         />
       </div>
     )
@@ -97,7 +99,7 @@ describe('Highlighter', () => {
   })
 
   it('should match terms without accents against text with accents', () => {
-    const node = getHighlighterChildren('ỆᶍǍᶆṔƚÉ', ['example'])
+    const node = getHighlighterChildren('ỆᶍǍᶆṔƚÉ', ['example'], { color: 'red' }, latinize)
     const matches = node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR)
     expect(matches.length).to.equal(1)
     expect(matches[0].textContent).to.equal('ỆᶍǍᶆṔƚÉ')

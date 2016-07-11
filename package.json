@@ -78,6 +78,7 @@
     "karma-sourcemap-loader": "^0.3.6",
     "karma-spec-reporter": "0.0.23",
     "karma-webpack": "^1.7.0",
+    "latinize": "^0.2.0",
     "mocha": "^2.3.4",
     "phantomjs2": "^2.0.2",
     "react": "^15.1.0",
@@ -93,9 +94,7 @@
     "webpack-dev-server": "^1.14.0",
     "worker-loader": "^0.7.0"
   },
-  "dependencies": {
-    "latinize": "^0.2.0"
-  },
+  "dependencies": {},
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0"
   }
