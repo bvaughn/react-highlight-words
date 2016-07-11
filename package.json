@@ -1,6 +1,6 @@
 {
   "name": "react-highlight-latinized",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "React component to highlight accented words within a larger body of text",
   "main": "dist/main.js",
   "scripts": {
