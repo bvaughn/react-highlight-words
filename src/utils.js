@@ -1,5 +1,3 @@
-import latinize from 'latinize'
-
 /**
  * Creates an array of chunk objects representing both higlightable and non highlightable pieces of text that match each search word.
  * @param searchWords string[]
@@ -55,8 +53,8 @@ export const findChunks = (textToSearch, wordsToFind, strFn) =>
   wordsToFind
     .filter(searchWord => searchWord) // Remove empty words
     .reduce((chunks, searchWord) => {
-      const normalizedWord = !!strFn ? strFn(searchWord) : searchWord
-      const normalizedText = !!strFn ? strFn(textToSearch) : textToSearch
+      const normalizedWord = strFn ? strFn(searchWord) : searchWord
+      const normalizedText = strFn ? strFn(textToSearch) : textToSearch
       const regex = new RegExp(normalizedWord, 'gi')
       let match
       while ((match = regex.exec(normalizedText)) != null) {
