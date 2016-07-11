@@ -1,7 +1,7 @@
 {
-  "name": "react-highlight-words",
+  "name": "react-highlight-accented-words",
   "version": "0.1.7",
-  "description": "React component to highlight words within a larger body of text",
+  "description": "React component to highlight accented words within a larger body of text",
   "main": "dist/main.js",
   "scripts": {
     "build": "npm run build:website && npm run build:dist",
@@ -21,14 +21,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bvaughn/react-highlight-words.git"
+    "url": "git+https://github.com/nathanpower/react-highlight-accented-words.git"
   },
-  "author": "Brian Vaughn",
+  "author": "Nathan Power",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bvaughn/react-highlight-words/issues"
+    "url": "https://github.com/nathanpower/react-highlight-accented-words/issues"
   },
-  "homepage": "https://github.com/bvaughn/react-highlight-words#readme",
+  "homepage": "https://github.com/nathanpower/react-highlight-accented-words#readme",
   "keywords": [
     "react",
     "reactjs",
@@ -93,7 +93,9 @@
     "webpack-dev-server": "^1.14.0",
     "worker-loader": "^0.7.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "latinize": "^0.2.0"
+  },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0"
   }

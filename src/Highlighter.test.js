@@ -95,4 +95,11 @@ describe('Highlighter', () => {
     const node = getHighlighterChildren('This is text', ['text'], { color: 'red' })
     expect(node.querySelector('mark').style.color).to.contain('red')
   })
+
+  it('should match terms without accents against text with accents', () => {
+    const node = getHighlighterChildren('ỆᶍǍᶆṔƚÉ', ['example'])
+    const matches = node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR)
+    expect(matches.length).to.equal(1)
+    expect(matches[0].textContent).to.equal('ỆᶍǍᶆṔƚÉ')
+  })
 })

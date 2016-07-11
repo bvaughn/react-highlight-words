@@ -1,3 +1,5 @@
+import latinize from 'latinize';
+
 /**
  * Creates an array of chunk objects representing both higlightable and non highlightable pieces of text that match each search word.
  * @param searchWords string[]
@@ -53,9 +55,9 @@ export const findChunks = (textToSearch, wordsToFind) =>
   wordsToFind
     .filter(searchWord => searchWord) // Remove empty words
     .reduce((chunks, searchWord) => {
-      const regex = new RegExp(searchWord, 'gi')
+      const regex = new RegExp(latinize(searchWord), 'gi')
       let match
-      while ((match = regex.exec(textToSearch)) != null) {
+      while ((match = regex.exec(latinize(textToSearch))) != null) {
         chunks.push({start: match.index, end: regex.lastIndex})
       }
       return chunks
