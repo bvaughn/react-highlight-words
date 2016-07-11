@@ -8,7 +8,7 @@ describe('Highlighter', () => {
   const HIGHLIGHT_CLASS = 'customHighlightClass'
   const HIGHLIGHT_QUERY_SELECTOR = `.${HIGHLIGHT_CLASS}`
 
-  function getHighlighterChildren (textToHighlight, searchWords, highlightStyle, strFn) {
+  function getHighlighterChildren (textToHighlight, searchWords, highlightStyle, preCompare) {
     const node = render(
       <div>
         <Highlighter
@@ -16,7 +16,7 @@ describe('Highlighter', () => {
           highlightStyle={highlightStyle}
           searchWords={searchWords}
           textToHighlight={textToHighlight}
-          strFn={strFn}
+          preCompare={preCompare}
         />
       </div>
     )
@@ -99,7 +99,7 @@ describe('Highlighter', () => {
   })
 
   it('should match terms without accents against text with accents', () => {
-    const node = getHighlighterChildren('ỆᶍǍᶆṔƚÉ', ['example'], { color: 'red' }, latinize)
+    const node = getHighlighterChildren('ỆᶍǍᶆṔƚÉ', ['example'], null, latinize)
     const matches = node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR)
     expect(matches.length).to.equal(1)
     expect(matches[0].textContent).to.equal('ỆᶍǍᶆṔƚÉ')

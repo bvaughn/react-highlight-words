@@ -4,10 +4,10 @@
  * @param textToSearch string
  * @return {start:number, end:number, highlight:boolean}[]
  */
-export const findAll = (textToSearch, wordsToFind, strFn) =>
+export const findAll = (textToSearch, wordsToFind, preCompare) =>
   fillInChunks(
     combineChunks(
-      findChunks(textToSearch, wordsToFind, strFn)
+      findChunks(textToSearch, wordsToFind, preCompare)
     ),
     textToSearch.length
   )
@@ -49,12 +49,12 @@ export const combineChunks = (chunks) => {
  * @param wordsToFind string[]
  * @return {start:number, end:number}[]
  */
-export const findChunks = (textToSearch, wordsToFind, strFn) =>
+export const findChunks = (textToSearch, wordsToFind, preCompare) =>
   wordsToFind
     .filter(searchWord => searchWord) // Remove empty words
     .reduce((chunks, searchWord) => {
-      const normalizedWord = strFn ? strFn(searchWord) : searchWord
-      const normalizedText = strFn ? strFn(textToSearch) : textToSearch
+      const normalizedWord = preCompare ? preCompare(searchWord) : searchWord
+      const normalizedText = preCompare ? preCompare(textToSearch) : textToSearch
       const regex = new RegExp(normalizedWord, 'gi')
       let match
       while ((match = regex.exec(normalizedText)) != null) {
