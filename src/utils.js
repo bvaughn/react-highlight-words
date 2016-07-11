@@ -1,4 +1,4 @@
-import latinize from 'latinize';
+import latinize from 'latinize'
 
 /**
  * Creates an array of chunk objects representing both higlightable and non highlightable pieces of text that match each search word.
