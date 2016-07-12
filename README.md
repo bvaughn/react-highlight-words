@@ -20,6 +20,18 @@ And the `Highlighter` will mark all occurrences of search terms within the text:
 
 <img width="368" alt="screen shot 2015-12-19 at 8 23 43 am" src="https://cloud.githubusercontent.com/assets/29597/11914033/e3c319f6-a629-11e5-896d-1a5ce22c9ea2.png">
 
+## Props
+
+```JavaScript
+Highlighter.propTypes = {
+     highlightClassName: PropTypes.string, // CSS class name applied to highlighted text
+     highlightStyle: PropTypes.object, // Inline styles applied to highlighted text
+     searchWords: PropTypes.arrayOf(PropTypes.string).isRequired, // Array of search words
+     textToHighlight: PropTypes.string.isRequired, // Text to match
+     preCompare: PropTypes.func // Function to run against copies of each search word and text to
+     }                          // highlight before comparing, i.e to remove accents
+```
+
 
 ## Installation
 ```

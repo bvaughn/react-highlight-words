@@ -1,6 +1,6 @@
 {
   "name": "react-highlight-words",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "React component to highlight words within a larger body of text",
   "main": "dist/main.js",
   "scripts": {
@@ -78,6 +78,7 @@
     "karma-sourcemap-loader": "^0.3.6",
     "karma-spec-reporter": "0.0.23",
     "karma-webpack": "^1.7.0",
+    "latinize": "^0.2.0",
     "mocha": "^2.3.4",
     "phantomjs2": "^2.0.2",
     "react": "^15.1.0",
