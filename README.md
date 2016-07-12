@@ -22,16 +22,13 @@ And the `Highlighter` will mark all occurrences of search terms within the text:
 
 ## Props
 
-```JavaScript
-Highlighter.propTypes = {
-     highlightClassName: PropTypes.string, // CSS class name applied to highlighted text
-     highlightStyle: PropTypes.object, // Inline styles applied to highlighted text
-     searchWords: PropTypes.arrayOf(PropTypes.string).isRequired, // Array of search words
-     textToHighlight: PropTypes.string.isRequired, // Text to match
-     preCompare: PropTypes.func // Function to run against copies of each search word and text to
-     }                          // highlight before comparing, i.e to remove accents
-```
-
+| Property | Type | Required? | Description |
+|:---|:---|:---:|:---|
+| highlightClassName | String |  | CSS class name applied to highlighted text |
+| highlightStyle | Object |  | Inline styles applied to highlighted text |
+| sanitize | Function |  | Process each search word and text to highlight before comparing (eg remove accents); signature `(text: string): string` |
+| searchWords | Array<String> | ✓ | Array of search words |
+| textToHighlight | String | ✓ | Text to highlight matches in |
 
 ## Installation
 ```

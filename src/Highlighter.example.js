@@ -1,3 +1,4 @@
+import latinize from 'latinize'
 import React, { Component } from 'react'
 import Highlighter from './Highlighter'
 import styles from './Highlighter.example.css'
@@ -43,6 +44,7 @@ export default class HighlighterExample extends Component {
         <Highlighter
           highlightClassName={styles.Highlight}
           highlightStyle={{ fontWeight: 'normal' }}
+          sanitize={latinize}
           searchWords={searchWords}
           textToHighlight={textToHighlight}
         />

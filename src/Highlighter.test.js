@@ -8,15 +8,15 @@ describe('Highlighter', () => {
   const HIGHLIGHT_CLASS = 'customHighlightClass'
   const HIGHLIGHT_QUERY_SELECTOR = `.${HIGHLIGHT_CLASS}`
 
-  function getHighlighterChildren (textToHighlight, searchWords, highlightStyle, preCompare) {
+  function getHighlighterChildren (textToHighlight, searchWords, highlightStyle, sanitize) {
     const node = render(
       <div>
         <Highlighter
           highlightClassName={HIGHLIGHT_CLASS}
           highlightStyle={highlightStyle}
+          sanitize={sanitize}
           searchWords={searchWords}
           textToHighlight={textToHighlight}
-          preCompare={preCompare}
         />
       </div>
     )
