@@ -56,7 +56,7 @@ export const findChunks = (textToSearch, wordsToFind, sanitize = identity) =>
     .reduce((chunks, searchWord) => {
       const normalizedWord = sanitize(searchWord)
       const normalizedText = sanitize(textToSearch)
-      const regex = new RegExp(normalizedWord, 'gi')
+      const regex = new RegExp(escapeRegExp(normalizedWord), 'gi')
       let match
       while ((match = regex.exec(normalizedText)) != null) {
         chunks.push({start: match.index, end: regex.lastIndex})
@@ -95,4 +95,8 @@ export const fillInChunks = (chunksToHighlight, totalLength) => {
 
 function identity (value) {
   return value
+}
+
+function escapeRegExp (str) {
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')
 }

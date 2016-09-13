@@ -49,6 +49,16 @@ describe('Highlighter', () => {
     expect(matches[0].textContent).to.eql('text')
   })
 
+  it('should handle parentheses', () => {
+    const node = getHighlighterChildren('(This is text)', ['('])
+    expect(node.children.length).to.equal(2)
+    expect(node.children[0].textContent).to.equal('(')
+    expect(node.children[1].textContent).to.equal('This is text)')
+    const matches = node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR)
+    expect(matches.length).to.equal(1)
+    expect(matches[0].textContent).to.eql('(')
+  })
+
   it('should highlight searchText words that partial-match text in textToHighlight', () => {
     const node = getHighlighterChildren('This is text', ['Th'])
     expect(node.children.length).to.equal(2)
