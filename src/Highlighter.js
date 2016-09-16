@@ -7,7 +7,8 @@ Highlighter.propTypes = {
   highlightStyle: PropTypes.object,
   searchWords: PropTypes.arrayOf(PropTypes.string).isRequired,
   textToHighlight: PropTypes.string.isRequired,
-  sanitize: PropTypes.func
+  sanitize: PropTypes.func,
+  escape: PropTypes.bool
 }
 
 /**
@@ -19,9 +20,10 @@ export default function Highlighter ({
   highlightStyle = {},
   searchWords,
   textToHighlight,
-  sanitize
+  sanitize,
+  escape
 }) {
-  const chunks = Chunks.findAll(textToHighlight, searchWords, sanitize)
+  const chunks = Chunks.findAll(textToHighlight, searchWords, sanitize, escape)
 
   return (
     <span>

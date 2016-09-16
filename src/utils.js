@@ -4,10 +4,10 @@
  * @param textToSearch string
  * @return {start:number, end:number, highlight:boolean}[]
  */
-export const findAll = (textToSearch, wordsToFind, sanitize) =>
+export const findAll = (textToSearch, wordsToFind, sanitize, escape) =>
   fillInChunks(
     combineChunks(
-      findChunks(textToSearch, wordsToFind, sanitize)
+      findChunks(textToSearch, wordsToFind, sanitize, escape)
     ),
     textToSearch.length
   )
@@ -50,13 +50,13 @@ export const combineChunks = (chunks) => {
  * @param sanitize Process and optionally modify textToSearch and wordsToFind before comparison; this can be used to eg. remove accents
  * @return {start:number, end:number}[]
  */
-export const findChunks = (textToSearch, wordsToFind, sanitize = identity) =>
+export const findChunks = (textToSearch, wordsToFind, sanitize = identity, escape) =>
   wordsToFind
     .filter(searchWord => searchWord) // Remove empty words
     .reduce((chunks, searchWord) => {
       const normalizedWord = sanitize(searchWord)
       const normalizedText = sanitize(textToSearch)
-      const regex = new RegExp(escapeRegExp(normalizedWord), 'gi')
+      const regex = escape ? new RegExp(escapeRegExpFn(normalizedWord), 'gi') : new RegExp(normalizedWord, 'gi')
       let match
       while ((match = regex.exec(normalizedText)) != null) {
         chunks.push({start: match.index, end: regex.lastIndex})
@@ -97,6 +97,6 @@ function identity (value) {
   return value
 }
 
-function escapeRegExp (str) {
+function escapeRegExpFn (str) {
   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')
 }

@@ -8,7 +8,7 @@ describe('Highlighter', () => {
   const HIGHLIGHT_CLASS = 'customHighlightClass'
   const HIGHLIGHT_QUERY_SELECTOR = `.${HIGHLIGHT_CLASS}`
 
-  function getHighlighterChildren (textToHighlight, searchWords, highlightStyle, sanitize) {
+  function getHighlighterChildren (textToHighlight, searchWords, highlightStyle, sanitize, escape) {
     const node = render(
       <div>
         <Highlighter
@@ -17,6 +17,7 @@ describe('Highlighter', () => {
           sanitize={sanitize}
           searchWords={searchWords}
           textToHighlight={textToHighlight}
+          escape={escape}
         />
       </div>
     )
@@ -49,8 +50,8 @@ describe('Highlighter', () => {
     expect(matches[0].textContent).to.eql('text')
   })
 
-  it('should handle parentheses', () => {
-    const node = getHighlighterChildren('(This is text)', ['('])
+  it('should handle unclosed parentheses when escape prop is truthy', () => {
+    const node = getHighlighterChildren('(This is text)', ['('], undefined, undefined, true)
     expect(node.children.length).to.equal(2)
     expect(node.children[0].textContent).to.equal('(')
     expect(node.children[1].textContent).to.equal('This is text)')
