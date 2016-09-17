@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react'
 import * as Chunks from './utils.js'
 
 Highlighter.propTypes = {
+  autoEscape: PropTypes.bool,
   highlightClassName: PropTypes.string,
   highlightStyle: PropTypes.object,
   searchWords: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -15,13 +16,14 @@ Highlighter.propTypes = {
  * This function returns an array of strings and <span>s (wrapping highlighted words).
  */
 export default function Highlighter ({
+  autoEscape,
   highlightClassName = '',
   highlightStyle = {},
   searchWords,
   textToHighlight,
   sanitize
 }) {
-  const chunks = Chunks.findAll(textToHighlight, searchWords, sanitize)
+  const chunks = Chunks.findAll(textToHighlight, searchWords, sanitize, autoEscape)
 
   return (
     <span>

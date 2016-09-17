@@ -24,6 +24,7 @@ And the `Highlighter` will mark all occurrences of search terms within the text:
 
 | Property | Type | Required? | Description |
 |:---|:---|:---:|:---|
+| autoEscape | Boolean |  | Escape characters which are meaningful in regular expressions |
 | highlightClassName | String |  | CSS class name applied to highlighted text |
 | highlightStyle | Object |  | Inline styles applied to highlighted text |
 | sanitize | Function |  | Process each search word and text to highlight before comparing (eg remove accents); signature `(text: string): string` |

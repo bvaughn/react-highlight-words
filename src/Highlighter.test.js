@@ -8,7 +8,7 @@ describe('Highlighter', () => {
   const HIGHLIGHT_CLASS = 'customHighlightClass'
   const HIGHLIGHT_QUERY_SELECTOR = `.${HIGHLIGHT_CLASS}`
 
-  function getHighlighterChildren (textToHighlight, searchWords, highlightStyle, sanitize) {
+  function getHighlighterChildren (textToHighlight, searchWords, highlightStyle, sanitize, autoEscape) {
     const node = render(
       <div>
         <Highlighter
@@ -17,6 +17,7 @@ describe('Highlighter', () => {
           sanitize={sanitize}
           searchWords={searchWords}
           textToHighlight={textToHighlight}
+          autoEscape={autoEscape}
         />
       </div>
     )
@@ -47,6 +48,16 @@ describe('Highlighter', () => {
     const matches = node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR)
     expect(matches.length).to.equal(1)
     expect(matches[0].textContent).to.eql('text')
+  })
+
+  it('should handle unclosed parentheses when autoEscape prop is truthy', () => {
+    const node = getHighlighterChildren('(This is text)', ['('], undefined, undefined, true)
+    expect(node.children.length).to.equal(2)
+    expect(node.children[0].textContent).to.equal('(')
+    expect(node.children[1].textContent).to.equal('This is text)')
+    const matches = node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR)
+    expect(matches.length).to.equal(1)
+    expect(matches[0].textContent).to.eql('(')
   })
 
   it('should highlight searchText words that partial-match text in textToHighlight', () => {
