@@ -1,5 +1,6 @@
 import * as Chunks from './utils.js'
 import expect from 'expect.js'
+import latinize from 'latinize'
 
 describe('utils', () => {
   // Positions: 01234567890123456789012345678901234567
@@ -39,6 +40,28 @@ describe('utils', () => {
       {start: 4, end: 5, highlight: false},
       {start: 5, end: 7, highlight: true},
       {start: 7, end: 38, highlight: false}
+    ])
+  })
+
+  it('should handle unclosed parentheses when autoEscape prop is truthy', () => {
+    const rawChunks = Chunks.findChunks({
+      autoEscape: true,
+      searchWords: ['text)'],
+      textToHighlight: '(This is text)'
+    })
+    expect(rawChunks).to.eql([
+      {start: 9, end: 14}
+    ])
+  })
+
+  it('should match terms without accents against text with accents', () => {
+    const rawChunks = Chunks.findChunks({
+      sanitize: latinize,
+      searchWords: ['example'],
+      textToHighlight: 'ỆᶍǍᶆṔƚÉ'
+    })
+    expect(rawChunks).to.eql([
+      {start: 0, end: 7}
     ])
   })
 })

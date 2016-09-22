@@ -57,6 +57,7 @@
     "babel-preset-stage-1": "^6.5.0",
     "cross-env": "^1.0.7",
     "expect.js": "^0.3.1",
+    "latinize": "^0.3.0",
     "mocha": "^3.0.2",
     "rimraf": "^2.4.3",
     "standard": "^7.0.1",
