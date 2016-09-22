@@ -1,6 +1,6 @@
 {
   "name": "react-highlight-words",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "React component to highlight words within a larger body of text",
   "main": "dist/main.js",
   "scripts": {
@@ -85,7 +85,7 @@
     "react-dom": "^15.1.0",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
-    "redbox-react": "^1.0.1",
+    "redbox-react": "^1.2.6",
     "rimraf": "^2.4.4",
     "standard": "^5.4.1",
     "style-loader": "^0.13.0",
@@ -94,7 +94,9 @@
     "webpack-dev-server": "^1.14.0",
     "worker-loader": "^0.7.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "highlight-words-core": "^1.0.2"
+  },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0"
   }

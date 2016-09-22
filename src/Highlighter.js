@@ -1,6 +1,6 @@
 /* @flow */
+import { findAll } from 'highlight-words-core'
 import React, { PropTypes } from 'react'
-import * as Chunks from './utils.js'
 
 Highlighter.propTypes = {
   autoEscape: PropTypes.bool,
@@ -23,7 +23,12 @@ export default function Highlighter ({
   textToHighlight,
   sanitize
 }) {
-  const chunks = Chunks.findAll(textToHighlight, searchWords, sanitize, autoEscape)
+  const chunks = findAll({
+    autoEscape,
+    sanitize,
+    searchWords,
+    textToHighlight
+  })
 
   return (
     <span>
