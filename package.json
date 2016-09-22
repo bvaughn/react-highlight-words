@@ -1,0 +1,25 @@
+{
+  "name": "highlight-words-core",
+  "description": "Utility functions shared by react-highlight-words and react-native-highlight-words",
+  "version": "1.0.0",
+  "author": "Brian Vaughn <brian.david.vaughn@gmail.com>",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "highlighter",
+    "highlight",
+    "text",
+    "words",
+    "matches",
+    "substring",
+    "occurrences",
+    "search"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "github.com/bvaughn/highlight-words-core.git"
+  }
+}
