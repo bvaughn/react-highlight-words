@@ -1,7 +1,7 @@
 {
   "name": "highlight-words-core",
   "description": "Utility functions shared by react-highlight-words and react-native-highlight-words",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Brian Vaughn <brian.david.vaughn@gmail.com>",
   "license": "MIT",
   "main": "dist/index.js",
