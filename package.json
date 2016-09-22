@@ -4,9 +4,12 @@
   "version": "1.0.0",
   "author": "Brian Vaughn <brian.david.vaughn@gmail.com>",
   "license": "MIT",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --config webpack.config.dist.js --bail",
+    "lint": "standard",
+    "prebuild": "rimraf dist",
+    "test": "mocha --compilers js:babel-register 'src/**/*.test.js'"
   },
   "keywords": [
     "highlighter",
@@ -21,5 +24,43 @@
   "repository": {
     "type": "git",
     "url": "github.com/bvaughn/highlight-words-core.git"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "ignore": [
+      "build",
+      "dist",
+      "node_modules"
+    ],
+    "global": [
+      "afterAll",
+      "afterEach",
+      "beforeAll",
+      "beforeEach",
+      "describe",
+      "it"
+    ]
+  },
+  "dependencies": {
+    "babel-runtime": "^6.11.6"
+  },
+  "devDependencies": {
+    "babel-cli": "6.8.0",
+    "babel-core": "^6.5.1",
+    "babel-eslint": "^6.0.4",
+    "babel-loader": "^6.2.3",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-plugin-typecheck": "^3.9.0",
+    "babel-polyfill": "^6.5.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-es2015-rollup": "^1.1.1",
+    "babel-preset-stage-1": "^6.5.0",
+    "cross-env": "^1.0.7",
+    "expect.js": "^0.3.1",
+    "mocha": "^3.0.2",
+    "rimraf": "^2.4.3",
+    "standard": "^7.0.1",
+    "watch": "^0.18.0",
+    "webpack": "^1.9.6"
   }
 }
