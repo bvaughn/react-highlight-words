@@ -1,7 +1,7 @@
 {
   "name": "highlight-words-core",
   "description": "Utility functions shared by react-highlight-words and react-native-highlight-words",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Brian Vaughn <brian.david.vaughn@gmail.com>",
   "license": "MIT",
   "main": "dist/index.js",
@@ -9,7 +9,7 @@
     "build": "webpack --config webpack.config.dist.js --bail",
     "lint": "standard",
     "prebuild": "rimraf dist",
-    "prepublish": "build",
+    "prepublish": "npm run build",
     "test": "mocha --compilers js:babel-register 'src/**/*.test.js'"
   },
   "keywords": [
