@@ -9,6 +9,7 @@
     "build": "webpack --config webpack.config.dist.js --bail",
     "lint": "standard",
     "prebuild": "rimraf dist",
+    "prepublish": "build",
     "test": "mocha --compilers js:babel-register 'src/**/*.test.js'"
   },
   "keywords": [
