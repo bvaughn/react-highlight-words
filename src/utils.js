@@ -4,7 +4,7 @@
  */
 export const findAll = ({
   autoEscape,
-  sanitizer,
+  sanitize,
   searchWords,
   textToHighlight
 }) => (
@@ -12,7 +12,7 @@ export const findAll = ({
     chunksToHighlight: combineChunks({
       chunks: findChunks({
         autoEscape,
-        sanitizer,
+        sanitize,
         searchWords,
         textToHighlight
       })
@@ -23,7 +23,6 @@ export const findAll = ({
 
 /**
  * Takes an array of {start:number, end:number} objects and combines chunks that overlap into single chunks.
- * @param chunks {start:number, end:number}[]
  * @return {start:number, end:number}[]
  */
 export const combineChunks = ({
@@ -56,23 +55,21 @@ export const combineChunks = ({
 /**
  * Examine text for any matches.
  * If we find matches, add them to the returned array as a "chunk" object ({start:number, end:number}).
- * @param textToHighlight string
- * @param searchWords string[]
- * @param sanitizer Process and optionally modify text and searchWords before comparison; this can be used to eg. remove accents
  * @return {start:number, end:number}[]
  */
 export const findChunks = ({
   autoEscape,
-  sanitizer = identity,
+  sanitize = identity,
   searchWords,
   textToHighlight
 }) => {
-  textToHighlight = sanitizer(textToHighlight)
+  textToHighlight = sanitize(textToHighlight)
 
   return searchWords
     .filter(searchWord => searchWord) // Remove empty words
     .reduce((chunks, searchWord) => {
-      searchWord = sanitizer(searchWord)
+      searchWord = sanitize(searchWord)
+
       if (autoEscape) {
         searchWord = escapeRegExpFn(searchWord)
       }
