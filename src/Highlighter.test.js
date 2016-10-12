@@ -8,7 +8,7 @@ describe('Highlighter', () => {
   const HIGHLIGHT_CLASS = 'customHighlightClass'
   const HIGHLIGHT_QUERY_SELECTOR = `.${HIGHLIGHT_CLASS}`
 
-  function getHighlighterChildren (textToHighlight, searchWords, highlightStyle, sanitize, autoEscape) {
+  function getHighlighterChildren (textToHighlight, searchWords, highlightStyle, sanitize, autoEscape, highlightTag) {
     const node = render(
       <div>
         <Highlighter
@@ -18,6 +18,7 @@ describe('Highlighter', () => {
           searchWords={searchWords}
           textToHighlight={textToHighlight}
           autoEscape={autoEscape}
+          highlightTag={highlightTag}
         />
       </div>
     )
@@ -114,5 +115,11 @@ describe('Highlighter', () => {
     const matches = node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR)
     expect(matches.length).to.equal(1)
     expect(matches[0].textContent).to.equal('ỆᶍǍᶆṔƚÉ')
+  })
+
+  it('should use the :highlightTag if specified', () => {
+    const node = getHighlighterChildren('This is text', ['text'], undefined, undefined, true, 'span')
+    const matches = node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR)
+    expect(matches[0].tagName).to.equal('SPAN')
   })
 })
