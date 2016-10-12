@@ -5,6 +5,7 @@ import React, { PropTypes } from 'react'
 Highlighter.propTypes = {
   autoEscape: PropTypes.bool,
   highlightClassName: PropTypes.string,
+  highlightTag: PropTypes.string,
   highlightStyle: PropTypes.object,
   searchWords: PropTypes.arrayOf(PropTypes.string).isRequired,
   textToHighlight: PropTypes.string.isRequired,
@@ -19,6 +20,7 @@ export default function Highlighter ({
   autoEscape,
   highlightClassName = '',
   highlightStyle = {},
+  highlightTag = 'mark',
   searchWords,
   textToHighlight,
   sanitize
@@ -29,6 +31,7 @@ export default function Highlighter ({
     searchWords,
     textToHighlight
   })
+  const HighlightTag = highlightTag
 
   return (
     <span>
@@ -37,13 +40,13 @@ export default function Highlighter ({
 
         if (chunk.highlight) {
           return (
-            <mark
+            <HighlightTag
               className={highlightClassName}
               key={index}
               style={highlightStyle}
             >
               {text}
-            </mark>
+            </HighlightTag>
           )
         } else {
           return (
