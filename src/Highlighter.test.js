@@ -8,7 +8,8 @@ describe('Highlighter', () => {
   const HIGHLIGHT_CLASS = 'customHighlightClass'
   const HIGHLIGHT_QUERY_SELECTOR = `.${HIGHLIGHT_CLASS}`
 
-  function getHighlighterChildren (textToHighlight, searchWords, highlightStyle, sanitize, autoEscape, highlightTag) {
+  function getHighlighterChildren (textToHighlight, searchWords, highlightStyle, sanitize, autoEscape, highlightTag
+    , activeHighlightIndex, activeHighlightClassName) {
     const node = render(
       <div>
         <Highlighter
@@ -19,6 +20,8 @@ describe('Highlighter', () => {
           textToHighlight={textToHighlight}
           autoEscape={autoEscape}
           highlightTag={highlightTag}
+          activeHighlightIndex={activeHighlightIndex}
+          activeHighlightClassName={activeHighlightClassName}
         />
       </div>
     )
@@ -121,5 +124,13 @@ describe('Highlighter', () => {
     const node = getHighlighterChildren('This is text', ['text'], undefined, undefined, true, 'span')
     const matches = node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR)
     expect(matches[0].tagName).to.equal('SPAN')
+  })
+
+  it('should highlight the second match with activeHighlightIndex specified', () => {
+    const activeHighlightClassName = 'active'
+    const node = getHighlighterChildren('This is text which should have this text highlighted', ['text'], undefined, undefined, undefined, undefined
+      , '1', activeHighlightClassName)
+    const matches = node.querySelectorAll('mark')
+    expect(matches[1].classList.contains(activeHighlightClassName)).to.equal(true)
   })
 })
