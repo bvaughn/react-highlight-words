@@ -18,6 +18,10 @@
   background-color: #ffd54f;
 }
 
+.Active {
+  background-color: #f48f42;
+}
+
 .Footer {
   margin-bottom: 0;
 }

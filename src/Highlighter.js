@@ -9,7 +9,9 @@ Highlighter.propTypes = {
   highlightStyle: PropTypes.object,
   searchWords: PropTypes.arrayOf(PropTypes.string).isRequired,
   textToHighlight: PropTypes.string.isRequired,
-  sanitize: PropTypes.func
+  sanitize: PropTypes.func,
+  activeHighlightIndex: PropTypes.string,
+  activeHighlightClassName: PropTypes.string
 }
 
 /**
@@ -23,7 +25,9 @@ export default function Highlighter ({
   highlightTag = 'mark',
   searchWords,
   textToHighlight,
-  sanitize
+  sanitize,
+  activeHighlightIndex = -1,
+  activeHighlightClassName = ''
 }) {
   const chunks = findAll({
     autoEscape,
@@ -32,6 +36,8 @@ export default function Highlighter ({
     textToHighlight
   })
   const HighlightTag = highlightTag
+  let highlightCount = -1
+  let highlightClassNames = ''
 
   return (
     <span>
@@ -39,9 +45,12 @@ export default function Highlighter ({
         const text = textToHighlight.substr(chunk.start, chunk.end - chunk.start)
 
         if (chunk.highlight) {
+          highlightCount++
+          highlightClassNames = `${highlightClassName} ${highlightCount === +activeHighlightIndex ? activeHighlightClassName : ''}`
+
           return (
             <HighlightTag
-              className={highlightClassName}
+              className={highlightClassNames}
               key={index}
               style={highlightStyle}
             >
