@@ -3,6 +3,8 @@ import { findAll } from 'highlight-words-core'
 import React, { PropTypes } from 'react'
 
 Highlighter.propTypes = {
+  activeClassName: PropTypes.string,
+  activeIndex: PropTypes.string,
   autoEscape: PropTypes.bool,
   highlightClassName: PropTypes.string,
   highlightTag: PropTypes.string,
@@ -17,6 +19,8 @@ Highlighter.propTypes = {
  * This function returns an array of strings and <span>s (wrapping highlighted words).
  */
 export default function Highlighter ({
+  activeClassName = '',
+  activeIndex = -1,
   autoEscape,
   highlightClassName = '',
   highlightStyle = {},
@@ -32,6 +36,8 @@ export default function Highlighter ({
     textToHighlight
   })
   const HighlightTag = highlightTag
+  let highlightCount = -1
+  let highlightClassNames = ''
 
   return (
     <span>
@@ -39,9 +45,12 @@ export default function Highlighter ({
         const text = textToHighlight.substr(chunk.start, chunk.end - chunk.start)
 
         if (chunk.highlight) {
+          highlightCount++
+          highlightClassNames = `${highlightClassName} ${highlightCount === +activeIndex ? activeClassName : ''}`
+
           return (
             <HighlightTag
-              className={highlightClassName}
+              className={highlightClassNames}
               key={index}
               style={highlightStyle}
             >
