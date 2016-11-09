@@ -25,3 +25,23 @@
 .Footer {
   margin-bottom: 0;
 }
+
+.Row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.FirstColumn,
+.SecondColumn {
+  flex: 1 1 auto;
+}
+
+.FirstColumn {
+  margin-right: 0.5rem;
+}
+
+.SecondColumn {
+  margin-left: 0.5rem;
+}

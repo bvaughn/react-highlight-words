@@ -10,33 +10,41 @@ export default class HighlighterExample extends Component {
     this.state = {
       searchText: 'and or the',
       textToHighlight: `When in the Course of human events it becomes necessary for one people to dissolve the political bands which have connected them with another and to assume among the powers of the earth, the separate and equal station to which the Laws of Nature and of Nature's God entitle them, a decent respect to the opinions of mankind requires that they should declare the causes which impel them to the separation.`,
-      activeHighlightIndex: '-1'
+      activeIndex: '-1'
     }
   }
   render () {
     const { ...props } = this.props
-    const { searchText, textToHighlight, activeHighlightIndex } = this.state
+    const { activeIndex, searchText, textToHighlight } = this.state
     const searchWords = searchText.split(/\s/).filter(word => word)
 
     return (
       <div {...props}>
-        <h4 className={styles.Header}>
-          Search terms
-        </h4>
-        <input
-          className={styles.Input}
-          name='searchTerms'
-          value={searchText}
-          onChange={event => this.setState({ searchText: event.target.value })}/>
-
-        <h4 className={styles.Header}>
-          Active Highlight Index
-        </h4>
-        <input
-          className={styles.Input}
-          name='activeHighlightIndex'
-          value={activeHighlightIndex}
-          onChange={event => this.setState({ activeHighlightIndex: event.target.value })}/>
+        <div className={styles.Row}>
+          <div className={styles.FirstColumn}>
+            <h4 className={styles.Header}>
+              Search terms
+            </h4>
+            <input
+              className={styles.Input}
+              name='searchTerms'
+              value={searchText}
+              onChange={event => this.setState({ searchText: event.target.value })}
+            />
+          </div>
+          <div className={styles.SecondColumn}>
+            <h4 className={styles.Header}>
+              Active Index
+            </h4>
+            <input
+              className={styles.Input}
+              name='activeIndex'
+              value={activeIndex}
+              onChange={event => this.setState({ activeIndex: event.target.value })}
+              type='number'
+            />
+          </div>
+        </div>
 
         <h4 className={styles.Header}>
           Body of Text
@@ -45,20 +53,21 @@ export default class HighlighterExample extends Component {
           className={styles.Input}
           name='textToHighlight'
           value={textToHighlight}
-          onChange={event => this.setState({ textToHighlight: event.target.value })}/>
+          onChange={event => this.setState({ textToHighlight: event.target.value })}
+        />
 
         <h4 className={styles.Header}>
           Output
         </h4>
 
         <Highlighter
+          activeClassName={styles.Active}
+          activeIndex={activeIndex}
           highlightClassName={styles.Highlight}
           highlightStyle={{ fontWeight: 'normal' }}
           sanitize={latinize}
           searchWords={searchWords}
           textToHighlight={textToHighlight}
-          activeHighlightIndex={activeHighlightIndex}
-          activeHighlightClassName={styles.Active}
         />
 
         <p className={styles.Footer}>

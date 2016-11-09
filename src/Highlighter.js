@@ -3,15 +3,15 @@ import { findAll } from 'highlight-words-core'
 import React, { PropTypes } from 'react'
 
 Highlighter.propTypes = {
+  activeClassName: PropTypes.string,
+  activeIndex: PropTypes.string,
   autoEscape: PropTypes.bool,
   highlightClassName: PropTypes.string,
   highlightTag: PropTypes.string,
   highlightStyle: PropTypes.object,
   searchWords: PropTypes.arrayOf(PropTypes.string).isRequired,
   textToHighlight: PropTypes.string.isRequired,
-  sanitize: PropTypes.func,
-  activeHighlightIndex: PropTypes.string,
-  activeHighlightClassName: PropTypes.string
+  sanitize: PropTypes.func
 }
 
 /**
@@ -19,15 +19,15 @@ Highlighter.propTypes = {
  * This function returns an array of strings and <span>s (wrapping highlighted words).
  */
 export default function Highlighter ({
+  activeClassName = '',
+  activeIndex = -1,
   autoEscape,
   highlightClassName = '',
   highlightStyle = {},
   highlightTag = 'mark',
   searchWords,
   textToHighlight,
-  sanitize,
-  activeHighlightIndex = -1,
-  activeHighlightClassName = ''
+  sanitize
 }) {
   const chunks = findAll({
     autoEscape,
@@ -46,7 +46,7 @@ export default function Highlighter ({
 
         if (chunk.highlight) {
           highlightCount++
-          highlightClassNames = `${highlightClassName} ${highlightCount === +activeHighlightIndex ? activeHighlightClassName : ''}`
+          highlightClassNames = `${highlightClassName} ${highlightCount === +activeIndex ? activeClassName : ''}`
 
           return (
             <HighlightTag
