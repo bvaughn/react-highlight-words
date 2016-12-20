@@ -9,7 +9,10 @@ Highlighter.propTypes = {
   highlightClassName: PropTypes.string,
   highlightTag: PropTypes.string,
   highlightStyle: PropTypes.object,
-  searchWords: PropTypes.arrayOf(PropTypes.string).isRequired,
+  searchWords: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(RegExp)
+  ])).isRequired,
   textToHighlight: PropTypes.string.isRequired,
   sanitize: PropTypes.func
 }

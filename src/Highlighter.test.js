@@ -133,4 +133,17 @@ describe('Highlighter', () => {
     const matches = node.querySelectorAll('mark')
     expect(matches[1].classList.contains(activeClassName)).to.equal(true)
   })
+
+  it('should highlight words that match regexes passed as searchWords element', () => {
+    const numbersRegex = /([0-9])+/
+    const customWordsRegex = /(This|Numbers)/
+    const node = getHighlighterChildren('This is text but 123 and 000 are Numbers', [numbersRegex, customWordsRegex])
+    const matches = node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR)
+    expect(matches.length).to.equal(4)
+    expect(node.textContent).to.eql('This is text but 123 and 000 are Numbers')
+    expect(matches[0].textContent).to.equal('This')
+    expect(matches[1].textContent).to.equal('123')
+    expect(matches[2].textContent).to.equal('000')
+    expect(matches[3].textContent).to.equal('Numbers')
+  })
 })
