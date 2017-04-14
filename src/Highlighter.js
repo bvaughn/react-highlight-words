@@ -6,6 +6,7 @@ Highlighter.propTypes = {
   activeClassName: PropTypes.string,
   activeIndex: PropTypes.string,
   autoEscape: PropTypes.bool,
+  className: PropTypes.string,
   highlightClassName: PropTypes.string,
   highlightTag: PropTypes.string,
   highlightStyle: PropTypes.object,
@@ -22,6 +23,7 @@ export default function Highlighter ({
   activeClassName = '',
   activeIndex = -1,
   autoEscape,
+  className,
   highlightClassName = '',
   highlightStyle = {},
   highlightTag = 'mark',
@@ -40,7 +42,7 @@ export default function Highlighter ({
   let highlightClassNames = ''
 
   return (
-    <span>
+    <span className={className}>
       {chunks.map((chunk, index) => {
         const text = textToHighlight.substr(chunk.start, chunk.end - chunk.start)
 
