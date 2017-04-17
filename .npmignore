@@ -4,3 +4,4 @@ karma.conf.js
 src
 webpack*
 .idea
+.babelrc
