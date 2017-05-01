@@ -1,6 +1,7 @@
 /* @flow */
 import { findAll } from 'highlight-words-core'
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'proptypes'
 
 Highlighter.propTypes = {
   activeClassName: PropTypes.string,
