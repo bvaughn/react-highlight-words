@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 Highlighter.propTypes = {
+  nonActiveClassName: PropTypes.string,
   activeClassName: PropTypes.string,
   activeIndex: PropTypes.string,
   autoEscape: PropTypes.bool,
@@ -21,6 +22,7 @@ Highlighter.propTypes = {
  * This function returns an array of strings and <span>s (wrapping highlighted words).
  */
 export default function Highlighter ({
+  nonActiveClassName = '',
   activeClassName = '',
   activeIndex = -1,
   autoEscape,
@@ -62,7 +64,7 @@ export default function Highlighter ({
           )
         } else {
           return (
-            <span key={index} className={className}>{text}</span>
+            <span key={index} className={nonActiveClassName}>{text}</span>
           )
         }
       })}
