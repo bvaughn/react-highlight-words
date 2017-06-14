@@ -62,7 +62,7 @@ export default function Highlighter ({
           )
         } else {
           return (
-            <span key={index}>{text}</span>
+            <span key={index} className={className}>{text}</span>
           )
         }
       })}
