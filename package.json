@@ -1,6 +1,6 @@
 {
   "name": "react-highlight-words",
-  "version": "0.7.2",
+  "version": "0.8.0",
   "description": "React component to highlight words within a larger body of text",
   "main": "dist/main.js",
   "scripts": {
