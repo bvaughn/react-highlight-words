@@ -4,17 +4,18 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 Highlighter.propTypes = {
-  inactiveClassName: PropTypes.string,
   activeClassName: PropTypes.string,
-  activeIndex: PropTypes.string,
+  activeIndex: PropTypes.number,
   autoEscape: PropTypes.bool,
   className: PropTypes.string,
   highlightClassName: PropTypes.string,
-  highlightTag: PropTypes.string,
   highlightStyle: PropTypes.object,
+  highlightTag: PropTypes.string,
+  sanitize: PropTypes.func,
   searchWords: PropTypes.arrayOf(PropTypes.string).isRequired,
   textToHighlight: PropTypes.string.isRequired,
-  sanitize: PropTypes.func
+  unhighlightClassName: PropTypes.string,
+  unhighlightStyle: PropTypes.object
 }
 
 /**
@@ -22,7 +23,6 @@ Highlighter.propTypes = {
  * This function returns an array of strings and <span>s (wrapping highlighted words).
  */
 export default function Highlighter ({
-  inactiveClassName = '',
   activeClassName = '',
   activeIndex = -1,
   autoEscape,
@@ -30,9 +30,11 @@ export default function Highlighter ({
   highlightClassName = '',
   highlightStyle = {},
   highlightTag = 'mark',
+  sanitize,
   searchWords,
   textToHighlight,
-  sanitize
+  unhighlightClassName = '',
+  unhighlightStyle
 }) {
   const chunks = findAll({
     autoEscape,
@@ -64,7 +66,13 @@ export default function Highlighter ({
           )
         } else {
           return (
-            <span key={index} className={inactiveClassName}>{text}</span>
+            <span
+              className={unhighlightClassName}
+              key={index}
+              style={unhighlightStyle}
+            >
+              {text}
+            </span>
           )
         }
       })}
