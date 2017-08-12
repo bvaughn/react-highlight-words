@@ -11,6 +11,7 @@ Highlighter.propTypes = {
   highlightClassName: PropTypes.string,
   highlightStyle: PropTypes.object,
   highlightTag: PropTypes.string,
+  highlightWrapper: PropTypes.func,
   sanitize: PropTypes.func,
   searchWords: PropTypes.arrayOf(PropTypes.string).isRequired,
   textToHighlight: PropTypes.string.isRequired,
@@ -30,6 +31,7 @@ export default function Highlighter ({
   highlightClassName = '',
   highlightStyle = {},
   highlightTag = 'mark',
+  highlightWrapper = ({ children }) => children,
   sanitize,
   searchWords,
   textToHighlight,
@@ -43,6 +45,7 @@ export default function Highlighter ({
     textToHighlight
   })
   const HighlightTag = highlightTag
+  const HighlightWrapper = highlightWrapper;
   let highlightCount = -1
   let highlightClassNames = ''
 
@@ -56,13 +59,15 @@ export default function Highlighter ({
           highlightClassNames = `${highlightClassName} ${highlightCount === +activeIndex ? activeClassName : ''}`
 
           return (
-            <HighlightTag
-              className={highlightClassNames}
-              key={index}
-              style={highlightStyle}
-            >
-              {text}
-            </HighlightTag>
+            <HighlightWrapper>
+              <HighlightTag
+                className={highlightClassNames}
+                key={index}
+                style={highlightStyle}
+              >
+                {text}
+              </HighlightTag>
+            </HighlightWrapper>
           )
         } else {
           return (
