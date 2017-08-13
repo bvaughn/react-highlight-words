@@ -59,10 +59,11 @@ export default function Highlighter ({
           highlightClassNames = `${highlightClassName} ${highlightCount === +activeIndex ? activeClassName : ''}`
 
           return (
-            <HighlightWrapper>
+            <HighlightWrapper
+              key={index}
+            >
               <HighlightTag
                 className={highlightClassNames}
-                key={index}
                 style={highlightStyle}
               >
                 {text}

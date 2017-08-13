@@ -199,4 +199,30 @@ describe('Highlighter', () => {
     const matches = node.querySelectorAll('mark')
     expect(matches[1].classList.contains(activeClassName)).to.equal(true)
   })
+
+  it('correctly wrap highlighted words with wrapper', () => {
+    const wrapperClassName = 'test-wrapper';
+
+    const WrapperTag = ({ children }) => {
+      return (
+        <h1 className={wrapperClassName}>
+          { children }
+        </h1>
+      )
+    }
+
+    const node = render(
+      <div>
+        <Highlighter
+          searchWords={['text']}
+          textToHighlight={'This is text which should have this text highlighted'}
+          highlightWrapper={WrapperTag}
+        />
+      </div>
+    );
+
+    const matches = node.querySelectorAll('h1')
+    expect(matches[1].innerText).to.equal('text');
+    expect(matches[1].classList.contains(wrapperClassName)).to.equal(true)
+  })
 })
