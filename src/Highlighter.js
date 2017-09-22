@@ -5,6 +5,7 @@ import React from 'react'
 
 Highlighter.propTypes = {
   activeClassName: PropTypes.string,
+  activeStyle: PropTypes.object,
   activeIndex: PropTypes.number,
   autoEscape: PropTypes.bool,
   className: PropTypes.string,
@@ -12,7 +13,13 @@ Highlighter.propTypes = {
   highlightStyle: PropTypes.object,
   highlightTag: PropTypes.string,
   sanitize: PropTypes.func,
-  searchWords: PropTypes.arrayOf(PropTypes.string).isRequired,
+  searchWords: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      word: PropTypes.string.isRequired,
+      style: PropTypes.object.isRequired
+    })
+  ])).isRequired,
   textToHighlight: PropTypes.string.isRequired,
   unhighlightClassName: PropTypes.string,
   unhighlightStyle: PropTypes.object
@@ -24,6 +31,7 @@ Highlighter.propTypes = {
  */
 export default function Highlighter ({
   activeClassName = '',
+  activeStyle = {},
   activeIndex = -1,
   autoEscape,
   className,
@@ -36,15 +44,30 @@ export default function Highlighter ({
   unhighlightClassName = '',
   unhighlightStyle
 }) {
+  const searchWordsArray = searchWords.map(wordElement => {
+    if (typeof wordElement === 'string') return wordElement
+
+    return wordElement.word
+  })
+  const searchWordsStyleMap = searchWords.reduce((acc, wordElement) => {
+    if (typeof wordElement === 'string') {
+      acc[wordElement] = {}
+    } else {
+      acc[wordElement.word] = wordElement.style
+    }
+
+    return acc
+  }, {})
   const chunks = findAll({
     autoEscape,
     sanitize,
-    searchWords,
+    searchWords: searchWordsArray,
     textToHighlight
   })
   const HighlightTag = highlightTag
   let highlightCount = -1
   let highlightClassNames = ''
+  let highlightStyleMerged = {}
 
   return (
     <span className={className}>
@@ -53,13 +76,15 @@ export default function Highlighter ({
 
         if (chunk.highlight) {
           highlightCount++
-          highlightClassNames = `${highlightClassName} ${highlightCount === +activeIndex ? activeClassName : ''}`
+          const isActive = highlightCount === +activeIndex
+          highlightClassNames = `${highlightClassName} ${isActive ? activeClassName : ''}`
+          highlightStyleMerged = Object.assign({}, highlightStyle, searchWordsStyleMap[text], isActive ? activeStyle : {})
 
           return (
             <HighlightTag
               className={highlightClassNames}
               key={index}
-              style={highlightStyle}
+              style={highlightStyleMerged}
             >
               {text}
             </HighlightTag>
