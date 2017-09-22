@@ -12,6 +12,7 @@ describe('Highlighter', () => {
   function getHighlighterChildren ({
     autoEscape,
     activeClassName,
+    activeStyle,
     activeIndex,
     highlightStyle,
     highlightTag,
@@ -25,6 +26,7 @@ describe('Highlighter', () => {
         <Highlighter
           activeIndex={activeIndex}
           activeClassName={activeClassName}
+          activeStyle={activeStyle}
           autoEscape={autoEscape}
           highlightClassName={HIGHLIGHT_CLASS}
           highlightStyle={highlightStyle}
@@ -198,5 +200,31 @@ describe('Highlighter', () => {
     })
     const matches = node.querySelectorAll('mark')
     expect(matches[1].classList.contains(activeClassName)).to.equal(true)
+  })
+
+  it('should be able to apply style to mark', () => {
+    const node = getHighlighterChildren({
+      unhighlightStyle: {color: 'gray'},
+      searchWords: [{
+        word: 'text',
+        style: {backgroundColor: 'red'}
+      }],
+      textToHighlight: 'This is text'
+    })
+    expect(node.querySelector('mark').style.backgroundColor).to.contain('red')
+  })
+
+  it('should be able to apply activeStyle style to mark if active', () => {
+    const node = getHighlighterChildren({
+      unhighlightStyle: {color: 'gray'},
+      searchWords: [{
+        word: 'text',
+        style: {backgroundColor: 'red'}
+      }],
+      activeIndex: 0,
+      activeStyle: {backgroundColor: 'green'},
+      textToHighlight: 'This is text'
+    })
+    expect(node.querySelector('mark').style.backgroundColor).to.contain('green')
   })
 })

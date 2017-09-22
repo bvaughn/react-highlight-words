@@ -25,6 +25,7 @@ And the `Highlighter` will mark all occurrences of search terms within the text:
 | Property | Type | Required? | Description |
 |:---|:---|:---:|:---|
 | activeClassName | String |  | The class name to be applied to an active match. Use along with `activeIndex` |
+| activeStyle | Object |  | The inline style to be applied to an active match. Use along with `activeIndex` |
 | activeIndex | String |  | Specify the match index that should be actively highlighted. Use along with `activeClassName` |
 | autoEscape | Boolean |  | Escape characters which are meaningful in regular expressions |
 | className | String |  | CSS class name applied to the outer/wrapper `<span>` |
@@ -32,7 +33,7 @@ And the `Highlighter` will mark all occurrences of search terms within the text:
 | highlightStyle | Object |  | Inline styles applied to highlighted text |
 | highlightTag | String |  | Type of tag to wrap around highlighted matches; defaults to `mark` |
 | sanitize | Function |  | Process each search word and text to highlight before comparing (eg remove accents); signature `(text: string): string` |
-| searchWords | Array<String> | ✓ | Array of search words |
+| searchWords | Array<String or Object> | ✓ | Array of search words or objects with shape: {word: <serch word>, style: <inline style to search word>} |
 | textToHighlight | String | ✓ | Text to highlight matches in |
 | unhighlightClassName | String |  | CSS class name applied to unhighlighted text |
 | unhighlightStyle | Object |  | Inline styles applied to unhighlighted text |
