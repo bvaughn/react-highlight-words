@@ -10,7 +10,7 @@ export default class HighlighterExample extends Component {
     this.state = {
       searchText: 'and or the',
       textToHighlight: `When in the Course of human events it becomes necessary for one people to dissolve the political bands which have connected them with another and to assume among the powers of the earth, the separate and equal station to which the Laws of Nature and of Nature's God entitle them, a decent respect to the opinions of mankind requires that they should declare the causes which impel them to the separation.`,
-      activeIndex: '-1'
+      activeIndex: -1
     }
   }
   render () {
@@ -40,7 +40,7 @@ export default class HighlighterExample extends Component {
               className={styles.Input}
               name='activeIndex'
               value={activeIndex}
-              onChange={event => this.setState({ activeIndex: event.target.value })}
+              onChange={event => this.setState({ activeIndex: parseInt(event.target.value, 10) })}
               type='number'
             />
           </div>
