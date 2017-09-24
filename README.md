@@ -26,6 +26,7 @@ And the `Highlighter` will mark all occurrences of search terms within the text:
 |:---|:---|:---:|:---|
 | activeClassName | String |  | The class name to be applied to an active match. Use along with `activeIndex` |
 | activeIndex | String |  | Specify the match index that should be actively highlighted. Use along with `activeClassName` |
+| activeStyle | Object |  | The inline style to be applied to an active match. Use along with `activeIndex` |
 | autoEscape | Boolean |  | Escape characters which are meaningful in regular expressions |
 | className | String |  | CSS class name applied to the outer/wrapper `<span>` |
 | highlightClassName | String |  | CSS class name applied to highlighted text |

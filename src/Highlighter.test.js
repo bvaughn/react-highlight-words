@@ -12,6 +12,7 @@ describe('Highlighter', () => {
   function getHighlighterChildren ({
     autoEscape,
     activeClassName,
+    activeStyle,
     activeIndex,
     highlightStyle,
     highlightTag,
@@ -23,8 +24,9 @@ describe('Highlighter', () => {
     const node = render(
       <div>
         <Highlighter
-          activeIndex={activeIndex}
           activeClassName={activeClassName}
+          activeIndex={activeIndex}
+          activeStyle={activeStyle}
           autoEscape={autoEscape}
           highlightClassName={HIGHLIGHT_CLASS}
           highlightStyle={highlightStyle}
@@ -188,7 +190,7 @@ describe('Highlighter', () => {
     expect(matches[0].tagName).to.equal('SPAN')
   })
 
-  it('should highlight the second match with activeIndex specified', () => {
+  it('should apply activeClassName to the match specified by activeIndex', () => {
     const activeClassName = 'active'
     const node = getHighlighterChildren({
       activeIndex: 1,
@@ -198,5 +200,17 @@ describe('Highlighter', () => {
     })
     const matches = node.querySelectorAll('mark')
     expect(matches[1].classList.contains(activeClassName)).to.equal(true)
+  })
+
+  it('should apply activeStyle to the match specified by activeIndex', () => {
+    const activeStyle = {color: 'red'}
+    const node = getHighlighterChildren({
+      activeIndex: 1,
+      activeStyle,
+      searchWords: ['text'],
+      textToHighlight: 'This is text which should have this text highlighted'
+    })
+    const matches = node.querySelectorAll('mark')
+    expect(matches[1].style.color).to.equal('red')
   })
 })

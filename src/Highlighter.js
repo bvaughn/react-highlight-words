@@ -6,6 +6,7 @@ import React from 'react'
 Highlighter.propTypes = {
   activeClassName: PropTypes.string,
   activeIndex: PropTypes.number,
+  activeStyle: PropTypes.object,
   autoEscape: PropTypes.bool,
   className: PropTypes.string,
   highlightClassName: PropTypes.string,
@@ -25,6 +26,7 @@ Highlighter.propTypes = {
 export default function Highlighter ({
   activeClassName = '',
   activeIndex = -1,
+  activeStyle,
   autoEscape,
   className,
   highlightClassName = '',
@@ -45,6 +47,7 @@ export default function Highlighter ({
   const HighlightTag = highlightTag
   let highlightCount = -1
   let highlightClassNames = ''
+  let highlightStyles
 
   return (
     <span className={className}>
@@ -53,13 +56,19 @@ export default function Highlighter ({
 
         if (chunk.highlight) {
           highlightCount++
-          highlightClassNames = `${highlightClassName} ${highlightCount === +activeIndex ? activeClassName : ''}`
+
+          const isActive = highlightCount === +activeIndex
+
+          highlightClassNames = `${highlightClassName} ${isActive ? activeClassName : ''}`
+          highlightStyles = isActive === true && activeStyle != null
+            ? Object.assign({}, highlightStyle, activeStyle)
+            : highlightStyle
 
           return (
             <HighlightTag
               className={highlightClassNames}
               key={index}
-              style={highlightStyle}
+              style={highlightStyles}
             >
               {text}
             </HighlightTag>
