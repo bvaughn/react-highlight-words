@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import Highlighter from './Highlighter'
 import { render } from './test-utils'
@@ -183,6 +184,50 @@ describe('Highlighter', () => {
     const node = getHighlighterChildren({
       autoEscape: true,
       highlightTag: 'span',
+      searchWords: ['text'],
+      textToHighlight: 'This is text'
+    })
+    const matches = node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR)
+    expect(matches[0].tagName).to.equal('SPAN')
+  })
+
+  it('should support class components via :highlightTag', () => {
+    class HighlightTag extends React.Component {
+      static propTypes = {
+        children: PropTypes.any
+      };
+
+      render () {
+        const { children, ...rest } = this.props
+
+        return (
+          <span {...rest}>
+            {children}
+          </span>
+        )
+      }
+    }
+
+    const node = getHighlighterChildren({
+      autoEscape: true,
+      highlightTag: HighlightTag,
+      searchWords: ['text'],
+      textToHighlight: 'This is text'
+    })
+    const matches = node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR)
+    expect(matches[0].tagName).to.equal('SPAN')
+  })
+
+  it('should support stateless functional components via :highlightTag', () => {
+    const HighlightTag = ({ children, ...rest }) => (
+      <span {...rest}>
+        {children}
+      </span>
+    )
+
+    const node = getHighlighterChildren({
+      autoEscape: true,
+      highlightTag: HighlightTag,
       searchWords: ['text'],
       textToHighlight: 'This is text'
     })

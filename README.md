@@ -31,7 +31,7 @@ And the `Highlighter` will mark all occurrences of search terms within the text:
 | className | String |  | CSS class name applied to the outer/wrapper `<span>` |
 | highlightClassName | String |  | CSS class name applied to highlighted text |
 | highlightStyle | Object |  | Inline styles applied to highlighted text |
-| highlightTag | String |  | Type of tag to wrap around highlighted matches; defaults to `mark` |
+| highlightTag | Node |  | Type of tag to wrap around highlighted matches; defaults to `mark` but can also be a React element (class or functional) |
 | sanitize | Function |  | Process each search word and text to highlight before comparing (eg remove accents); signature `(text: string): string` |
 | searchWords | Array<String> | ✓ | Array of search words |
 | textToHighlight | String | ✓ | Text to highlight matches in |

@@ -11,7 +11,11 @@ Highlighter.propTypes = {
   className: PropTypes.string,
   highlightClassName: PropTypes.string,
   highlightStyle: PropTypes.object,
-  highlightTag: PropTypes.string,
+  highlightTag: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.func,
+    PropTypes.string
+  ]),
   sanitize: PropTypes.func,
   searchWords: PropTypes.arrayOf(PropTypes.string).isRequired,
   textToHighlight: PropTypes.string.isRequired,
