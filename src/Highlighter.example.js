@@ -10,12 +10,13 @@ export default class HighlighterExample extends Component {
     this.state = {
       searchText: 'and or the',
       textToHighlight: `When in the Course of human events it becomes necessary for one people to dissolve the political bands which have connected them with another and to assume among the powers of the earth, the separate and equal station to which the Laws of Nature and of Nature's God entitle them, a decent respect to the opinions of mankind requires that they should declare the causes which impel them to the separation.`,
-      activeIndex: -1
+      activeIndex: -1,
+      caseSensitive: false
     }
   }
   render () {
     const { ...props } = this.props
-    const { activeIndex, searchText, textToHighlight } = this.state
+    const { activeIndex, caseSensitive, searchText, textToHighlight } = this.state
     const searchWords = searchText.split(/\s/).filter(word => word)
 
     return (
@@ -44,6 +45,18 @@ export default class HighlighterExample extends Component {
               type='number'
             />
           </div>
+          <div className={styles.SecondColumn}>
+            <h4 className={styles.Header}>
+              Case Sensitive?
+            </h4>
+            <input
+              checked={caseSensitive}
+              className={styles.Input}
+              name='caseSensitive'
+              onChange={event => this.setState({ caseSensitive: event.target.checked })}
+              type='checkbox'
+            />
+          </div>
         </div>
 
         <h4 className={styles.Header}>
@@ -63,6 +76,7 @@ export default class HighlighterExample extends Component {
         <Highlighter
           activeClassName={styles.Active}
           activeIndex={activeIndex}
+          caseSensitive={caseSensitive}
           highlightClassName={styles.Highlight}
           highlightStyle={{ fontWeight: 'normal' }}
           sanitize={latinize}

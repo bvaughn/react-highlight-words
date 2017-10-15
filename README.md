@@ -29,6 +29,7 @@ And the `Highlighter` will mark all occurrences of search terms within the text:
 | activeStyle | Object |  | The inline style to be applied to an active match. Use along with `activeIndex` |
 | autoEscape | Boolean |  | Escape characters which are meaningful in regular expressions |
 | className | String |  | CSS class name applied to the outer/wrapper `<span>` |
+| caseSensitive | Boolean |  | Search should be case sensitive; defaults to `false` |
 | highlightClassName | String |  | CSS class name applied to highlighted text |
 | highlightStyle | Object |  | Inline styles applied to highlighted text |
 | highlightTag | Node |  | Type of tag to wrap around highlighted matches; defaults to `mark` but can also be a React element (class or functional) |

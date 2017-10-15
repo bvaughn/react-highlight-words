@@ -32,6 +32,7 @@ export default function Highlighter ({
   activeIndex = -1,
   activeStyle,
   autoEscape,
+  caseSensitive = false,
   className,
   highlightClassName = '',
   highlightStyle = {},
@@ -44,6 +45,7 @@ export default function Highlighter ({
 }) {
   const chunks = findAll({
     autoEscape,
+    caseSensitive,
     sanitize,
     searchWords,
     textToHighlight

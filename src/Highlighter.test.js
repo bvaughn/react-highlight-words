@@ -15,6 +15,7 @@ describe('Highlighter', () => {
     activeClassName,
     activeStyle,
     activeIndex,
+    caseSensitive,
     highlightStyle,
     highlightTag,
     sanitize,
@@ -29,6 +30,7 @@ describe('Highlighter', () => {
           activeIndex={activeIndex}
           activeStyle={activeStyle}
           autoEscape={autoEscape}
+          caseSensitive={caseSensitive}
           highlightClassName={HIGHLIGHT_CLASS}
           highlightStyle={highlightStyle}
           highlightTag={highlightTag}
@@ -257,5 +259,17 @@ describe('Highlighter', () => {
     })
     const matches = node.querySelectorAll('mark')
     expect(matches[1].style.color).to.equal('red')
+  })
+
+  it('should support caseSensitive search', () => {
+    const node = getHighlighterChildren({
+      caseSensitive: true,
+      searchWords: ['th'],
+      textToHighlight: 'This the three time'
+    })
+    const matches = node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR)
+    expect(matches).to.have.length(2)
+    expect(matches[0].textContent).to.equal('th')
+    expect(matches[1].textContent).to.equal('th')
   })
 })
