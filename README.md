@@ -12,6 +12,7 @@ To use it, just provide it with an array of search terms and a body of text to h
 <Highlighter
   highlightClassName='YourHighlightClass'
   searchWords={['and', 'or', 'the']}
+  autoEscape={true}
   textToHighlight="The dog is chasing the cat. Or perhaps they're just playing?"
 />
 ```
@@ -27,13 +28,13 @@ And the `Highlighter` will mark all occurrences of search terms within the text:
 | activeClassName | String |  | The class name to be applied to an active match. Use along with `activeIndex` |
 | activeIndex | String |  | Specify the match index that should be actively highlighted. Use along with `activeClassName` |
 | activeStyle | Object |  | The inline style to be applied to an active match. Use along with `activeIndex` |
-| autoEscape | Boolean |  | Escape characters which are meaningful in regular expressions |
+| autoEscape | Boolean |  | Escape characters in `searchWords` which are meaningful in regular expressions |
 | className | String |  | CSS class name applied to the outer/wrapper `<span>` |
 | highlightClassName | String |  | CSS class name applied to highlighted text |
 | highlightStyle | Object |  | Inline styles applied to highlighted text |
 | highlightTag | Node |  | Type of tag to wrap around highlighted matches; defaults to `mark` but can also be a React element (class or functional) |
 | sanitize | Function |  | Process each search word and text to highlight before comparing (eg remove accents); signature `(text: string): string` |
-| searchWords | Array<String> | ✓ | Array of search words |
+| searchWords | Array<String> | ✓ | Array of search words. The search terms are treated as RegExps unless `autoEscape` is set. |
 | textToHighlight | String | ✓ | Text to highlight matches in |
 | unhighlightClassName | String |  | CSS class name applied to unhighlighted text |
 | unhighlightStyle | Object |  | Inline styles applied to unhighlighted text |
