@@ -417,7 +417,7 @@ babel-plugin-undefined-to-void@^1.1.6:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/babel-plugin-undefined-to-void/-/babel-plugin-undefined-to-void-1.1.6.tgz#7f578ef8b78dfae6003385d8417a61eda06e2f81"
 
-babel-runtime@^6.11.6, babel-runtime@^6.22.0, babel-runtime@^6.26.0:
+babel-runtime@^6.22.0, babel-runtime@^6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"
   dependencies:
@@ -2468,11 +2468,9 @@ he@1.0.x:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/he/-/he-1.0.0.tgz#6da5b265d7f2c3b5e480749168e0e159d05728da"
 
-highlight-words-core@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/highlight-words-core/-/highlight-words-core-1.1.0.tgz#6ca35f256b1be72857963eafe97c255a2168c7ff"
-  dependencies:
-    babel-runtime "^6.11.6"
+highlight-words-core@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/highlight-words-core/-/highlight-words-core-1.1.2.tgz#5c2717c4f6c6e7ea2462ab85b43ff8b24f58ec3e"
 
 hoek@0.9.x:
   version "0.9.1"
