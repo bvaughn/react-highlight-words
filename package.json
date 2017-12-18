@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm run build:website && npm run build:dist",
     "build:website": "npm run clean:website && NODE_ENV=production webpack --config webpack.config.website.js -p --bail",
-    "build:dist": "npm run clean:dist && NODE_ENV=production webpack --config webpack.config.dist.js --bail",
+    "build:dist": "npm run clean:dist && NODE_ENV=production webpack --config webpack.config.dist.js --bail -p",
     "clean": "npm run clean:website && npm run clean:dist",
     "clean:website": "rimraf build",
     "clean:dist": "rimraf dist",
@@ -81,6 +81,7 @@
     "latinize": "^0.2.0",
     "mocha": "^2.3.4",
     "phantomjs2": "^2.0.2",
+    "prop-types": "^15.5.8",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-transform-catch-errors": "^1.0.0",
@@ -95,8 +96,7 @@
     "worker-loader": "^0.7.0"
   },
   "dependencies": {
-    "highlight-words-core": "^1.1.2",
-    "prop-types": "^15.5.8"
+    "highlight-words-core": "^1.1.2"
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0 || ^16.0.0-0"
