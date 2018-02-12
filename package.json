@@ -96,7 +96,7 @@
     "worker-loader": "^0.7.0"
   },
   "dependencies": {
-    "highlight-words-core": "^1.1.2",
+    "highlight-words-core": "https://github.com/jnachtigall/highlight-words-core.git#findChunks-as-param-to-findAll",
     "prop-types": "^15.5.8"
   },
   "peerDependencies": {
