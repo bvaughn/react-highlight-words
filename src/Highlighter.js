@@ -9,6 +9,7 @@ Highlighter.propTypes = {
   activeStyle: PropTypes.object,
   autoEscape: PropTypes.bool,
   className: PropTypes.string,
+  findChunks: PropTypes.func,
   highlightClassName: PropTypes.string,
   highlightStyle: PropTypes.object,
   highlightTag: PropTypes.oneOfType([
@@ -34,6 +35,7 @@ export default function Highlighter ({
   autoEscape,
   caseSensitive = false,
   className,
+  findChunks,
   highlightClassName = '',
   highlightStyle = {},
   highlightTag = 'mark',
@@ -46,6 +48,7 @@ export default function Highlighter ({
   const chunks = findAll({
     autoEscape,
     caseSensitive,
+    findChunks,
     sanitize,
     searchWords,
     textToHighlight
