@@ -35,7 +35,7 @@ export default function Highlighter ({
   autoEscape,
   caseSensitive = false,
   className,
-  findChunks,
+  customFindChunks,
   highlightClassName = '',
   highlightStyle = {},
   highlightTag = 'mark',
@@ -48,7 +48,7 @@ export default function Highlighter ({
   const chunks = findAll({
     autoEscape,
     caseSensitive,
-    findChunks,
+    customFindChunks,
     sanitize,
     searchWords,
     textToHighlight
