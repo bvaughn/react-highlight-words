@@ -16,7 +16,7 @@ describe('Highlighter', () => {
     activeStyle,
     activeIndex,
     caseSensitive,
-    customFindChunks,
+    findChunks,
     highlightStyle,
     highlightTag,
     sanitize,
@@ -32,7 +32,7 @@ describe('Highlighter', () => {
           activeStyle={activeStyle}
           autoEscape={autoEscape}
           caseSensitive={caseSensitive}
-          customFindChunks={customFindChunks}
+          findChunks={findChunks}
           highlightClassName={HIGHLIGHT_CLASS}
           highlightStyle={highlightStyle}
           highlightTag={highlightTag}
@@ -275,9 +275,9 @@ describe('Highlighter', () => {
     expect(matches[1].textContent).to.equal('th')
   })
 
-  it('should support customFindChunks function', () => {
+  it('should support custom findChunks prop function', () => {
     const node = getHighlighterChildren({
-      customFindChunks: () => (
+      findChunks: () => (
         [
           {start: 0, end: 1},
           {start: 5, end: 7}
@@ -290,5 +290,15 @@ describe('Highlighter', () => {
     expect(matches).to.have.length(2)
     expect(matches[0].textContent).to.equal('T')
     expect(matches[1].textContent).to.equal('is')
+
+    const node2 = getHighlighterChildren({
+      findChunks: () => (
+        []
+      ),
+      searchWords: ['This'],
+      textToHighlight: 'This is text'
+    })
+    const matches2 = node2.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR)
+    expect(matches2).to.have.length(0)
   })
 })
