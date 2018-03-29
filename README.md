@@ -6,15 +6,24 @@ Check out a demo [here](https://bvaughn.github.io/react-highlight-words).
 
 ## Usage
 
-To use it, just provide it with an array of search terms and a body of text to highlight:
+To use it, just provide it with an array of search terms and a body of text to highlight.
+
+[Try this example in Code Sandbox.](https://codesandbox.io/s/5v8yqoxv7k)
 
 ```html
-<Highlighter
-  highlightClassName='YourHighlightClass'
-  searchWords={['and', 'or', 'the']}
-  autoEscape={true}
-  textToHighlight="The dog is chasing the cat. Or perhaps they're just playing?"
-/>
+import React from "react";
+import ReactDOM from "react-dom";
+import Highlighter from "react-highlight-words";
+
+ReactDOM.render(
+  <Highlighter
+    highlightClassName="YourHighlightClass"
+    searchWords={["and", "or", "the"]}
+    autoEscape={true}
+    textToHighlight="The dog is chasing the cat. Or perhaps they're just playing?"
+  />,
+  document.getElementById("root")
+);
 ```
 
 And the `Highlighter` will mark all occurrences of search terms within the text:
