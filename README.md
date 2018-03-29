@@ -40,7 +40,7 @@ And the `Highlighter` will mark all occurrences of search terms within the text:
 | autoEscape | Boolean |  | Escape characters in `searchWords` which are meaningful in regular expressions |
 | className | String |  | CSS class name applied to the outer/wrapper `<span>` |
 | caseSensitive | Boolean |  | Search should be case sensitive; defaults to `false` |
-| findChunks | Function |  | Use a custom function to search for matching chunks. This makes it possible to use arbitrary logic when looking for matches; see the default `findChunks` function in [highlight-words-core](https://github.com/bvaughn/highlight-words-core) for signature |
+| findChunks | Function |  | Use a custom function to search for matching chunks. This makes it possible to use arbitrary logic when looking for matches. See the default `findChunks` function in [highlight-words-core](https://github.com/bvaughn/highlight-words-core) for signature. Have a look at the [custom findChunks example](https://codesandbox.io/s/k20x3ox31o) on how to use it. |
 | highlightClassName | String |  | CSS class name applied to highlighted text |
 | highlightStyle | Object |  | Inline styles applied to highlighted text |
 | highlightTag | Node |  | Type of tag to wrap around highlighted matches; defaults to `mark` but can also be a React element (class or functional) |
