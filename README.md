@@ -46,6 +46,7 @@ And the `Highlighter` will mark all occurrences of search terms within the text:
 | highlightTag | Node |  | Type of tag to wrap around highlighted matches; defaults to `mark` but can also be a React element (class or functional) |
 | sanitize | Function |  | Process each search word and text to highlight before comparing (eg remove accents); signature `(text: string): string` |
 | searchWords | Array<String> | ✓ | Array of search words. The search terms are treated as RegExps unless `autoEscape` is set. |
+| textColors | Object |  | Object with mappings of words to css class to be applied. This prop supercedes `highlightClassName` if that prop is given. |
 | textToHighlight | String | ✓ | Text to highlight matches in |
 | unhighlightClassName | String |  | CSS class name applied to unhighlighted text |
 | unhighlightStyle | Object |  | Inline styles applied to unhighlighted text |
