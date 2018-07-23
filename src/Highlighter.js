@@ -19,6 +19,7 @@ Highlighter.propTypes = {
   ]),
   sanitize: PropTypes.func,
   searchWords: PropTypes.arrayOf(PropTypes.string).isRequired,
+  textColors: PropTypes.object,
   textToHighlight: PropTypes.string.isRequired,
   unhighlightClassName: PropTypes.string,
   unhighlightStyle: PropTypes.object
@@ -41,6 +42,7 @@ export default function Highlighter ({
   highlightTag = 'mark',
   sanitize,
   searchWords,
+  textColors,
   textToHighlight,
   unhighlightClassName = '',
   unhighlightStyle
@@ -66,9 +68,11 @@ export default function Highlighter ({
         if (chunk.highlight) {
           highlightCount++
 
+          const colorClass = textColors ? textColors[text] : undefined;
+
           const isActive = highlightCount === +activeIndex
 
-          highlightClassNames = `${highlightClassName} ${isActive ? activeClassName : ''}`
+          highlightClassNames = `${colorClass ? colorClass : highlightClassName} ${isActive ? activeClassName : ''}`
           highlightStyles = isActive === true && activeStyle != null
             ? Object.assign({}, highlightStyle, activeStyle)
             : highlightStyle
