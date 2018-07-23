@@ -68,7 +68,16 @@ export default function Highlighter ({
         if (chunk.highlight) {
           highlightCount++
 
-          const colorClass = textColors ? textColors[text] : undefined;
+          if(textColors){
+            textColors = Object.keys(textColors).reduce((colors, x) => {
+              return {
+                ...colors,
+                [x.toLowerCase()]: textColors[x]
+              }
+            }, {})
+          }
+
+          const colorClass = textColors ? textColors[text.toLowerCase()] : undefined;
 
           const isActive = highlightCount === +activeIndex
 
