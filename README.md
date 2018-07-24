@@ -41,12 +41,11 @@ And the `Highlighter` will mark all occurrences of search terms within the text:
 | className | String |  | CSS class name applied to the outer/wrapper `<span>` |
 | caseSensitive | Boolean |  | Search should be case sensitive; defaults to `false` |
 | findChunks | Function |  | Use a custom function to search for matching chunks. This makes it possible to use arbitrary logic when looking for matches. See the default `findChunks` function in [highlight-words-core](https://github.com/bvaughn/highlight-words-core) for signature. Have a look at the [custom findChunks example](https://codesandbox.io/s/k20x3ox31o) on how to use it. |
-| highlightClassName | String |  | CSS class name applied to highlighted text |
+| highlightClassName | String or Object |  | CSS class name applied to highlighted text or object mapping text to class. |
 | highlightStyle | Object |  | Inline styles applied to highlighted text |
 | highlightTag | Node |  | Type of tag to wrap around highlighted matches; defaults to `mark` but can also be a React element (class or functional) |
 | sanitize | Function |  | Process each search word and text to highlight before comparing (eg remove accents); signature `(text: string): string` |
 | searchWords | Array<String> | ✓ | Array of search words. The search terms are treated as RegExps unless `autoEscape` is set. |
-| textColors | Object |  | Object with mappings of words to css class to be applied. This prop supercedes `highlightClassName` if that prop is given. |
 | textToHighlight | String | ✓ | Text to highlight matches in |
 | unhighlightClassName | String |  | CSS class name applied to unhighlighted text |
 | unhighlightStyle | Object |  | Inline styles applied to unhighlighted text |
