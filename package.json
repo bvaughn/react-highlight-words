@@ -97,6 +97,7 @@
   },
   "dependencies": {
     "highlight-words-core": "^1.2.0",
+    "memoize-one": "^4.0.0",
     "prop-types": "^15.5.8"
   },
   "peerDependencies": {

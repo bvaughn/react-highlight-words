@@ -22,7 +22,8 @@ describe('Highlighter', () => {
     sanitize,
     searchWords,
     textToHighlight,
-    unhighlightStyle
+    unhighlightStyle,
+    highlightClassName
   }) {
     const node = render(
       <div>
@@ -33,7 +34,7 @@ describe('Highlighter', () => {
           autoEscape={autoEscape}
           caseSensitive={caseSensitive}
           findChunks={findChunks}
-          highlightClassName={HIGHLIGHT_CLASS}
+          highlightClassName={highlightClassName || HIGHLIGHT_CLASS}
           highlightStyle={highlightStyle}
           highlightTag={highlightTag}
           sanitize={sanitize}
@@ -300,5 +301,18 @@ describe('Highlighter', () => {
     })
     const matches2 = node2.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR)
     expect(matches2).to.have.length(0)
+  })
+
+  it('should render chucks with the appropriate classes', () => {
+    const node = getHighlighterChildren({
+      searchWords: ['This', 'is', 'text'],
+      textToHighlight: 'This is text',
+      highlightClassName: { This: 'this', is: 'is', text: 'text'}
+    })
+    const allMatches = node.querySelectorAll('mark')
+    expect(allMatches).to.have.length(3)
+    expect(allMatches[0].classList).to.contain('this')
+    expect(allMatches[1].classList).to.contain('is')
+    expect(allMatches[2].classList).to.contain('text')
   })
 })

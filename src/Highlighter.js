@@ -2,6 +2,7 @@
 import { findAll } from 'highlight-words-core'
 import PropTypes from 'prop-types'
 import React from 'react'
+import memoizeOne from 'memoize-one'
 
 Highlighter.propTypes = {
   activeClassName: PropTypes.string,
@@ -10,7 +11,10 @@ Highlighter.propTypes = {
   autoEscape: PropTypes.bool,
   className: PropTypes.string,
   findChunks: PropTypes.func,
-  highlightClassName: PropTypes.string,
+  highlightClassName: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string
+  ]),
   highlightStyle: PropTypes.object,
   highlightTag: PropTypes.oneOfType([
     PropTypes.node,
@@ -19,7 +23,6 @@ Highlighter.propTypes = {
   ]),
   sanitize: PropTypes.func,
   searchWords: PropTypes.arrayOf(PropTypes.string).isRequired,
-  textColors: PropTypes.object,
   textToHighlight: PropTypes.string.isRequired,
   unhighlightClassName: PropTypes.string,
   unhighlightStyle: PropTypes.object
@@ -42,7 +45,6 @@ export default function Highlighter ({
   highlightTag = 'mark',
   sanitize,
   searchWords,
-  textColors,
   textToHighlight,
   unhighlightClassName = '',
   unhighlightStyle
@@ -60,6 +62,16 @@ export default function Highlighter ({
   let highlightClassNames = ''
   let highlightStyles
 
+  const lowercaseProps = (obj) => {
+    return Object.keys(obj).reduce((classes, x) => {
+      return {
+        ...classes,
+        [x.toLowerCase()]: obj[x]
+      }
+    }, {})
+  }
+  const memoizedLowercaseProps = memoizeOne(lowercaseProps);
+
   return (
     <span className={className}>
       {chunks.map((chunk, index) => {
@@ -68,20 +80,23 @@ export default function Highlighter ({
         if (chunk.highlight) {
           highlightCount++
 
-          if(textColors){
-            textColors = Object.keys(textColors).reduce((colors, x) => {
-              return {
-                ...colors,
-                [x.toLowerCase()]: textColors[x]
-              }
-            }, {})
+          let highlightClass;
+          if(typeof highlightClassName === 'object'){
+            if(!caseSensitive){
+              highlightClassName = memoizedLowercaseProps(highlightClassName);
+              highlightClass = highlightClassName[text.toLowerCase()];
+            }
+            else{
+              highlightClass = highlightClassName[text];
+            }
           }
-
-          const colorClass = textColors ? textColors[text.toLowerCase()] : undefined;
+          else {
+            highlightClass = highlightClassName;
+          }
 
           const isActive = highlightCount === +activeIndex
 
-          highlightClassNames = `${colorClass ? colorClass : highlightClassName} ${isActive ? activeClassName : ''}`
+          highlightClassNames = `${highlightClass} ${isActive ? activeClassName : ''}`
           highlightStyles = isActive === true && activeStyle != null
             ? Object.assign({}, highlightStyle, activeStyle)
             : highlightStyle
