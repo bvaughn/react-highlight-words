@@ -62,13 +62,12 @@ export default function Highlighter ({
   let highlightClassNames = ''
   let highlightStyles
 
-  const lowercaseProps = (obj) => {
-    return Object.keys(obj).reduce((classes, x) => {
-      return {
-        ...classes,
-        [x.toLowerCase()]: obj[x]
-      }
-    }, {})
+  const lowercaseProps = object => {
+    const mapped = {}
+    for (let key in object) {
+      mapped[key.toLowerCase()] = object[key]
+    }
+    return mapped
   }
   const memoizedLowercaseProps = memoizeOne(lowercaseProps)
 
