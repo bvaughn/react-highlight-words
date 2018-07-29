@@ -70,7 +70,7 @@ export default function Highlighter ({
       }
     }, {})
   }
-  const memoizedLowercaseProps = memoizeOne(lowercaseProps);
+  const memoizedLowercaseProps = memoizeOne(lowercaseProps)
 
   return (
     <span className={className}>
@@ -80,18 +80,16 @@ export default function Highlighter ({
         if (chunk.highlight) {
           highlightCount++
 
-          let highlightClass;
-          if(typeof highlightClassName === 'object'){
-            if(!caseSensitive){
-              highlightClassName = memoizedLowercaseProps(highlightClassName);
-              highlightClass = highlightClassName[text.toLowerCase()];
+          let highlightClass
+          if (typeof highlightClassName === 'object') {
+            if (!caseSensitive) {
+              highlightClassName = memoizedLowercaseProps(highlightClassName)
+              highlightClass = highlightClassName[text.toLowerCase()]
+            } else {
+              highlightClass = highlightClassName[text]
             }
-            else{
-              highlightClass = highlightClassName[text];
-            }
-          }
-          else {
-            highlightClass = highlightClassName;
+          } else {
+            highlightClass = highlightClassName
           }
 
           const isActive = highlightCount === +activeIndex

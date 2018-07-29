@@ -307,7 +307,7 @@ describe('Highlighter', () => {
     const node = getHighlighterChildren({
       searchWords: ['This', 'is', 'text'],
       textToHighlight: 'This is text',
-      highlightClassName: { This: 'this', is: 'is', text: 'text'}
+      highlightClassName: {This: 'this', is: 'is', text: 'text'}
     })
     const allMatches = node.querySelectorAll('mark')
     expect(allMatches).to.have.length(3)
