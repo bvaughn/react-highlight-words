@@ -303,7 +303,7 @@ describe('Highlighter', () => {
     expect(matches2).to.have.length(0)
   })
 
-  it('should render chucks with the appropriate classes', () => {
+  it('should render chucks with the appropriate classes when case-insensitive', () => {
     const node = getHighlighterChildren({
       searchWords: ['This', 'is', 'text'],
       textToHighlight: 'This is text',
@@ -314,5 +314,19 @@ describe('Highlighter', () => {
     expect(allMatches[0].classList).to.contain('this')
     expect(allMatches[1].classList).to.contain('is')
     expect(allMatches[2].classList).to.contain('text')
+  })
+
+  it('should render chucks with the appropriate classes when case-sensitive', () => {
+    const node = getHighlighterChildren({
+      caseSensitive: true,
+      searchWords: ['This', 'is', 'TEXT'],
+      textToHighlight: 'This is TEXT',
+      highlightClassName: {this: 'this', is: 'is', text: 'text'}
+    })
+    const allMatches = node.querySelectorAll('mark')
+    expect(allMatches).to.have.length(3)
+    expect(allMatches[0].classList).not.to.contain('this')
+    expect(allMatches[1].classList).to.contain('is')
+    expect(allMatches[2].classList).not.to.contain('text')
   })
 })
