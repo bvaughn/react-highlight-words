@@ -138,6 +138,18 @@ describe('Highlighter', () => {
     expect(node.children[2].textContent).to.equal('text')
   })
 
+  it('should handle Regex searchText', () => {
+    const node = getHighlighterChildren({
+      searchWords: [/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/, 'This'],
+      textToHighlight: 'This is my phone (123) 456 7899'
+    })
+    expect(node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR).length).to.equal(2)
+    expect(node.textContent).to.eql('This is my phone (123) 456 7899')
+    expect(node.children[0].textContent).to.equal('This')
+    expect(node.children[1].textContent).to.equal(' is my phone ')
+    expect(node.children[2].textContent).to.equal('(123) 456 7899')
+  })
+
   it('should match terms in a case insensitive way but show their case-sensitive representation', () => {
     const node = getHighlighterChildren({
       searchWords: ['this'],

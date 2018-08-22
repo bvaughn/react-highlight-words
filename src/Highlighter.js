@@ -22,7 +22,12 @@ Highlighter.propTypes = {
     PropTypes.string
   ]),
   sanitize: PropTypes.func,
-  searchWords: PropTypes.arrayOf(PropTypes.string).isRequired,
+  searchWords: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(RegExp)
+    ])
+  ).isRequired,
   textToHighlight: PropTypes.string.isRequired,
   unhighlightClassName: PropTypes.string,
   unhighlightStyle: PropTypes.object
@@ -32,7 +37,7 @@ Highlighter.propTypes = {
  * Highlights all occurrences of search terms (searchText) within a string (textToHighlight).
  * This function returns an array of strings and <span>s (wrapping highlighted words).
  */
-export default function Highlighter ({
+export default function Highlighter({
   activeClassName = '',
   activeIndex = -1,
   activeStyle,
