@@ -37,7 +37,7 @@ Highlighter.propTypes = {
  * Highlights all occurrences of search terms (searchText) within a string (textToHighlight).
  * This function returns an array of strings and <span>s (wrapping highlighted words).
  */
-export default function Highlighter({
+export default function Highlighter ({
   activeClassName = '',
   activeIndex = -1,
   activeStyle,
