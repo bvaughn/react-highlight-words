@@ -7,8 +7,6 @@ module.exports = {
   ],
   output: {
     path: 'dist',
-    filename: '[name].js',
-    libraryTarget: 'commonjs2',
     library: 'react-highlight-words'
   },
   plugins: [

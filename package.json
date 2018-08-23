@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm run build:website && npm run build:dist",
     "build:website": "npm run clean:website && cross-env NODE_ENV=production webpack --config webpack.config.website.js -p --bail",
-    "build:dist": "npm run clean:dist && cross-env NODE_ENV=production webpack --config webpack.config.dist.js --bail",
+    "build:dist": "npm run clean:dist && cross-env NODE_ENV=production webpack --config webpack.config.dist.cjs.js --bail && cross-env NODE_ENV=production webpack --config webpack.config.dist.umd.js --bail",
     "clean": "npm run clean:website && npm run clean:dist",
     "clean:website": "rimraf build",
     "clean:dist": "rimraf dist",
@@ -80,6 +80,7 @@
     "karma-spec-reporter": "0.0.23",
     "karma-webpack": "^1.7.0",
     "latinize": "^0.2.0",
+    "lodash": "^4.17.10",
     "mocha": "^2.3.4",
     "phantomjs2": "^2.0.2",
     "react": "^15.1.0",
