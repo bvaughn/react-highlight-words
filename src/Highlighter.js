@@ -108,8 +108,6 @@ export default function Highlighter ({
               className={highlightClassNames}
               key={index}
               style={highlightStyles}
-              chunk={chunk}
-              chunkIndex={index}
               highlightIndex={highlightCount}
             >
               {text}
