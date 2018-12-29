@@ -50,7 +50,27 @@ And the `Highlighter` will mark all occurrences of search terms within the text:
 | unhighlightClassName | String |  | CSS class name applied to unhighlighted text |
 | unhighlightStyle | Object |  | Inline styles applied to unhighlighted text |
 
+## Custom highlight tag
+
+By default this component uses an HTML Mark Text element (`<mark>`) to wrap matched text, but you can inject a custom tag using the `highlightTag` property. This tag should be a React component that accepts the following properties:
+
+| Property | Type | Description |
+|:---|:---|:---|
+| children | String | Text to be highlighted |
+| highlightIndex | Number | Index of matched text |
+
+For example:
+```js
+const Highlight = ({ children, highlightIndex }) => (
+  <strong className="highlighted-text">{children}</strong>
+);
+```
+
 ## Installation
+```
+yarn add react-highlight-words
+```
+
 ```
 npm i --save react-highlight-words
 ```
