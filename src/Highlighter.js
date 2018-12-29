@@ -106,6 +106,7 @@ export default function Highlighter ({
           return (
             <HighlightTag
               className={highlightClassNames}
+              highlightIndex={highlightCount}
               key={index}
               style={highlightStyles}
             >
