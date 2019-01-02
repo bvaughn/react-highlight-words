@@ -49,6 +49,22 @@ describe('Highlighter', () => {
     return node.children[0]
   }
 
+  let consoleError
+
+  beforeEach(() => {
+    consoleError = console.error
+
+    // React DEV warnings should fail tests
+    console.error = function (message) {
+      consoleError.apply(console, arguments)
+      throw new Error(message)
+    }
+  })
+
+  afterEach(() => {
+    console.error = consoleError
+  })
+
   it('should properly handle empty searchText', () => {
     const emptyValues = [[], ['']]
     emptyValues.forEach((emptyValue) => {
@@ -211,16 +227,15 @@ describe('Highlighter', () => {
   it('should support class components via :highlightTag', () => {
     class HighlightTag extends React.Component {
       static propTypes = {
-        children: PropTypes.any
+        children: PropTypes.any,
+        highlightIndex: PropTypes.number
       };
 
       render () {
-        const { children, ...rest } = this.props
+        const { highlightIndex, ...rest } = this.props
 
         return (
-          <span {...rest}>
-            {children}
-          </span>
+          <span {...rest} />
         )
       }
     }
@@ -236,10 +251,8 @@ describe('Highlighter', () => {
   })
 
   it('should support stateless functional components via :highlightTag', () => {
-    const HighlightTag = ({ children, ...rest }) => (
-      <span {...rest}>
-        {children}
-      </span>
+    const HighlightTag = ({ highlightIndex, ...rest }) => (
+      <span {...rest} />
     )
 
     const node = getHighlighterChildren({
