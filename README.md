@@ -49,6 +49,7 @@ And the `Highlighter` will mark all occurrences of search terms within the text:
 | textToHighlight | String | ✓ | Text to highlight matches in |
 | unhighlightClassName | String |  | CSS class name applied to unhighlighted text |
 | unhighlightStyle | Object |  | Inline styles applied to unhighlighted text |
+| * | any | | Any other props (such as `title` or `data-*`) are applied to the outer/wrapper `<span>` |
 
 ## Custom highlight tag
 

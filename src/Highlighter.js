@@ -52,7 +52,8 @@ export default function Highlighter ({
   searchWords,
   textToHighlight,
   unhighlightClassName = '',
-  unhighlightStyle
+  unhighlightStyle,
+  ...remainingProps
 }) {
   const chunks = findAll({
     autoEscape,
@@ -78,6 +79,7 @@ export default function Highlighter ({
 
   return createElement('span', {
     className,
+    ...remainingProps,
     children: chunks.map((chunk, index) => {
       const text = textToHighlight.substr(chunk.start, chunk.end - chunk.start)
 

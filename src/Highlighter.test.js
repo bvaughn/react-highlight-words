@@ -23,7 +23,10 @@ describe('Highlighter', () => {
     searchWords,
     textToHighlight,
     unhighlightStyle,
-    highlightClassName
+    highlightClassName,
+    className,
+    'data-test-attribute': dataTestAttribute,
+    title
   }) {
     const node = render(
       <div>
@@ -42,6 +45,9 @@ describe('Highlighter', () => {
           textToHighlight={textToHighlight}
           unhighlightClassName={UNHIGHLIGHT_CLASS}
           unhighlightStyle={unhighlightStyle}
+          title={title}
+          className={className}
+          data-test-attribute={dataTestAttribute}
         />
       </div>
     )
@@ -353,5 +359,21 @@ describe('Highlighter', () => {
     expect(allMatches[0].classList).not.to.contain('this')
     expect(allMatches[1].classList).to.contain('is')
     expect(allMatches[2].classList).not.to.contain('text')
+  })
+
+  it('should add unrecognised props as attributes to wrapper span', () => {
+    const node = getHighlighterChildren({
+      searchWords: ['This', 'is', 'TEXT'],
+      textToHighlight: 'This is TEXT',
+      'data-test-attribute': 'data attribute content',
+      title: 'span title',
+      className: 'test-class'
+    })
+
+    const matches = node.querySelectorAll('.test-class')
+    expect(matches).to.have.length(0)
+    expect(node.title).to.equal('span title')
+    expect(node.classList.contains('test-class')).to.equal(true)
+    expect(node.dataset.testAttribute).to.equal('data attribute content')
   })
 })
