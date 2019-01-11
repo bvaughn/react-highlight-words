@@ -24,9 +24,7 @@ describe('Highlighter', () => {
     textToHighlight,
     unhighlightStyle,
     highlightClassName,
-    className,
-    'data-test-attribute': dataTestAttribute,
-    title
+    ...rest
   }) {
     const node = render(
       <div>
@@ -45,9 +43,7 @@ describe('Highlighter', () => {
           textToHighlight={textToHighlight}
           unhighlightClassName={UNHIGHLIGHT_CLASS}
           unhighlightStyle={unhighlightStyle}
-          title={title}
-          className={className}
-          data-test-attribute={dataTestAttribute}
+          {...rest}
         />
       </div>
     )
@@ -361,7 +357,7 @@ describe('Highlighter', () => {
     expect(allMatches[2].classList).not.to.contain('text')
   })
 
-  it('should add unrecognised props as attributes to wrapper span', () => {
+  it('should spread additional custom props onto the wrapper span', () => {
     const node = getHighlighterChildren({
       searchWords: ['This', 'is', 'TEXT'],
       textToHighlight: 'This is TEXT',
