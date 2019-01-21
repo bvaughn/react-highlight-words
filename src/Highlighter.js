@@ -10,6 +10,7 @@ Highlighter.propTypes = {
   activeStyle: PropTypes.object,
   autoEscape: PropTypes.bool,
   className: PropTypes.string,
+  combineAdjacentChunks: PropTypes.bool,
   findChunks: PropTypes.func,
   highlightClassName: PropTypes.oneOfType([
     PropTypes.object,
@@ -44,6 +45,7 @@ export default function Highlighter ({
   autoEscape,
   caseSensitive = false,
   className,
+  combineAdjacentChunks,
   findChunks,
   highlightClassName = '',
   highlightStyle = {},
@@ -58,6 +60,7 @@ export default function Highlighter ({
   const chunks = findAll({
     autoEscape,
     caseSensitive,
+    combineAdjacentChunks,
     findChunks,
     sanitize,
     searchWords,
