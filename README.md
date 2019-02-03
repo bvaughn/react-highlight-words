@@ -35,7 +35,7 @@ And the `Highlighter` will mark all occurrences of search terms within the text:
 | Property | Type | Required? | Description |
 |:---|:---|:---:|:---|
 | activeClassName | String |  | The class name to be applied to an active match. Use along with `activeIndex` |
-| activeIndex | String |  | Specify the match index that should be actively highlighted. Use along with `activeClassName` |
+| activeIndex | Number |  | Specify the match index that should be actively highlighted. Use along with `activeClassName` |
 | activeStyle | Object |  | The inline style to be applied to an active match. Use along with `activeIndex` |
 | autoEscape | Boolean |  | Escape characters in `searchWords` which are meaningful in regular expressions |
 | className | String |  | CSS class name applied to the outer/wrapper `<span>` |
