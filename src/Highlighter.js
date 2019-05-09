@@ -56,6 +56,7 @@ export default function Highlighter ({
   ...rest
 }) {
   const chunks = findAll({
+	activeIndex,
     autoEscape,
     caseSensitive,
     findChunks,
