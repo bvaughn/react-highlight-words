@@ -43,7 +43,7 @@ And the `Highlighter` will mark all occurrences of search terms within the text:
 | findChunks | Function |  | Use a custom function to search for matching chunks. This makes it possible to use arbitrary logic when looking for matches. See the default `findChunks` function in [highlight-words-core](https://github.com/bvaughn/highlight-words-core) for signature. Have a look at the [custom findChunks example](https://codesandbox.io/s/k20x3ox31o) on how to use it. |
 | highlightClassName | String or Object |  | CSS class name applied to highlighted text or object mapping search term matches to class names. |
 | highlightStyle | Object |  | Inline styles applied to highlighted text |
-| highlightTag | Node |  | Type of tag to wrap around highlighted matches; defaults to `mark` but can also be a React element (class or functional) |
+| highlightTag | String or Component |  | Type of tag to wrap around highlighted matches; defaults to `mark` but can also be a React component (class or functional) |
 | sanitize | Function |  | Process each search word and text to highlight before comparing (eg remove accents); signature `(text: string): string` |
 | searchWords | Array<String &#124; RegExp> | ✓ | Array of search words. String search terms are automatically cast to RegExps unless `autoEscape` is true. |
 | textToHighlight | String | ✓ | Text to highlight matches in |
