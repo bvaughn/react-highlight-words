@@ -10,7 +10,7 @@ To use it, just provide it with an array of search terms and a body of text to h
 
 [Try this example in Code Sandbox.](https://codesandbox.io/s/5v8yqoxv7k)
 
-```html
+```jsx
 import React from "react";
 import ReactDOM from "react-dom";
 import Highlighter from "react-highlight-words";
