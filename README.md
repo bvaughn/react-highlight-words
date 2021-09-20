@@ -73,7 +73,7 @@ yarn add react-highlight-words
 ```
 
 ```
-npm i --save react-highlight-words
+npm i react-highlight-words
 ```
 
 ## License
