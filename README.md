@@ -67,6 +67,9 @@ const Highlight = ({ children, highlightIndex }) => (
 );
 ```
 
+## Custom highlight util
+You can now use `findAll` util from [highlight-words-core](https://www.npmjs.com/package/highlight-words-core#findall)
+
 ## Installation
 ```
 yarn add react-highlight-words
