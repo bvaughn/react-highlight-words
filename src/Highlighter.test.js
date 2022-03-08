@@ -22,7 +22,7 @@ describe('Highlighter', () => {
     sanitize,
     searchWords,
     textToHighlight,
-    optionalRender,
+    unhighlightTag,
     unhighlightStyle,
     highlightClassName,
     ...rest
@@ -42,6 +42,7 @@ describe('Highlighter', () => {
           sanitize={sanitize}
           searchWords={searchWords}
           textToHighlight={textToHighlight}
+          unhighlightTag={unhighlightTag}
           unhighlightClassName={UNHIGHLIGHT_CLASS}
           unhighlightStyle={unhighlightStyle}
           {...rest}
