@@ -22,6 +22,7 @@ describe('Highlighter', () => {
     sanitize,
     searchWords,
     textToHighlight,
+    optionalRender,
     unhighlightStyle,
     highlightClassName,
     ...rest
@@ -371,5 +372,18 @@ describe('Highlighter', () => {
     expect(node.title).to.equal('span title')
     expect(node.classList.contains('test-class')).to.equal(true)
     expect(node.dataset.testAttribute).to.equal('data attribute content')
+  })
+
+  it('should use :unhighlightTag if provided', () => {
+    const node = getHighlighterChildren({
+      searchWords: ['This', 'is', 'TEXT'],
+      textToHighlight: 'Hello World',
+      unhighlightTag: 'div',
+      unhighlightClassName: UNHIGHLIGHT_CLASS
+    })
+
+    const matches = node.querySelectorAll(`.${UNHIGHLIGHT_CLASS}`)
+    expect(matches).to.have.length(1)
+    expect(matches[0].nodeName).to.equal('DIV')
   })
 })

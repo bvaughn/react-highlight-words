@@ -48,6 +48,7 @@ And the `Highlighter` will mark all occurrences of search terms within the text:
 | sanitize | Function |  | Process each search word and text to highlight before comparing (eg remove accents); signature `(text: string): string` |
 | searchWords | Array<String &#124; RegExp> | ✓ | Array of search words. String search terms are automatically cast to RegExps unless `autoEscape` is true. |
 | textToHighlight | String | ✓ | Text to highlight matches in |
+| unhighlightTag | Node or String |  | Type of HTML tag applied to unhighlighted parts. Defaults to `<span>` |
 | unhighlightClassName | String |  | CSS class name applied to unhighlighted text |
 | unhighlightStyle | Object |  | Inline styles applied to unhighlighted text |
 | * | any | | Any other props (such as `title` or `data-*`) are applied to the outer/wrapper `<span>` |

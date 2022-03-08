@@ -29,6 +29,11 @@ Highlighter.propTypes = {
     ])
   ).isRequired,
   textToHighlight: PropTypes.string.isRequired,
+  unhighlightTag: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.func,
+    PropTypes.string
+  ]),
   unhighlightClassName: PropTypes.string,
   unhighlightStyle: PropTypes.object
 }
@@ -51,6 +56,7 @@ export default function Highlighter ({
   sanitize,
   searchWords,
   textToHighlight,
+  unhighlightTag = 'span',
   unhighlightClassName = '',
   unhighlightStyle,
   ...rest
@@ -120,7 +126,7 @@ export default function Highlighter ({
 
         return createElement(HighlightTag, props)
       } else {
-        return createElement('span', {
+        return createElement(unhighlightTag, {
           children: text,
           className: unhighlightClassName,
           key: index,
