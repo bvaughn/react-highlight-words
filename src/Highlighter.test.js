@@ -9,6 +9,7 @@ describe('Highlighter', () => {
   const HIGHLIGHT_CLASS = 'customHighlightClass'
   const HIGHLIGHT_QUERY_SELECTOR = `.${HIGHLIGHT_CLASS}`
   const UNHIGHLIGHT_CLASS = 'customUnhighlightClass'
+  const UNHIGHLIGHT_QUERY_SELECTOR = `.${UNHIGHLIGHT_CLASS}`;
 
   function getHighlighterChildren ({
     autoEscape,
@@ -386,5 +387,46 @@ describe('Highlighter', () => {
     const matches = node.querySelectorAll(`.${UNHIGHLIGHT_CLASS}`)
     expect(matches).to.have.length(1)
     expect(matches[0].nodeName).to.equal('DIV')
+  })
+
+  it('should support class components via :unhighlightTag', () => {
+    class UnHighlightTag extends React.Component {
+      static propTypes = {
+        children: PropTypes.any,
+        highlightIndex: PropTypes.number
+      };
+
+      render () {
+        const { highlightIndex, ...rest } = this.props
+
+        return (
+          <a {...rest} />
+        )
+      }
+    }
+
+    const node = getHighlighterChildren({
+      autoEscape: true,
+      unhighlightTag: UnHighlightTag,
+      searchWords: ['text'],
+      textToHighlight: 'This is text'
+    })
+    const matches = node.querySelectorAll(UNHIGHLIGHT_QUERY_SELECTOR)
+    expect(matches[0].tagName).to.equal('A')
+  })
+
+  it('should support stateless functional components via :highlightTag', () => {
+    const UnHighlightTag = ({ highlightIndex, ...rest }) => (
+      <a {...rest} />
+    )
+
+    const node = getHighlighterChildren({
+      autoEscape: true,
+      unhighlightTag: UnHighlightTag,
+      searchWords: ['text'],
+      textToHighlight: 'This is text'
+    })
+    const matches = node.querySelectorAll(UNHIGHLIGHT_QUERY_SELECTOR)
+    expect(matches[0].tagName).to.equal('A')
   })
 })
