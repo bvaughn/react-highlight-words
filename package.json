@@ -14,7 +14,6 @@
     "lint": "standard",
     "prebuild": "npm run lint",
     "postpublish": "npm run deploy",
-    "prepublish": "npm run build",
     "start": "webpack-dev-server --hot --inline --config webpack.config.dev.js",
     "test": "cross-env NODE_ENV=test karma start",
     "watch": "watch 'clear && npm run lint -s && npm run test -s' src"
@@ -83,11 +82,9 @@
     "lodash": "^4.17.10",
     "mocha": "^2.3.4",
     "phantomjs2": "^2.0.2",
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0",
-    "react-transform-catch-errors": "^1.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
     "react-transform-hmr": "^1.0.1",
-    "redbox-react": "1.2.6",
     "rimraf": "^2.4.4",
     "standard": "^5.4.1",
     "style-loader": "^0.13.0",
@@ -102,6 +99,6 @@
     "prop-types": "^15.5.8"
   },
   "peerDependencies": {
-    "react": "^0.14.0 || ^15.0.0 || ^16.0.0-0 || ^17.0.0-0"
+    "react": "^0.14.0 || ^15.0.0 || ^16.0.0-0 || ^17.0.0-0 || ^18.0.0-0"
   }
 }

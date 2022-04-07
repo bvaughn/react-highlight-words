@@ -19,6 +19,6 @@ module.exports = function (config) {
       require('karma-sourcemap-loader'),
       require('karma-phantomjs2-launcher')
     ],
-    webpack: require('./webpack.config.dev')
+    webpack: require('./webpack.config.test')
   })
 }

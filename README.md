@@ -12,17 +12,18 @@ To use it, just provide it with an array of search terms and a body of text to h
 
 ```jsx
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import Highlighter from "react-highlight-words";
 
-ReactDOM.render(
+
+const root = createRoot(document.getElementById("root"));
+root.render(
   <Highlighter
     highlightClassName="YourHighlightClass"
     searchWords={["and", "or", "the"]}
     autoEscape={true}
     textToHighlight="The dog is chasing the cat. Or perhaps they're just playing?"
-  />,
-  document.getElementById("root")
+  />
 );
 ```
 
