@@ -9,7 +9,7 @@ describe('Highlighter', () => {
   const HIGHLIGHT_CLASS = 'customHighlightClass'
   const HIGHLIGHT_QUERY_SELECTOR = `.${HIGHLIGHT_CLASS}`
   const UNHIGHLIGHT_CLASS = 'customUnhighlightClass'
-  const UNHIGHLIGHT_QUERY_SELECTOR = `.${UNHIGHLIGHT_CLASS}`;
+  const UNHIGHLIGHT_QUERY_SELECTOR = `.${UNHIGHLIGHT_CLASS}`
 
   function getHighlighterChildren ({
     autoEscape,
@@ -234,7 +234,7 @@ describe('Highlighter', () => {
       static propTypes = {
         children: PropTypes.any,
         highlightIndex: PropTypes.number
-      };
+      }
 
       render () {
         const { highlightIndex, ...rest } = this.props
@@ -283,7 +283,7 @@ describe('Highlighter', () => {
   })
 
   it('should apply activeStyle to the match specified by activeIndex', () => {
-    const activeStyle = {color: 'red'}
+    const activeStyle = { color: 'red' }
     const node = getHighlighterChildren({
       activeIndex: 1,
       activeStyle,
@@ -310,8 +310,8 @@ describe('Highlighter', () => {
     const node = getHighlighterChildren({
       findChunks: () => (
         [
-          {start: 0, end: 1},
-          {start: 5, end: 7}
+          { start: 0, end: 1 },
+          { start: 5, end: 7 }
         ]
       ),
       searchWords: ['xxx'],
@@ -337,7 +337,7 @@ describe('Highlighter', () => {
     const node = getHighlighterChildren({
       searchWords: ['This', 'is', 'text'],
       textToHighlight: 'This is text',
-      highlightClassName: {This: 'this', is: 'is', text: 'text'}
+      highlightClassName: { This: 'this', is: 'is', text: 'text' }
     })
     const allMatches = node.querySelectorAll('mark')
     expect(allMatches).to.have.length(3)
@@ -351,7 +351,7 @@ describe('Highlighter', () => {
       caseSensitive: true,
       searchWords: ['This', 'is', 'TEXT'],
       textToHighlight: 'This is TEXT',
-      highlightClassName: {this: 'this', is: 'is', text: 'text'}
+      highlightClassName: { this: 'this', is: 'is', text: 'text' }
     })
     const allMatches = node.querySelectorAll('mark')
     expect(allMatches).to.have.length(3)
@@ -394,7 +394,7 @@ describe('Highlighter', () => {
       static propTypes = {
         children: PropTypes.any,
         highlightIndex: PropTypes.number
-      };
+      }
 
       render () {
         const { highlightIndex, ...rest } = this.props
