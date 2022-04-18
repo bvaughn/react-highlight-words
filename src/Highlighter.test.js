@@ -9,6 +9,7 @@ describe('Highlighter', () => {
   const HIGHLIGHT_CLASS = 'customHighlightClass'
   const HIGHLIGHT_QUERY_SELECTOR = `.${HIGHLIGHT_CLASS}`
   const UNHIGHLIGHT_CLASS = 'customUnhighlightClass'
+  const UNHIGHLIGHT_QUERY_SELECTOR = `.${UNHIGHLIGHT_CLASS}`
 
   function getHighlighterChildren ({
     autoEscape,
@@ -22,6 +23,7 @@ describe('Highlighter', () => {
     sanitize,
     searchWords,
     textToHighlight,
+    unhighlightTag,
     unhighlightStyle,
     highlightClassName,
     ...rest
@@ -41,6 +43,7 @@ describe('Highlighter', () => {
           sanitize={sanitize}
           searchWords={searchWords}
           textToHighlight={textToHighlight}
+          unhighlightTag={unhighlightTag}
           unhighlightClassName={UNHIGHLIGHT_CLASS}
           unhighlightStyle={unhighlightStyle}
           {...rest}
@@ -231,7 +234,7 @@ describe('Highlighter', () => {
       static propTypes = {
         children: PropTypes.any,
         highlightIndex: PropTypes.number
-      };
+      }
 
       render () {
         const { highlightIndex, ...rest } = this.props
@@ -280,7 +283,7 @@ describe('Highlighter', () => {
   })
 
   it('should apply activeStyle to the match specified by activeIndex', () => {
-    const activeStyle = {color: 'red'}
+    const activeStyle = { color: 'red' }
     const node = getHighlighterChildren({
       activeIndex: 1,
       activeStyle,
@@ -307,8 +310,8 @@ describe('Highlighter', () => {
     const node = getHighlighterChildren({
       findChunks: () => (
         [
-          {start: 0, end: 1},
-          {start: 5, end: 7}
+          { start: 0, end: 1 },
+          { start: 5, end: 7 }
         ]
       ),
       searchWords: ['xxx'],
@@ -334,7 +337,7 @@ describe('Highlighter', () => {
     const node = getHighlighterChildren({
       searchWords: ['This', 'is', 'text'],
       textToHighlight: 'This is text',
-      highlightClassName: {This: 'this', is: 'is', text: 'text'}
+      highlightClassName: { This: 'this', is: 'is', text: 'text' }
     })
     const allMatches = node.querySelectorAll('mark')
     expect(allMatches).to.have.length(3)
@@ -348,7 +351,7 @@ describe('Highlighter', () => {
       caseSensitive: true,
       searchWords: ['This', 'is', 'TEXT'],
       textToHighlight: 'This is TEXT',
-      highlightClassName: {this: 'this', is: 'is', text: 'text'}
+      highlightClassName: { this: 'this', is: 'is', text: 'text' }
     })
     const allMatches = node.querySelectorAll('mark')
     expect(allMatches).to.have.length(3)
@@ -371,5 +374,59 @@ describe('Highlighter', () => {
     expect(node.title).to.equal('span title')
     expect(node.classList.contains('test-class')).to.equal(true)
     expect(node.dataset.testAttribute).to.equal('data attribute content')
+  })
+
+  it('should use :unhighlightTag if provided', () => {
+    const node = getHighlighterChildren({
+      searchWords: ['This', 'is', 'TEXT'],
+      textToHighlight: 'Hello World',
+      unhighlightTag: 'div',
+      unhighlightClassName: UNHIGHLIGHT_CLASS
+    })
+
+    const matches = node.querySelectorAll(`.${UNHIGHLIGHT_CLASS}`)
+    expect(matches).to.have.length(1)
+    expect(matches[0].nodeName).to.equal('DIV')
+  })
+
+  it('should support class components via :unhighlightTag', () => {
+    class UnHighlightTag extends React.Component {
+      static propTypes = {
+        children: PropTypes.any,
+        highlightIndex: PropTypes.number
+      }
+
+      render () {
+        const { highlightIndex, ...rest } = this.props
+
+        return (
+          <a {...rest} />
+        )
+      }
+    }
+
+    const node = getHighlighterChildren({
+      autoEscape: true,
+      unhighlightTag: UnHighlightTag,
+      searchWords: ['text'],
+      textToHighlight: 'This is text'
+    })
+    const matches = node.querySelectorAll(UNHIGHLIGHT_QUERY_SELECTOR)
+    expect(matches[0].tagName).to.equal('A')
+  })
+
+  it('should support stateless functional components via :highlightTag', () => {
+    const UnHighlightTag = ({ highlightIndex, ...rest }) => (
+      <a {...rest} />
+    )
+
+    const node = getHighlighterChildren({
+      autoEscape: true,
+      unhighlightTag: UnHighlightTag,
+      searchWords: ['text'],
+      textToHighlight: 'This is text'
+    })
+    const matches = node.querySelectorAll(UNHIGHLIGHT_QUERY_SELECTOR)
+    expect(matches[0].tagName).to.equal('A')
   })
 })
