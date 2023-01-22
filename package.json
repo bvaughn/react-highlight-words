@@ -13,6 +13,7 @@
     "deploy": "gh-pages -d build",
     "lint": "standard",
     "prebuild": "npm run lint",
+    "prepublishOnly": "npm run build",
     "postpublish": "npm run deploy",
     "start": "webpack-dev-server --hot --inline --config webpack.config.dev.js",
     "test": "cross-env NODE_ENV=test karma start",
