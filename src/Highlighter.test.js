@@ -415,7 +415,7 @@ describe('Highlighter', () => {
     expect(matches[0].tagName).to.equal('A')
   })
 
-  it('should support stateless functional components via :highlightTag', () => {
+  it('should support stateless functional components via :unhighlightTag', () => {
     const UnHighlightTag = ({ highlightIndex, ...rest }) => (
       <a {...rest} />
     )
