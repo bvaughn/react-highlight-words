@@ -1,4 +1,6 @@
 const path = require('path')
+const _ = require('lodash')
+const pkg = require('./package.json')
 
 module.exports = {
   devtool: 'source-map',
@@ -11,9 +13,13 @@ module.exports = {
   },
   plugins: [
   ],
-  externals: {
-    'react': 'react'
-  },
+  externals: _.chain({})
+      .assign(
+        pkg.dependencies,
+        pkg.peerDependencies
+      )
+      .mapValues((value, key) => key)
+      .value(),
   module: {
     loaders: [
       {
