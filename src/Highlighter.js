@@ -87,7 +87,7 @@ export default function Highlighter ({
     className,
     ...rest,
     children: chunks.map((chunk, index) => {
-      const text = textToHighlight.substr(chunk.start, chunk.end - chunk.start)
+      const text = textToHighlight.substring(chunk.start, chunk.end)
 
       if (chunk.highlight) {
         highlightIndex++
