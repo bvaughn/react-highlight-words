@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 
 /**
  * Helper method for testing components that may use Portal and thus require cleanup.
@@ -6,16 +6,17 @@ import ReactDOM from 'react-dom'
  * Note that rendering twice within the same test method will update the same element (rather than recreate it).
  */
 export function render (markup) {
-  if (!render._mountNode) {
-    render._mountNode = document.createElement('div')
-
-    // Unless we attach the mount-node to body, getBoundingClientRect() won't work
-    document.body.appendChild(render._mountNode)
+  if (!render._root) {
+    const div = document.createElement('div')
+    document.body.appendChild(div)
+    const root = createRoot(div)
+    render._root = root
+    render._mountNode = div
 
     afterEach(render.unmount)
   }
 
-  return ReactDOM.render(markup, render._mountNode)
+  render._root.render(markup)
 }
 
 /**
@@ -23,11 +24,10 @@ export function render (markup) {
  * Use this method manually to test the componentWillUnmount() lifecycle method.
  */
 render.unmount = function () {
-  if (render._mountNode) {
-    ReactDOM.unmountComponentAtNode(render._mountNode)
-
+  if (render._root) {
+    render._root.unmount()
     document.body.removeChild(render._mountNode)
-
+    render._root = null
     render._mountNode = null
   }
 }
