@@ -76,7 +76,7 @@ export default class HighlighterExample extends Component {
         <Highlighter
           activeClassName={styles.Active}
           activeIndex={activeIndex}
-          autoEscape={true}
+          autoEscape
           caseSensitive={caseSensitive}
           highlightClassName={styles.Highlight}
           highlightStyle={{ fontWeight: 'normal' }}
