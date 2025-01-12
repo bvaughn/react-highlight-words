@@ -83,8 +83,8 @@
     "lodash": "^4.17.10",
     "mocha": "^2.3.4",
     "phantomjs2": "^2.0.2",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-transform-hmr": "^1.0.1",
     "rimraf": "^2.4.4",
     "standard": "^5.4.1",
@@ -96,10 +96,9 @@
   },
   "dependencies": {
     "highlight-words-core": "^1.2.0",
-    "memoize-one": "^4.0.0",
-    "prop-types": "^15.5.8"
+    "memoize-one": "^4.0.0"
   },
   "peerDependencies": {
-    "react": "^0.14.0 || ^15.0.0 || ^16.0.0-0 || ^17.0.0-0 || ^18.0.0-0"
+    "react": "^0.14.0 || ^15.0.0 || ^16.0.0-0 || ^17.0.0-0 || ^18.0.0-0 || ^19.0.0-0"
   }
 }
