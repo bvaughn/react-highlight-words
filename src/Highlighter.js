@@ -23,7 +23,7 @@ import memoizeOne from 'memoize-one'
  * @param {object} [props.unhighlightStyle] - Inline styles applied to the unhighlighted text.
  * @param {object} [props.rest] - Additional attributes passed to the outer `<span>` element.
  */
-export default function Highlighter ({
+export default function Highlighter({
   activeClassName = '',
   activeIndex = -1,
   activeStyle,
@@ -68,7 +68,7 @@ export default function Highlighter ({
     className,
     ...rest,
     children: chunks.map((chunk, index) => {
-      const text = textToHighlight.substr(chunk.start, chunk.end - chunk.start)
+      const text = textToHighlight?.substr(chunk.start, chunk.end - chunk.start) ?? ''
 
       if (chunk.highlight) {
         highlightIndex++
