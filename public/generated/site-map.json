@@ -19,13 +19,13 @@
   {
     "path": "/examples/class-names",
     "section": "Examples",
-    "text": "The highlightClassName prop also accepts an object that maps matched text to class names, so different search terms can be styled differently. import Highlighter from \"react-highlight-words\";\n \nfunction ClassNamesExample() {\n return (\n <Highlighter\n highlightClassName={{\n alice: \"highlight-name\",\n bob: \"highlight-name\",\n paris: \"highlight-place\"\n }}\n searchWords={[\"Alice\", \"Bob\", \"Paris\"]}\n textToHighlight=\"Alice and Bob met for coffee in Paris.\"\n />\n );\n} .highlight-name {\n background-color: lightblue;\n}\n \n.highlight-place {\n background-color: lightgreen;\n} Alice and Bob met for coffee in Paris . Keys should be lower case unless the caseSensitive prop is set, in which case they must match the text exactly.",
+    "text": "The highlightClassName prop also accepts an object that maps matched text to class names, so different search terms can be styled differently. import Highlighter from \"react-highlight-words\";\n \nfunction ClassNamesExample() {\n return (\n <Highlighter\n highlightClassName={{\n alice: \"highlight-name\",\n bob: \"highlight-name\",\n paris: \"highlight-place\"\n }}\n searchWords={[\"Alice\", \"Bob\", \"Paris\"]}\n textToHighlight=\"Alice and Bob met for coffee in Paris.\"\n />\n );\n} .highlight-name {\n background-color: lightblue;\n}\n \n.highlight-place {\n background-color: lightgreen;\n} Alice and Bob met for coffee in Paris . Keys are matched without regard to case unless the caseSensitive prop is set, in which case they must match the text exactly.",
     "title": "Class names per term"
   },
   {
     "path": "/examples/custom-tags",
     "section": "Examples",
-    "text": "By default, matches are wrapped in a <mark> element and the rest of the text is wrapped in a <span>. Use the highlightTag and unhighlightTag props to render a different element or a React component instead. Custom highlight components receive children, className, style, and the index of the match (highlightIndex). import Highlighter, { type HighlightTagProps } from \"react-highlight-words\";\n \nfunction Highlight({ children, highlightIndex }: HighlightTagProps) {\n return (\n <strong className=\"highlight\" title={`Match #${highlightIndex + 1}`}>\n {children}\n </strong>\n );\n}\n \nfunction CustomTagsExample() {\n return (\n <Highlighter\n highlightTag={Highlight}\n searchWords={[\"the\"]}\n textToHighlight=\"The dog is chasing the cat.\"\n unhighlightTag=\"em\"\n />\n );\n} The dog is chasing the cat.",
+    "text": "By default, matches are wrapped in a <mark> element, and the rest of the text is wrapped in a <span>. Use the highlightTag and unhighlightTag props to render a different element or a React component instead. Custom highlight components receive children, className, style, and the index of the match (highlightIndex). import Highlighter, { type HighlightTagProps } from \"react-highlight-words\";\n \nfunction Highlight({ children, highlightIndex }: HighlightTagProps) {\n return (\n <strong className=\"highlight\" title={`Match #${highlightIndex + 1}`}>\n {children}\n </strong>\n );\n}\n \nfunction CustomTagsExample() {\n return (\n <Highlighter\n highlightTag={Highlight}\n searchWords={[\"the\"]}\n textToHighlight=\"The dog is chasing the cat.\"\n unhighlightTag=\"em\"\n />\n );\n} The dog is chasing the cat.",
     "title": "Custom tags"
   },
   {
@@ -80,7 +80,7 @@
       {
         "id": "caseSensitive",
         "title": "caseSensitive",
-        "text": "caseSensitive?: boolean = false Search should be case sensitive."
+        "text": "caseSensitive?: boolean = false Match search terms case sensitively."
       },
       {
         "id": "className",
@@ -130,7 +130,7 @@
     ],
     "path": "/props",
     "section": "Props",
-    "text": "Highlights all occurrences of one or more search terms within a larger body of text.\n Highlighted matches are wrapped in a <mark> element by default and unhighlighted text is wrapped in a <span>.\nBoth of these can be customized with the highlightTag and unhighlightTag props.\n Any other props (such as title or data-* attributes) are applied to the outer/wrapper <span>.",
+    "text": "Highlights all occurrences of one or more search terms within a larger body of text.\n Highlighted matches are wrapped in a <mark> element by default, and unhighlighted text is wrapped in a <span>.\nBoth of these can be customized with the highlightTag and unhighlightTag props.\n Any other props (such as title or data-* attributes) are applied to the outer/wrapper <span>.",
     "title": "Highlighter component props"
   },
   {

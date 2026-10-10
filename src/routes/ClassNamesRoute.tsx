@@ -19,8 +19,9 @@ export default function ClassNamesRoute() {
         <ClassNamesExample />
       </Demo>
       <div>
-        Keys should be lower case unless the <code>caseSensitive</code> prop is
-        set, in which case they must match the text exactly.
+        Keys are matched without regard to case unless the{" "}
+        <code>caseSensitive</code> prop is set, in which case they must match
+        the text exactly.
       </div>
     </Box>
   );

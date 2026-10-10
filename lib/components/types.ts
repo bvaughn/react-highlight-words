@@ -69,7 +69,7 @@ export type HighlighterProps = Omit<
   autoEscape?: boolean | undefined;
 
   /**
-   * Search should be case sensitive.
+   * Match search terms case sensitively.
    */
   caseSensitive?: boolean | undefined;
 

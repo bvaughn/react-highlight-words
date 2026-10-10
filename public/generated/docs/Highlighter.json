@@ -4,7 +4,7 @@
       "content": "<p>Highlights all occurrences of one or more search terms within a larger body of text.</p>\n"
     },
     {
-      "content": "<p>Highlighted matches are wrapped in a <code>&lt;mark&gt;</code> element by default and unhighlighted text is wrapped in a <code>&lt;span&gt;</code>.\nBoth of these can be customized with the <code>highlightTag</code> and <code>unhighlightTag</code> props.</p>\n"
+      "content": "<p>Highlighted matches are wrapped in a <code>&lt;mark&gt;</code> element by default, and unhighlighted text is wrapped in a <code>&lt;span&gt;</code>.\nBoth of these can be customized with the <code>highlightTag</code> and <code>unhighlightTag</code> props.</p>\n"
     },
     {
       "content": "<p>Any other props (such as <code>title</code> or <code>data-*</code> attributes) are applied to the outer/wrapper <code>&lt;span&gt;</code>.</p>\n",
@@ -79,7 +79,7 @@
     "caseSensitive": {
       "description": [
         {
-          "content": "<p>Search should be case sensitive.</p>\n"
+          "content": "<p>Match search terms case sensitively.</p>\n"
         }
       ],
       "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">caseSensitive</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">boolean</span><span class=\"\"> </span><span class=\"tok-operator\">=</span><span class=\"\"> </span><span class=\"tok-bool\">false</span></div>",

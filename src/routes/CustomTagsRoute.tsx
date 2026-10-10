@@ -8,9 +8,9 @@ export default function CustomTagsRoute() {
     <Box direction="column" gap={4}>
       <Header section="Examples" title="Custom tags" />
       <div>
-        By default, matches are wrapped in a <code>{"<mark>"}</code> element and
-        the rest of the text is wrapped in a <code>{"<span>"}</code>. Use the{" "}
-        <code>highlightTag</code> and <code>unhighlightTag</code> props to
+        By default, matches are wrapped in a <code>{"<mark>"}</code> element,
+        and the rest of the text is wrapped in a <code>{"<span>"}</code>. Use
+        the <code>highlightTag</code> and <code>unhighlightTag</code> props to
         render a different element or a React component instead.
       </div>
       <div>

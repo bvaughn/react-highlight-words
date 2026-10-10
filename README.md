@@ -46,7 +46,7 @@ And the `Highlighter` will mark all occurrences of search terms within the text:
 <!-- Highlighter:description:begin -->
 Highlights all occurrences of one or more search terms within a larger body of text.
 
-Highlighted matches are wrapped in a `<mark>` element by default and unhighlighted text is wrapped in a `<span>`.
+Highlighted matches are wrapped in a `<mark>` element by default, and unhighlighted text is wrapped in a `<span>`.
 Both of these can be customized with the `highlightTag` and `unhighlightTag` props.
 
 ℹ️ Any other props (such as `title` or `data-*` attributes) are applied to the outer/wrapper `<span>`.
@@ -122,7 +122,7 @@ String search terms are automatically cast to RegExps unless <code>autoEscape</c
     </tr>
     <tr>
       <td>caseSensitive</td>
-      <td><p>Search should be case sensitive.</p>
+      <td><p>Match search terms case sensitively.</p>
 </td>
     </tr>
     <tr>

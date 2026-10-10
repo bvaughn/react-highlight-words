@@ -5,7 +5,7 @@ import type { HighlighterProps } from "./types";
 /**
  * Highlights all occurrences of one or more search terms within a larger body of text.
  *
- * Highlighted matches are wrapped in a `<mark>` element by default and unhighlighted text is wrapped in a `<span>`.
+ * Highlighted matches are wrapped in a `<mark>` element by default, and unhighlighted text is wrapped in a `<span>`.
  * Both of these can be customized with the `highlightTag` and `unhighlightTag` props.
  *
  * ℹ️ Any other props (such as `title` or `data-*` attributes) are applied to the outer/wrapper `<span>`.
@@ -38,7 +38,7 @@ export function Highlighter({
     textToHighlight
   });
 
-  // Class name maps are matched against lower-cased text unless the search is case sensitive
+  // Class name maps are matched against lowercased text unless the search is case sensitive
   const highlightClassNameMap =
     typeof highlightClassName === "object" && !caseSensitive
       ? lowerCaseKeys(highlightClassName)
