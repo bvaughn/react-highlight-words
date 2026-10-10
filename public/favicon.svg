@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="rhw-logo">
+  <style>
+    .rhw-logo .rhw-ink {
+      stroke: #1A1A1A;
+    }
+    @media (prefers-color-scheme: dark) {
+      .rhw-logo .rhw-ink {
+        stroke: #ffffff;
+      }
+    }
+  </style>
+  <g fill="none" stroke-width="4" stroke-linecap="round">
+    <path class="rhw-ink" d="M2.5 4h15" stroke="#1A1A1A" opacity="0.45" />
+    <path d="M2.5 10h11" stroke="#FDE047" />
+    <path class="rhw-ink" d="M2.5 16h7" stroke="#1A1A1A" opacity="0.45" />
+  </g>
+</svg>

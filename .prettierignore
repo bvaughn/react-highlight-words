@@ -1,0 +1,6 @@
+/dist
+/docs
+/generated
+/public
+README.md
+/src/routes/examples/*.css

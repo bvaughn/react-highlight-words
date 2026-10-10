@@ -1,0 +1,3 @@
+{
+  "html": "<div><span class=\"\">.</span><span class=\"tok-className\">highlight</span><span class=\"\"> </span><span class=\"tok-punctuation\">{</span><span class=\"\"></span></div>\n<div><span class=\"\">  </span><span class=\"tok-propertyName\">background-color</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-atom\">yellow</span><span class=\"tok-punctuation\">;</span><span class=\"\"></span></div>\n<div><span class=\"\"></span><span class=\"tok-punctuation\">}</span></div>"
+}

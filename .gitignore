@@ -1,23 +1,25 @@
 # Logs
-/log/*
-!/log/.keep
-/tmp
+logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Dependency directory
 node_modules
+/dist
+/docs
+*.local
 
-# Test stuff
-coverage
 
-# OS X
-.DS_Store
-
-# Misc
-node_modules
-npm-debug.log
-build
-dist
-
-# IDE
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
 .idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

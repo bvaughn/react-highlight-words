@@ -1,0 +1,197 @@
+{
+  "description": [
+    {
+      "content": "<p>Highlights all occurrences of one or more search terms within a larger body of text.</p>\n"
+    },
+    {
+      "content": "<p>Highlighted matches are wrapped in a <code>&lt;mark&gt;</code> element by default and unhighlighted text is wrapped in a <code>&lt;span&gt;</code>.\nBoth of these can be customized with the <code>highlightTag</code> and <code>unhighlightTag</code> props.</p>\n"
+    },
+    {
+      "content": "<p>Any other props (such as <code>title</code> or <code>data-*</code> attributes) are applied to the outer/wrapper <code>&lt;span&gt;</code>.</p>\n",
+      "intent": "primary"
+    }
+  ],
+  "filePath": "lib/components/Highlighter.tsx",
+  "name": "Highlighter",
+  "props": {
+    "className": {
+      "description": [
+        {
+          "content": "<p>Class name applied to the outer/wrapper <code>&lt;span&gt;</code>.</p>\n"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">className</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">string</span></div>",
+      "name": "className",
+      "required": false
+    },
+    "activeClassName": {
+      "description": [
+        {
+          "content": "<p>Class name applied to the active match.</p>\n"
+        },
+        {
+          "content": "<p>Use along with <code>activeIndex</code>.</p>\n",
+          "intent": "primary"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">activeClassName</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">string</span></div>",
+      "name": "activeClassName",
+      "required": false
+    },
+    "activeIndex": {
+      "description": [
+        {
+          "content": "<p>Index of the match that should be actively highlighted.</p>\n"
+        },
+        {
+          "content": "<p>Use along with <code>activeClassName</code> or <code>activeStyle</code>.</p>\n",
+          "intent": "primary"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">activeIndex</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">number</span><span class=\"\"> </span><span class=\"tok-operator\">=</span><span class=\"\"> </span><span class=\"tok-operator\">-</span><span class=\"tok-number\">1</span></div>",
+      "name": "activeIndex",
+      "required": false
+    },
+    "activeStyle": {
+      "description": [
+        {
+          "content": "<p>Inline styles applied to the active match.</p>\n"
+        },
+        {
+          "content": "<p>Use along with <code>activeIndex</code>.</p>\n",
+          "intent": "primary"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">activeStyle</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">CSSProperties</span></div>",
+      "name": "activeStyle",
+      "required": false
+    },
+    "autoEscape": {
+      "description": [
+        {
+          "content": "<p>Escape characters in <code>searchWords</code> that are meaningful in regular expressions.</p>\n"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">autoEscape</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">boolean</span></div>",
+      "name": "autoEscape",
+      "required": false
+    },
+    "caseSensitive": {
+      "description": [
+        {
+          "content": "<p>Search should be case sensitive.</p>\n"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">caseSensitive</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">boolean</span><span class=\"\"> </span><span class=\"tok-operator\">=</span><span class=\"\"> </span><span class=\"tok-bool\">false</span></div>",
+      "name": "caseSensitive",
+      "required": false
+    },
+    "findChunks": {
+      "description": [
+        {
+          "content": "<p>Custom function to search for matching chunks.\nThis makes it possible to use arbitrary logic when looking for matches.</p>\n"
+        },
+        {
+          "content": "<p>See the default <code>findChunks</code> function in <a href=\"https://github.com/bvaughn/highlight-words-core\">highlight-words-core</a> for its signature.</p>\n"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">findChunks</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-punctuation\">(</span><span class=\"tok-punctuation\">(</span><span class=\"tok-variableName tok-definition\">options</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-typeName\">FindChunksOptions</span><span class=\"tok-punctuation\">)</span><span class=\"\"> </span><span class=\"tok-punctuation\">=&#62;</span><span class=\"\"> </span><span class=\"tok-variableName\">Chunk</span><span class=\"tok-punctuation\">[</span><span class=\"tok-punctuation\">]</span><span class=\"tok-punctuation\">)</span></div>",
+      "name": "findChunks",
+      "required": false
+    },
+    "highlightClassName": {
+      "description": [
+        {
+          "content": "<p>Class name applied to highlighted text,\nor an object mapping search term matches to class names.</p>\n"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">highlightClassName</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">string</span><span class=\"\"> </span><span class=\"tok-operator\">|</span><span class=\"\"> </span><span class=\"tok-variableName\">Record</span><span class=\"\">&#60;</span><span class=\"tok-typeName\">string</span><span class=\"tok-punctuation\">,</span><span class=\"\"> </span><span class=\"tok-typeName\">string</span><span class=\"\">&#62;</span></div>",
+      "name": "highlightClassName",
+      "required": false
+    },
+    "highlightStyle": {
+      "description": [
+        {
+          "content": "<p>Inline styles applied to highlighted text.</p>\n"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">highlightStyle</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">CSSProperties</span><span class=\"\"> </span><span class=\"tok-operator\">=</span><span class=\"\"> </span><span class=\"tok-punctuation\">{</span><span class=\"tok-punctuation\">}</span></div>",
+      "name": "highlightStyle",
+      "required": false
+    },
+    "highlightTag": {
+      "description": [
+        {
+          "content": "<p>Type of tag to wrap around highlighted matches.\nDefaults to <code>mark</code> but can also be a React component (class or function).</p>\n"
+        },
+        {
+          "content": "<p>Custom components will receive <code>children</code>, <code>className</code>, <code>highlightIndex</code>, and <code>style</code> props.</p>\n",
+          "intent": "primary"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">highlightTag</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">string</span><span class=\"\"> </span><span class=\"tok-operator\">|</span><span class=\"\"> </span><span class=\"tok-variableName\">ComponentType</span><span class=\"\">&#60;</span><span class=\"tok-typeName\">HighlightTagProps</span><span class=\"\">&#62; </span><span class=\"tok-operator\">=</span><span class=\"\"> </span><span class=\"tok-string\">\"mark\"</span></div>",
+      "name": "highlightTag",
+      "required": false
+    },
+    "sanitize": {
+      "description": [
+        {
+          "content": "<p>Process each search word and the text to highlight before comparing (e.g. to remove accents).</p>\n"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">sanitize</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-punctuation\">(</span><span class=\"tok-punctuation\">(</span><span class=\"tok-variableName tok-definition\">text</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-typeName\">string</span><span class=\"tok-punctuation\">)</span><span class=\"\"> </span><span class=\"tok-punctuation\">=&#62;</span><span class=\"\"> </span><span class=\"tok-variableName\">string</span><span class=\"tok-punctuation\">)</span></div>",
+      "name": "sanitize",
+      "required": false
+    },
+    "searchWords": {
+      "description": [
+        {
+          "content": "<p>Array of search words.\nString search terms are automatically cast to RegExps unless <code>autoEscape</code> is true.</p>\n"
+        }
+      ],
+      "html": "<div><span class=\"tok-labelName\"><span class=\"tok-propertyName\">searchWords</span></span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-punctuation\">(</span><span class=\"tok-variableName\">string</span><span class=\"\"> </span><span class=\"tok-operator\">|</span><span class=\"\"> </span><span class=\"tok-variableName\">RegExp</span><span class=\"tok-punctuation\">)</span><span class=\"tok-punctuation\">[</span><span class=\"tok-punctuation\">]</span></div>",
+      "name": "searchWords",
+      "required": true
+    },
+    "textToHighlight": {
+      "description": [
+        {
+          "content": "<p>Text to highlight matches in.</p>\n"
+        }
+      ],
+      "html": "<div><span class=\"tok-labelName\"><span class=\"tok-propertyName\">textToHighlight</span></span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">string</span></div>",
+      "name": "textToHighlight",
+      "required": true
+    },
+    "unhighlightClassName": {
+      "description": [
+        {
+          "content": "<p>Class name applied to unhighlighted text.</p>\n"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">unhighlightClassName</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">string</span></div>",
+      "name": "unhighlightClassName",
+      "required": false
+    },
+    "unhighlightStyle": {
+      "description": [
+        {
+          "content": "<p>Inline styles applied to unhighlighted text.</p>\n"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">unhighlightStyle</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">CSSProperties</span></div>",
+      "name": "unhighlightStyle",
+      "required": false
+    },
+    "unhighlightTag": {
+      "description": [
+        {
+          "content": "<p>Type of tag applied to unhighlighted parts of the text.\nDefaults to <code>span</code> but can also be a React component (class or function).</p>\n"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">unhighlightTag</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">string</span><span class=\"\"> </span><span class=\"tok-operator\">|</span><span class=\"\"> </span><span class=\"tok-variableName\">ComponentType</span><span class=\"\">&#60;</span><span class=\"tok-typeName\">UnhighlightTagProps</span><span class=\"\">&#62; </span><span class=\"tok-operator\">=</span><span class=\"\"> </span><span class=\"tok-string\">\"span\"</span></div>",
+      "name": "unhighlightTag",
+      "required": false
+    }
+  }
+}

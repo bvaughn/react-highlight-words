@@ -1,0 +1,44 @@
+@source "node_modules/react-lib-tools";
+
+@import "tailwindcss";
+@import "react-lib-tools/styles.css";
+
+@theme {
+  --color-background-gradient-1: var(--color-zinc-600);
+  --color-background-gradient-2: var(--color-neutral-900);
+  --color-background-gradient-3: var(--color-stone-600);
+  --color-header-section: var(--color-yellow-200);
+  --color-nav-active: var(--color-yellow-300);
+  --color-nav-hover: var(--color-yellow-200);
+  --color-search-match: var(--color-yellow-300);
+  --color-search-result-active: var(--color-yellow-950);
+  --color-common-question-header: var(--color-yellow-100);
+  --color-focus-1: var(--color-yellow-300);
+  --color-focus-2: var(--color-yellow-400);
+  --color-focus-3: var(--color-yellow-500);
+}
+
+/* The header is always dark, so the logo's gray strokes are always light there */
+.rhw-logo-header .rhw-ink {
+  stroke: var(--color-white);
+}
+
+/* Styles for the live demos; mirrors the CSS shown in the examples */
+.demo mark,
+.demo .highlight {
+  background-color: var(--color-yellow-300);
+  border-radius: 2px;
+  color: var(--color-black);
+}
+
+.demo .active {
+  background-color: var(--color-orange-400);
+}
+
+.demo .highlight-name {
+  background-color: var(--color-sky-300);
+}
+
+.demo .highlight-place {
+  background-color: var(--color-lime-300);
+}
