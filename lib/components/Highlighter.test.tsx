@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import latinize from "latinize";
-import { Component } from "react";
+import { Component, createRef } from "react";
 import { describe, expect, test } from "vitest";
 import type {
   HighlighterProps,
@@ -58,6 +58,47 @@ describe("Highlighter", () => {
     expect(node.children).toHaveLength(0);
     expect(node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR)).toHaveLength(0);
     expect(node.textContent).toBe("");
+  });
+
+  test("should handle a missing or non-string textToHighlight", () => {
+    let node = renderHighlighter({
+      searchWords: ["null"],
+      // @ts-expect-error Verifies that a null textToHighlight is handled at runtime
+      textToHighlight: null
+    });
+    expect(node.textContent).toBe("");
+
+    node = renderHighlighter({
+      searchWords: ["2"],
+      // @ts-expect-error Verifies that a numeric textToHighlight is handled at runtime
+      textToHighlight: 123
+    });
+    expect(node.textContent).toBe("123");
+    const matches = node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR);
+    expect(matches).toHaveLength(1);
+    expect(matches[0].textContent).toBe("2");
+  });
+
+  test("should match string searchWords literally by default", () => {
+    const node = renderHighlighter({
+      searchWords: ["$9.99", "a+"],
+      textToHighlight: "Only $9.99 (or $9x99) for aaa+"
+    });
+    const matches = node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR);
+    expect(matches).toHaveLength(2);
+    expect(matches[0].textContent).toBe("$9.99");
+    expect(matches[1].textContent).toBe("a+");
+  });
+
+  test("should treat string searchWords as regular expressions when autoEscape is false", () => {
+    const node = renderHighlighter({
+      autoEscape: false,
+      searchWords: ["\\d+"],
+      textToHighlight: "Room 101"
+    });
+    const matches = node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR);
+    expect(matches).toHaveLength(1);
+    expect(matches[0].textContent).toBe("101");
   });
 
   test("should highlight searchText words that exactly match words in textToHighlight", () => {
@@ -199,9 +240,15 @@ describe("Highlighter", () => {
   test("should support class components via :highlightTag", () => {
     class HighlightTag extends Component<HighlightTagProps> {
       render() {
-        const { highlightIndex, ...rest } = this.props;
+        const { highlightIndex, searchIndex, ...rest } = this.props;
 
-        return <span data-index={highlightIndex} {...rest} />;
+        return (
+          <span
+            data-index={highlightIndex}
+            data-search-index={searchIndex}
+            {...rest}
+          />
+        );
       }
     }
 
@@ -216,8 +263,16 @@ describe("Highlighter", () => {
   });
 
   test("should support function components via :highlightTag", () => {
-    const HighlightTag = ({ highlightIndex, ...rest }: HighlightTagProps) => (
-      <span data-index={highlightIndex} {...rest} />
+    const HighlightTag = ({
+      highlightIndex,
+      searchIndex,
+      ...rest
+    }: HighlightTagProps) => (
+      <span
+        data-index={highlightIndex}
+        data-search-index={searchIndex}
+        {...rest}
+      />
     );
 
     const node = renderHighlighter({
@@ -231,8 +286,16 @@ describe("Highlighter", () => {
   });
 
   test("should pass highlightIndex to custom :highlightTag components", () => {
-    const HighlightTag = ({ highlightIndex, ...rest }: HighlightTagProps) => (
-      <span data-index={highlightIndex} {...rest} />
+    const HighlightTag = ({
+      highlightIndex,
+      searchIndex,
+      ...rest
+    }: HighlightTagProps) => (
+      <span
+        data-index={highlightIndex}
+        data-search-index={searchIndex}
+        {...rest}
+      />
     );
 
     const node = renderHighlighter({
@@ -285,8 +348,8 @@ describe("Highlighter", () => {
   test("should support custom findChunks prop function", () => {
     const node = renderHighlighter({
       findChunks: () => [
-        { start: 0, end: 1 },
-        { start: 5, end: 7 }
+        { start: 0, end: 1, searchIndex: 0 },
+        { start: 5, end: 7, searchIndex: 0 }
       ],
       searchWords: ["xxx"],
       textToHighlight: "This is text"
@@ -329,6 +392,110 @@ describe("Highlighter", () => {
     expect(allMatches[0]).not.toHaveClass("this");
     expect(allMatches[1]).toHaveClass("is");
     expect(allMatches[2]).not.toHaveClass("text");
+  });
+
+  test("should fall back to the matching search word's class when the matched text isn't in the class name map", () => {
+    const node = renderHighlighter({
+      sanitize: latinize,
+      searchWords: ["cafe", "ab", "bc"],
+      textToHighlight: "café abc",
+      highlightClassName: { CAFE: "cafe", ab: "ab", bc: "bc" }
+    });
+    const allMatches = node.querySelectorAll("mark");
+    expect(allMatches).toHaveLength(2);
+    expect(allMatches[0].className).toBe("cafe");
+    expect(allMatches[1].className).toBe("ab");
+  });
+
+  test("should not render an undefined class when a match isn't in the class name map", () => {
+    const node = renderHighlighter({
+      searchWords: [/\d+/],
+      textToHighlight: "a 12",
+      highlightClassName: { other: "other" }
+    });
+    expect(node.querySelector("mark")?.className).toBe("");
+  });
+
+  test("should not throw for missing searchWords when a custom findChunks returns chunks", () => {
+    const node = renderHighlighter({
+      findChunks: () => [{ start: 0, end: 1, searchIndex: 0 }],
+      highlightClassName: { a: "a" },
+      // @ts-expect-error Untyped callers may pass null
+      searchWords: null,
+      textToHighlight: "ab"
+    });
+    expect(node.querySelector("mark")?.textContent).toBe("a");
+  });
+
+  test("should not use inherited object properties as class names", () => {
+    const node = renderHighlighter({
+      searchWords: ["constructor", "toString"],
+      textToHighlight: "constructor toString",
+      highlightClassName: { other: "other" }
+    });
+    const allMatches = node.querySelectorAll("mark");
+    expect(allMatches).toHaveLength(2);
+    expect(allMatches[0].className).toBe("");
+    expect(allMatches[1].className).toBe("");
+
+    const caseSensitiveNode = renderHighlighter({
+      caseSensitive: true,
+      searchWords: ["toString"],
+      textToHighlight: "toString",
+      highlightClassName: { other: "other" }
+    });
+    expect(caseSensitiveNode.querySelector("mark")?.className).toBe("");
+  });
+
+  test("should accept readonly searchWords", () => {
+    // Also a type check; this would not compile if searchWords had to be a mutable array
+    const searchWords = ["is"] as const;
+    const node = renderHighlighter({ searchWords, textToHighlight: "This" });
+    expect(node.querySelectorAll("mark")).toHaveLength(1);
+  });
+
+  test("should not render empty class attributes", () => {
+    const { container } = render(
+      <Highlighter searchWords={["b"]} textToHighlight="abc" />
+    );
+    for (const element of container.querySelectorAll("mark, span span")) {
+      expect(element.hasAttribute("class")).toBe(false);
+    }
+  });
+
+  test("should pass an empty className string to custom components", () => {
+    const classNames: Array<unknown> = [];
+    function Tag({
+      children,
+      className
+    }: {
+      children: string;
+      className: string;
+    }) {
+      classNames.push(className);
+      return <i>{children}</i>;
+    }
+    render(
+      <Highlighter
+        highlightTag={Tag}
+        searchWords={["b"]}
+        textToHighlight="abc"
+        unhighlightTag={Tag}
+      />
+    );
+    expect(classNames).toEqual(["", "", ""]);
+  });
+
+  test("should not add extra whitespace to the class name of inactive matches", () => {
+    const node = renderHighlighter({
+      activeClassName: "active",
+      activeIndex: 1,
+      searchWords: ["e"],
+      textToHighlight: "sleep"
+    });
+    const matches = node.querySelectorAll("mark");
+    expect(matches[0].className).toBe(HIGHLIGHT_CLASS);
+    expect(matches[1].className).toBe(`${HIGHLIGHT_CLASS} active`);
   });
 
   test("should spread additional custom props onto the wrapper span", () => {
@@ -386,5 +553,84 @@ describe("Highlighter", () => {
     });
     const matches = node.querySelectorAll(UNHIGHLIGHT_QUERY_SELECTOR);
     expect(matches[0].tagName).toBe("A");
+  });
+
+  test("should forward a ref to the wrapper span", () => {
+    const ref = createRef<HTMLSpanElement>();
+    const { container } = render(
+      <Highlighter ref={ref} searchWords={[]} textToHighlight="text" />
+    );
+    expect(ref.current).toBe(container.firstElementChild);
+  });
+
+  test("should pass searchIndex to custom :highlightTag components", () => {
+    const HighlightTag = ({
+      highlightIndex,
+      searchIndex,
+      ...rest
+    }: HighlightTagProps) => (
+      <span
+        data-index={highlightIndex}
+        data-search-index={searchIndex}
+        {...rest}
+      />
+    );
+
+    const node = renderHighlighter({
+      highlightTag: HighlightTag,
+      searchWords: ["more", /te.t/],
+      textToHighlight: "text and more text"
+    });
+    const matches = node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR);
+    expect(matches).toHaveLength(3);
+    expect(matches[0].getAttribute("data-search-index")).toBe("1");
+    expect(matches[1].getAttribute("data-search-index")).toBe("0");
+    expect(matches[2].getAttribute("data-search-index")).toBe("1");
+  });
+
+  test("should not escape RegExp searchWords when autoEscape is true", () => {
+    const node = renderHighlighter({
+      autoEscape: true,
+      searchWords: [/t.xt/, "is."],
+      textToHighlight: "This is. text"
+    });
+    const matches = node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR);
+    expect(matches).toHaveLength(2);
+    expect(matches[0].textContent).toBe("is.");
+    expect(matches[1].textContent).toBe("text");
+  });
+
+  test("should match invalid regular expressions literally", () => {
+    const node = renderHighlighter({
+      searchWords: ["***x", "(a"],
+      textToHighlight: "***x and (a"
+    });
+    const matches = node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR);
+    expect(matches).toHaveLength(2);
+    expect(matches[0].textContent).toBe("***x");
+    expect(matches[1].textContent).toBe("(a");
+  });
+
+  test("should not hang on zero-length matches", () => {
+    const node = renderHighlighter({
+      searchWords: ["\\b"],
+      textToHighlight: "word boundary"
+    });
+    expect(node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR)).toHaveLength(0);
+    expect(node.textContent).toBe("word boundary");
+  });
+
+  test("should highlight adjacent matches individually", () => {
+    const activeClassName = "active";
+    const node = renderHighlighter({
+      activeClassName,
+      activeIndex: 1,
+      searchWords: ["e"],
+      textToHighlight: "sleep"
+    });
+    const matches = node.querySelectorAll(HIGHLIGHT_QUERY_SELECTOR);
+    expect(matches).toHaveLength(2);
+    expect(matches[0]).not.toHaveClass(activeClassName);
+    expect(matches[1]).toHaveClass(activeClassName);
   });
 });

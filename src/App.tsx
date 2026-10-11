@@ -7,7 +7,7 @@ import {
 } from "react-lib-tools";
 import { repository } from "../package.json";
 import Logo from "../public/favicon.svg?react";
-import { html as escapeHTML } from "../public/generated/examples/FaqAutoEscape.json";
+import { html as regExpHTML } from "../public/generated/examples/FaqRegExp.json";
 import { html as basicUsageHTML } from "../public/generated/examples/BasicUsage.json";
 import { Link } from "./components/Link";
 import { routes, type Path } from "./routes";
@@ -64,21 +64,23 @@ const nav: NavConfig<Path | DefaultPath> = [
 
 const commonQuestions: CommonQuestion[] = [
   {
-    id: "special-characters",
-    question: (
-      <>
-        Why don't search terms like <code>(</code> or <code>$</code> match?
-      </>
-    ),
+    id: "regular-expressions",
+    question: "How do I match a pattern instead of a literal word?",
     answer: (
       <>
         <p>
-          String search terms are converted to regular expressions, so
-          characters that are meaningful in a regular expression (like{" "}
-          <code>(</code>, <code>.</code>, or <code>$</code>) aren't matched
-          literally. Set the <code>autoEscape</code> prop to escape them:
+          String search terms are matched literally, so characters like{" "}
+          <code>(</code>, <code>.</code>, or <code>$</code> match themselves. To
+          match a pattern, pass a <code>RegExp</code> search term (which is used
+          as-is, with its own flags):
         </p>
-        <Code html={escapeHTML} />
+        <Code html={regExpHTML} />
+        <p>
+          Alternatively, set the <code>autoEscape</code> prop to{" "}
+          <code>false</code> to treat every string search term as a regular
+          expression. Only do this for trusted search terms; a malicious regular
+          expression can take an extremely long time to run.
+        </p>
       </>
     )
   },

@@ -15,8 +15,9 @@ export default function CustomTagsRoute() {
       </div>
       <div>
         Custom highlight components receive <code>children</code>,{" "}
-        <code>className</code>, <code>style</code>, and the index of the match (
-        <code>highlightIndex</code>).
+        <code>className</code>, <code>style</code>, the index of the match (
+        <code>highlightIndex</code>), and the index of the search word that
+        matched it (<code>searchIndex</code>).
       </div>
       <Code html={html} />
       <Demo>

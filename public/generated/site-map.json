@@ -1,13 +1,13 @@
 [
   {
     "path": "/",
-    "text": "react-highlight-words is a React component that highlights words within a larger body of text. Give it an array of search terms and a body of text, and it will mark every occurrence of those terms: import Highlighter from \"react-highlight-words\";\n \nfunction BasicUsageExample() {\n return (\n <Highlighter\n highlightClassName=\"highlight\"\n searchWords={[\"and\", \"or\", \"the\"]}\n autoEscape={true}\n textToHighlight=\"The dog is chasing the cat. Or perhaps they're just playing?\"\n />\n );\n} Refer to the examples or the props page for more information, or try it out in the playground. Installation Begin by installing the library from NPM: npm install react-highlight-words TypeScript definitions are included within the published dist folder. Support Here are some ways to support this project: Become a GitHub sponsor Buy me a coffee",
+    "text": "react-highlight-words is a React component that highlights words within a larger body of text. Give it an array of search terms and a body of text, and it will mark every occurrence of those terms: import Highlighter from \"react-highlight-words\";\n \nfunction BasicUsageExample() {\n return (\n <Highlighter\n highlightClassName=\"highlight\"\n searchWords={[\"and\", \"or\", \"the\"]}\n textToHighlight=\"The dog is chasing the cat. Or perhaps they're just playing?\"\n />\n );\n} Refer to the examples or the props page for more information, or try it out in the playground. Installation Begin by installing the library from NPM: npm install react-highlight-words TypeScript definitions are included within the published dist folder. Support Here are some ways to support this project: Become a GitHub sponsor Buy me a coffee",
     "title": "Getting started with react-highlight-words"
   },
   {
     "path": "/examples/basic",
     "section": "Examples",
-    "text": "Provide an array of searchWords and the textToHighlight. Matches are case insensitive by default. import Highlighter from \"react-highlight-words\";\n \nfunction BasicUsageExample() {\n return (\n <Highlighter\n highlightClassName=\"highlight\"\n searchWords={[\"and\", \"or\", \"the\"]}\n autoEscape={true}\n textToHighlight=\"The dog is chasing the cat. Or perhaps they're just playing?\"\n />\n );\n} The dog is chasing the cat. Or perhaps the y're just playing? Matches are wrapped in a <mark> element. Use the highlightClassName (or highlightStyle) prop to style them: .highlight {\n background-color: yellow;\n}",
+    "text": "Provide an array of searchWords and the textToHighlight. Matches are case insensitive by default. import Highlighter from \"react-highlight-words\";\n \nfunction BasicUsageExample() {\n return (\n <Highlighter\n highlightClassName=\"highlight\"\n searchWords={[\"and\", \"or\", \"the\"]}\n textToHighlight=\"The dog is chasing the cat. Or perhaps they're just playing?\"\n />\n );\n} The dog is chasing the cat. Or perhaps the y're just playing? Matches are wrapped in a <mark> element. Use the highlightClassName (or highlightStyle) prop to style them: .highlight {\n background-color: yellow;\n}",
     "title": "Basic usage"
   },
   {
@@ -19,19 +19,19 @@
   {
     "path": "/examples/class-names",
     "section": "Examples",
-    "text": "The highlightClassName prop also accepts an object that maps matched text to class names, so different search terms can be styled differently. import Highlighter from \"react-highlight-words\";\n \nfunction ClassNamesExample() {\n return (\n <Highlighter\n highlightClassName={{\n alice: \"highlight-name\",\n bob: \"highlight-name\",\n paris: \"highlight-place\"\n }}\n searchWords={[\"Alice\", \"Bob\", \"Paris\"]}\n textToHighlight=\"Alice and Bob met for coffee in Paris.\"\n />\n );\n} .highlight-name {\n background-color: lightblue;\n}\n \n.highlight-place {\n background-color: lightgreen;\n} Alice and Bob met for coffee in Paris . Keys are matched without regard to case unless the caseSensitive prop is set, in which case they must match the text exactly.",
+    "text": "The highlightClassName prop also accepts an object that maps matched text to class names, so different search terms can be styled differently. import Highlighter from \"react-highlight-words\";\n \nfunction ClassNamesExample() {\n return (\n <Highlighter\n highlightClassName={{\n alice: \"highlight-name\",\n bob: \"highlight-name\",\n paris: \"highlight-place\"\n }}\n searchWords={[\"Alice\", \"Bob\", \"Paris\"]}\n textToHighlight=\"Alice and Bob met for coffee in Paris.\"\n />\n );\n} .highlight-name {\n background-color: lightblue;\n}\n \n.highlight-place {\n background-color: lightgreen;\n} Alice and Bob met for coffee in Paris . Keys are compared with the matched text first, then with the search term that matched it (e.g. if the sanitize prop changed the text, or overlapping matches were combined). Keys are matched without regard to case unless the caseSensitive prop is set, in which case they must match exactly.",
     "title": "Class names per term"
   },
   {
     "path": "/examples/custom-tags",
     "section": "Examples",
-    "text": "By default, matches are wrapped in a <mark> element, and the rest of the text is wrapped in a <span>. Use the highlightTag and unhighlightTag props to render a different element or a React component instead. Custom highlight components receive children, className, style, and the index of the match (highlightIndex). import Highlighter, { type HighlightTagProps } from \"react-highlight-words\";\n \nfunction Highlight({ children, highlightIndex }: HighlightTagProps) {\n return (\n <strong className=\"highlight\" title={`Match #${highlightIndex + 1}`}>\n {children}\n </strong>\n );\n}\n \nfunction CustomTagsExample() {\n return (\n <Highlighter\n highlightTag={Highlight}\n searchWords={[\"the\"]}\n textToHighlight=\"The dog is chasing the cat.\"\n unhighlightTag=\"em\"\n />\n );\n} The dog is chasing the cat.",
+    "text": "By default, matches are wrapped in a <mark> element, and the rest of the text is wrapped in a <span>. Use the highlightTag and unhighlightTag props to render a different element or a React component instead. Custom highlight components receive children, className, style, the index of the match (highlightIndex), and the index of the search word that matched it (searchIndex). import Highlighter, { type HighlightTagProps } from \"react-highlight-words\";\n \nfunction Highlight({ children, highlightIndex }: HighlightTagProps) {\n return (\n <strong className=\"highlight\" title={`Match #${highlightIndex + 1}`}>\n {children}\n </strong>\n );\n}\n \nfunction CustomTagsExample() {\n return (\n <Highlighter\n highlightTag={Highlight}\n searchWords={[\"the\"]}\n textToHighlight=\"The dog is chasing the cat.\"\n unhighlightTag=\"em\"\n />\n );\n} The dog is chasing the cat.",
     "title": "Custom tags"
   },
   {
     "path": "/examples/find-chunks",
     "section": "Examples",
-    "text": "The findChunks prop replaces the default matching logic. It receives the search options and returns the start and end index of each range of text to highlight; overlapping ranges are combined automatically. The example below only matches whole words. See the default implementation in highlight-words-core for reference. import Highlighter, {\n type Chunk,\n type FindChunksOptions\n} from \"react-highlight-words\";\n \n// Only match whole words (e.g. \"the\" should not match \"there\")\nfunction findWholeWords({\n searchWords,\n textToHighlight\n}: FindChunksOptions): Chunk[] {\n const chunks: Chunk[] = [];\n \n for (const searchWord of searchWords) {\n const source =\n typeof searchWord === \"string\"\n ? searchWord.replace(/[.*+?^${}()|[\\]\\\\]/g, \"\\\\$&\")\n : searchWord.source;\n if (!source) {\n continue;\n }\n \n const regex = new RegExp(`\\\\b${source}\\\\b`, \"gi\");\n \n let match;\n while ((match = regex.exec(textToHighlight))) {\n chunks.push({ start: match.index, end: regex.lastIndex });\n }\n }\n \n return chunks;\n}\n \nfunction FindChunksExample() {\n return (\n <Highlighter\n findChunks={findWholeWords}\n searchWords={[\"the\"]}\n textToHighlight=\"There they go, the other way, over there.\"\n />\n );\n} There they go, the other way, over there.",
+    "text": "The findChunks prop replaces the default matching logic. It receives the search options and returns the start and end index of each range of text to highlight, along with the searchIndex of the search word that matched it; overlapping ranges are combined automatically. The example below only matches whole words. See the default implementation in highlight-words-core for reference. import Highlighter, {\n type Chunk,\n type FindChunksOptions\n} from \"react-highlight-words\";\n \n// Only match whole words (e.g. \"the\" should not match \"there\")\nfunction findWholeWords({\n searchWords,\n textToHighlight\n}: FindChunksOptions): Chunk[] {\n const chunks: Chunk[] = [];\n \n for (const [searchIndex, searchWord] of searchWords.entries()) {\n const source =\n typeof searchWord === \"string\"\n ? searchWord.replace(/[.*+?^${}()|[\\]\\\\]/g, \"\\\\$&\")\n : searchWord.source;\n if (!source) {\n continue;\n }\n \n // Group the source so that e.g. \"cat|dog\" can't match part of \"hotdog\"\n const regex = new RegExp(`\\\\b(?:${source})\\\\b`, \"gi\");\n \n let match;\n while ((match = regex.exec(textToHighlight))) {\n if (match.index === regex.lastIndex) {\n // Skip zero-length matches (e.g. /x*/); otherwise this would loop forever\n regex.lastIndex++;\n } else {\n chunks.push({ start: match.index, end: regex.lastIndex, searchIndex });\n }\n }\n }\n \n return chunks;\n}\n \nfunction FindChunksExample() {\n return (\n <Highlighter\n findChunks={findWholeWords}\n searchWords={[\"the\"]}\n textToHighlight=\"There they go, the other way, over there.\"\n />\n );\n} There they go, the other way, over there.",
     "title": "Custom matching"
   },
   {
@@ -50,12 +50,12 @@
       {
         "id": "searchWords",
         "title": "searchWords",
-        "text": "searchWords: (string | RegExp)[] Array of search words.\nString search terms are automatically cast to RegExps unless autoEscape is true."
+        "text": "searchWords: readonly (string | RegExp)[] Array of search words.\nString search terms are matched literally, unless autoEscape is false\n(in which case they are treated as regular expressions, and strings that aren't valid regular expressions are matched literally).\nRegExp search terms are used as-is (with their own flags)."
       },
       {
         "id": "textToHighlight",
         "title": "textToHighlight",
-        "text": "textToHighlight: string Text to highlight matches in."
+        "text": "textToHighlight: string Text to highlight matches in.\n Browsers collapse whitespace and newlines by default; to preserve them, set the white-space style (e.g. style={{ whiteSpace: \"pre-wrap\" }})."
       },
       {
         "id": "activeClassName",
@@ -75,12 +75,12 @@
       {
         "id": "autoEscape",
         "title": "autoEscape",
-        "text": "autoEscape?: boolean Escape characters in searchWords that are meaningful in regular expressions."
+        "text": "autoEscape?: boolean Match string search terms literally (defaults to true).\nSet to false to treat them as regular expressions.\n(They are compiled without the u flag, so syntax that requires it, such as \\p{L}, only works in RegExp search terms.)\n Only set this to false for trusted search terms;\na malicious regular expression can take an extremely long time to run."
       },
       {
         "id": "caseSensitive",
         "title": "caseSensitive",
-        "text": "caseSensitive?: boolean = false Match search terms case sensitively."
+        "text": "caseSensitive?: boolean = false Match string search terms case sensitively.\nRegExp search terms are case sensitive unless they have the i flag."
       },
       {
         "id": "className",
@@ -90,12 +90,12 @@
       {
         "id": "findChunks",
         "title": "findChunks",
-        "text": "findChunks?: ((options: FindChunksOptions) => Chunk[]) Custom function to search for matching chunks.\nThis makes it possible to use arbitrary logic when looking for matches.\n See the default findChunks function in highlight-words-core for its signature."
+        "text": "findChunks?: ((options: Required<FindChunksOptions>) => FoundChunk[]) Custom function to search for matching chunks.\nThis makes it possible to use arbitrary logic when looking for matches.\n It receives the search options (with defaults applied) and returns the start and end index of each range of text to highlight,\nalong with the searchIndex of the search word that matched it.\nOverlapping ranges are combined automatically.\n See the default findChunks function in highlight-words-core for reference."
       },
       {
         "id": "highlightClassName",
         "title": "highlightClassName",
-        "text": "highlightClassName?: string | Record<string, string> Class name applied to highlighted text,\nor an object mapping search term matches to class names."
+        "text": "highlightClassName?: string | Record<string, string> Class name applied to highlighted text,\nor an object mapping search term matches to class names.\n Object keys are compared with the matched text first, then with the string search term that matched it\n(case insensitively, unless caseSensitive is true)."
       },
       {
         "id": "highlightStyle",
@@ -105,12 +105,12 @@
       {
         "id": "highlightTag",
         "title": "highlightTag",
-        "text": "highlightTag?: string | ComponentType<HighlightTagProps> = \"mark\" Type of tag to wrap around highlighted matches.\nDefaults to mark but can also be a React component (class or function).\n Custom components will receive children, className, highlightIndex, and style props."
+        "text": "highlightTag?: string | ComponentType<HighlightTagProps> = \"mark\" Type of tag to wrap around highlighted matches.\nDefaults to mark but can also be a React component (class or function).\n Custom components will receive children, className, highlightIndex, searchIndex, and style props."
       },
       {
         "id": "sanitize",
         "title": "sanitize",
-        "text": "sanitize?: ((text: string) => string) Process each search word and the text to highlight before comparing (e.g. to remove accents)."
+        "text": "sanitize?: ((text: string) => string) Process each string search word and the text to highlight before comparing (e.g. to remove accents).\nMatches always refer to the original text, even if sanitizing changes its length (e.g. \"Æ\" to \"AE\").\n Sanitizing should transform characters independently;\nif it changes the text, it is applied to each character separately.\nRegExp search terms are not sanitized, but they are matched against the sanitized text."
       },
       {
         "id": "unhighlightClassName",
@@ -130,15 +130,15 @@
     ],
     "path": "/props",
     "section": "Props",
-    "text": "Highlights all occurrences of one or more search terms within a larger body of text.\n Highlighted matches are wrapped in a <mark> element by default, and unhighlighted text is wrapped in a <span>.\nBoth of these can be customized with the highlightTag and unhighlightTag props.\n Any other props (such as title or data-* attributes) are applied to the outer/wrapper <span>.",
+    "text": "Highlights all occurrences of one or more search terms within a larger body of text.\n Highlighted matches are wrapped in a <mark> element by default, and unhighlighted text is wrapped in a <span>.\nBoth of these can be customized with the highlightTag and unhighlightTag props.\n Any other props (such as title or data-* attributes) are applied to the outer/wrapper <span>, and a ref is forwarded to it.",
     "title": "Highlighter component props"
   },
   {
     "headings": [
       {
-        "id": "special-characters",
-        "title": "Why don't search terms like ( or $ match?",
-        "text": "Why don't search terms like ( or $ match? String search terms are converted to regular expressions, so characters that are meaningful in a regular expression (like (, ., or $) aren't matched literally. Set the autoEscape prop to escape them: import Highlighter from \"react-highlight-words\";\n \nfunction AutoEscapeExample() {\n return (\n <Highlighter\n autoEscape={true}\n searchWords={[\"$9.99\", \"(sale)\"]}\n textToHighlight=\"Today only (sale): $9.99\"\n />\n );\n}"
+        "id": "regular-expressions",
+        "title": "How do I match a pattern instead of a literal word?",
+        "text": "How do I match a pattern instead of a literal word? String search terms are matched literally, so characters like (, ., or $ match themselves. To match a pattern, pass a RegExp search term (which is used as-is, with its own flags): import Highlighter from \"react-highlight-words\";\n \nfunction RegExpExample() {\n return (\n <Highlighter\n searchWords={[/\\$\\d+\\.\\d{2}/]}\n textToHighlight=\"Was $12.99, today only $9.99\"\n />\n );\n} Alternatively, set the autoEscape prop to false to treat every string search term as a regular expression. Only do this for trusted search terms; a malicious regular expression can take an extremely long time to run."
       },
       {
         "id": "typescript",

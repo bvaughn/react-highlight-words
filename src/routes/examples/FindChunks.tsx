@@ -12,7 +12,7 @@ function findWholeWords({
 }: FindChunksOptions): Chunk[] {
   const chunks: Chunk[] = [];
 
-  for (const searchWord of searchWords) {
+  for (const [searchIndex, searchWord] of searchWords.entries()) {
     const source =
       typeof searchWord === "string"
         ? searchWord.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
@@ -21,11 +21,17 @@ function findWholeWords({
       continue;
     }
 
-    const regex = new RegExp(`\\b${source}\\b`, "gi");
+    // Group the source so that e.g. "cat|dog" can't match part of "hotdog"
+    const regex = new RegExp(`\\b(?:${source})\\b`, "gi");
 
     let match;
     while ((match = regex.exec(textToHighlight))) {
-      chunks.push({ start: match.index, end: regex.lastIndex });
+      if (match.index === regex.lastIndex) {
+        // Skip zero-length matches (e.g. /x*/); otherwise this would loop forever
+        regex.lastIndex++;
+      } else {
+        chunks.push({ start: match.index, end: regex.lastIndex, searchIndex });
+      }
     }
   }
 

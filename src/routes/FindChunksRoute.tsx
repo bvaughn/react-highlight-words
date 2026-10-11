@@ -10,8 +10,9 @@ export default function FindChunksRoute() {
       <div>
         The <code>findChunks</code> prop replaces the default matching logic. It
         receives the search options and returns the <code>start</code> and{" "}
-        <code>end</code> index of each range of text to highlight; overlapping
-        ranges are combined automatically.
+        <code>end</code> index of each range of text to highlight, along with
+        the <code>searchIndex</code> of the search word that matched it;
+        overlapping ranges are combined automatically.
       </div>
       <div>
         The example below only matches whole words. See the default

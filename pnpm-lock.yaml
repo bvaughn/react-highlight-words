@@ -8,8 +8,8 @@ importers:
   .:
     dependencies:
       highlight-words-core:
-        specifier: ^1.2.0
-        version: 1.2.3
+        specifier: 2.0.0
+        version: 2.0.0
     devDependencies:
       "@csstools/postcss-oklab-function":
         specifier: ^4.0.11
@@ -3130,10 +3130,10 @@ packages:
       }
     hasBin: true
 
-  highlight-words-core@1.2.3:
+  highlight-words-core@2.0.0:
     resolution:
       {
-        integrity: sha512-m1O9HW3/GNHxzSIXWw1wCNXXsgLlxrP0OI6+ycGUhiUHkikqW3OrwVHz+lxeNBe5yqLESdIcj8PowHQ2zLvUvQ==
+        integrity: sha512-dKFj8EZQ8yvU9b/88WGZGwsFC0wmKk5wEVOL4D4POzASma8Gct9LvWax6gPpIzBIF+z8N0si3t1mxyYxOHmjhw==
       }
 
   html-encoding-sniffer@4.0.0:
@@ -6807,7 +6807,7 @@ snapshots:
 
   he@1.2.0: {}
 
-  highlight-words-core@1.2.3: {}
+  highlight-words-core@2.0.0: {}
 
   html-encoding-sniffer@4.0.0:
     dependencies:

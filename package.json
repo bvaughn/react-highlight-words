@@ -1,6 +1,6 @@
 {
   "name": "react-highlight-words",
-  "version": "0.21.1",
+  "version": "1.0.0",
   "description": "React component to highlight words within a larger body of text",
   "type": "module",
   "author": "Brian Vaughn <brian.david.vaughn@gmail.com> (https://github.com/bvaughn/)",
@@ -31,7 +31,21 @@
   ],
   "main": "dist/react-highlight-words.cjs",
   "module": "dist/react-highlight-words.js",
-  "types": "dist/react-highlight-words.d.ts",
+  "types": "dist/react-highlight-words.d.cts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/react-highlight-words.d.ts",
+        "default": "./dist/react-highlight-words.js"
+      },
+      "require": {
+        "types": "./dist/react-highlight-words.d.cts",
+        "default": "./dist/react-highlight-words.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
   "files": [
     "dist"
   ],
@@ -58,11 +72,8 @@
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
   },
-  "dependencies": {
-    "highlight-words-core": "^1.2.0"
-  },
   "peerDependencies": {
-    "react": "^0.14.0 || ^15.0.0 || ^16.0.0-0 || ^17.0.0-0 || ^18.0.0-0 || ^19.0.0-0"
+    "react": "^16.3.0 || ^17.0.0-0 || ^18.0.0-0 || ^19.0.0-0"
   },
   "devDependencies": {
     "@csstools/postcss-oklab-function": "^4.0.11",
@@ -110,5 +121,8 @@
     "vite-plugin-dts": "^4.5.4",
     "vite-plugin-svgr": "^4.3.0",
     "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "highlight-words-core": "2.0.0"
   }
 }

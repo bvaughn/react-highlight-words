@@ -1,7 +1,7 @@
 name: "Pending changes"
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
 jobs:
   pending-changes:

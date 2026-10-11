@@ -19,9 +19,11 @@ export default function ClassNamesRoute() {
         <ClassNamesExample />
       </Demo>
       <div>
-        Keys are matched without regard to case unless the{" "}
-        <code>caseSensitive</code> prop is set, in which case they must match
-        the text exactly.
+        Keys are compared with the matched text first, then with the search term
+        that matched it (e.g. if the <code>sanitize</code> prop changed the
+        text, or overlapping matches were combined). Keys are matched without
+        regard to case unless the <code>caseSensitive</code> prop is set, in
+        which case they must match exactly.
       </div>
     </Box>
   );

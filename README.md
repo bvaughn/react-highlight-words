@@ -30,7 +30,6 @@ function Example() {
     <Highlighter
       highlightClassName="YourHighlightClass"
       searchWords={["and", "or", "the"]}
-      autoEscape={true}
       textToHighlight="The dog is chasing the cat. Or perhaps they're just playing?"
     />
   );
@@ -49,7 +48,7 @@ Highlights all occurrences of one or more search terms within a larger body of t
 Highlighted matches are wrapped in a `<mark>` element by default, and unhighlighted text is wrapped in a `<span>`.
 Both of these can be customized with the `highlightTag` and `unhighlightTag` props.
 
-ℹ️ Any other props (such as `title` or `data-*` attributes) are applied to the outer/wrapper `<span>`.
+ℹ️ Any other props (such as `title` or `data-*` attributes) are applied to the outer/wrapper `<span>`, and a `ref` is forwarded to it.
 <!-- Highlighter:description:end -->
 
 #### Required props
@@ -67,12 +66,15 @@ Both of these can be customized with the `highlightTag` and `unhighlightTag` pro
     <tr>
       <td>searchWords</td>
       <td><p>Array of search words.
-String search terms are automatically cast to RegExps unless <code>autoEscape</code> is true.</p>
+String search terms are matched literally, unless <code>autoEscape</code> is false
+(in which case they are treated as regular expressions, and strings that aren&#39;t valid regular expressions are matched literally).
+RegExp search terms are used as-is (with their own flags).</p>
 </td>
     </tr>
     <tr>
       <td>textToHighlight</td>
       <td><p>Text to highlight matches in.</p>
+<p>ℹ️ Browsers collapse whitespace and newlines by default; to preserve them, set the <code>white-space</code> style (e.g. <code>style={{ whiteSpace: &quot;pre-wrap&quot; }}</code>).</p>
 </td>
     </tr>
   </tbody>
@@ -117,25 +119,35 @@ String search terms are automatically cast to RegExps unless <code>autoEscape</c
     </tr>
     <tr>
       <td>autoEscape</td>
-      <td><p>Escape characters in <code>searchWords</code> that are meaningful in regular expressions.</p>
+      <td><p>Match string search terms literally (defaults to <code>true</code>).
+Set to <code>false</code> to treat them as regular expressions.
+(They are compiled without the <code>u</code> flag, so syntax that requires it, such as <code>\p{L}</code>, only works in RegExp search terms.)</p>
+<p>⚠️ Only set this to <code>false</code> for trusted search terms;
+a malicious regular expression can take an extremely long time to run.</p>
 </td>
     </tr>
     <tr>
       <td>caseSensitive</td>
-      <td><p>Match search terms case sensitively.</p>
+      <td><p>Match string search terms case sensitively.
+RegExp search terms are case sensitive unless they have the <code>i</code> flag.</p>
 </td>
     </tr>
     <tr>
       <td>findChunks</td>
       <td><p>Custom function to search for matching chunks.
 This makes it possible to use arbitrary logic when looking for matches.</p>
-<p>See the default <code>findChunks</code> function in <a href="https://github.com/bvaughn/highlight-words-core">highlight-words-core</a> for its signature.</p>
+<p>It receives the search options (with defaults applied) and returns the <code>start</code> and <code>end</code> index of each range of text to highlight,
+along with the <code>searchIndex</code> of the search word that matched it.
+Overlapping ranges are combined automatically.</p>
+<p>See the default <code>findChunks</code> function in <a href="https://github.com/bvaughn/highlight-words-core">highlight-words-core</a> for reference.</p>
 </td>
     </tr>
     <tr>
       <td>highlightClassName</td>
       <td><p>Class name applied to highlighted text,
 or an object mapping search term matches to class names.</p>
+<p>ℹ️ Object keys are compared with the matched text first, then with the string search term that matched it
+(case insensitively, unless <code>caseSensitive</code> is true).</p>
 </td>
     </tr>
     <tr>
@@ -147,12 +159,16 @@ or an object mapping search term matches to class names.</p>
       <td>highlightTag</td>
       <td><p>Type of tag to wrap around highlighted matches.
 Defaults to <code>mark</code> but can also be a React component (class or function).</p>
-<p>ℹ️ Custom components will receive <code>children</code>, <code>className</code>, <code>highlightIndex</code>, and <code>style</code> props.</p>
+<p>ℹ️ Custom components will receive <code>children</code>, <code>className</code>, <code>highlightIndex</code>, <code>searchIndex</code>, and <code>style</code> props.</p>
 </td>
     </tr>
     <tr>
       <td>sanitize</td>
-      <td><p>Process each search word and the text to highlight before comparing (e.g. to remove accents).</p>
+      <td><p>Process each string search word and the text to highlight before comparing (e.g. to remove accents).
+Matches always refer to the original text, even if sanitizing changes its length (e.g. &quot;Æ&quot; to &quot;AE&quot;).</p>
+<p>ℹ️ Sanitizing should transform characters independently;
+if it changes the text, it is applied to each character separately.
+RegExp search terms are not sanitized, but they are matched against the sanitized text.</p>
 </td>
     </tr>
     <tr>
@@ -186,6 +202,7 @@ tag using the `highlightTag` property. This tag should be a React component that
 | `children`       | String | Text to be highlighted |
 | `className`      | String | Class name(s) to apply |
 | `highlightIndex` | Number | Index of matched text  |
+| `searchIndex`    | Number | Index of the matching search word |
 | `style`          | Object | Inline styles to apply |
 
 For example:

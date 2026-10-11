@@ -1,5 +1,37 @@
 # Changelog
 
+## 1.0.0
+
+This release upgrades to [`highlight-words-core` 2.0](https://github.com/bvaughn/highlight-words-core/blob/main/CHANGELOG.md).
+
+### Breaking changes
+
+- **React 16.3 or newer is required** (for `forwardRef`); React 0.14, 15, and 16.0–16.2 are no longer supported.
+- **String search words are matched literally by default** (`autoEscape` now defaults to `true`), so characters like `(`, `.`, and `$` match themselves. To match patterns, pass `RegExp` search words, or set `autoEscape={false}` for trusted input only.
+- **Custom `findChunks` functions must include a `searchIndex`** (the index within `searchWords` of the search word that matched) in each chunk they return, and the exported `Chunk` type now requires it. They also receive every option with its default applied, and receive `searchWords` as a `ReadonlyArray` (so TypeScript functions that declare it as a mutable array, e.g. `string[]`, must update their parameter type).
+- The package now defines `exports`, so only the package root (`react-highlight-words`) can be imported; deep imports (e.g. `react-highlight-words/dist/react-highlight-words.js`) are no longer available.
+- `highlight-words-core` 2.0 is published as ES2020 (e.g. `??`), so environments and bundlers that can't parse that syntax (e.g. webpack 4) need to transpile it.
+- When `autoEscape` is `false`, string search words that aren't valid regular expressions (e.g. `"(a"`) are matched literally instead of throwing an error.
+- When a `sanitize` function changes the text, it is applied to each character separately (so that matches can be mapped back to the original text). Sanitizers that depend on context will give different results.
+
+### New features
+
+- `searchWords` can include `RegExp` objects, which are used as-is (with their own flags).
+- `searchWords` can be a readonly array (e.g. `["a", "b"] as const`).
+- Custom `highlightTag` components receive a `searchIndex` prop: the index (within `searchWords`) of the search word that matched.
+- A `ref` is forwarded to the outer/wrapper `<span>` (this requires React 16.3 or newer).
+- The `FoundChunk` type is exported (as an alias of `Chunk`, matching its name in `highlight-words-core`).
+
+### Bug fixes
+
+- Matches line up with the original text when the `sanitize` function changes its length (e.g. `latinize("Æ")` is `"AE"`).
+- Surrogate pairs (e.g. emoji) are no longer split between highlighted and unhighlighted text.
+- A missing or non-string `textToHighlight` (from untyped callers) no longer throws an error.
+- When `highlightClassName` is an object, matches whose text isn't one of its keys (e.g. because `sanitize` changed it, or overlapping matches were combined) use the class of the search word that matched, and no longer get an `"undefined"` class name.
+- Inactive matches no longer have a trailing space in their class name, and matches and unhighlighted text with no class name no longer render an empty `class=""` attribute.
+- TypeScript declarations are correct for CommonJS consumers: `require("react-highlight-words")` (or `import Highlighter = require(...)`) is typed as the component itself, and the types are available as e.g. `Highlighter.HighlighterProps`. Previously, projects using `"moduleResolution": "node16"` couldn't import the package from CommonJS files.
+- When `highlightClassName` is an object, matches like `"constructor"` or `"toString"` no longer get a class name from properties every object inherits.
+
 ## 0.21.1
 
 The component's behavior is unchanged, but the package is now built with Vite instead of webpack. Check the packaging changes below if you use an older bundler or runtime, or load the UMD build.

@@ -3,6 +3,7 @@ import { Highlighter } from "./components/Highlighter";
 export type {
   Chunk,
   FindChunksOptions,
+  FoundChunk,
   HighlighterProps,
   HighlightTagProps,
   UnhighlightTagProps
