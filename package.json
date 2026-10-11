@@ -1,6 +1,6 @@
 {
   "name": "react-highlight-words",
-  "version": "0.21.0",
+  "version": "0.21.1",
   "description": "React component to highlight words within a larger body of text",
   "type": "module",
   "author": "Brian Vaughn <brian.david.vaughn@gmail.com> (https://github.com/bvaughn/)",
