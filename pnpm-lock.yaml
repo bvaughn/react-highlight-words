@@ -108,8 +108,8 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(react@19.2.3)
       react-lib-tools:
-        specifier: 0.0.60
-        version: 0.0.60(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@5.8.3)
+        specifier: 0.0.67
+        version: 0.0.67(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@5.8.3)
       rollup-plugin-visualizer:
         specifier: ^6.0.3
         version: 6.0.5(rollup@4.54.0)
@@ -4129,14 +4129,14 @@ packages:
         integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
       }
 
-  react-lib-tools@0.0.60:
+  react-lib-tools@0.0.67:
     resolution:
       {
-        integrity: sha512-NPHO7juh5Kh0CFO1MDpfp8k3gmOnK0eNXdOK7l2hrS+GIVtLCjytmCsaSvQlUi5ygDrQd3yVaAkSioVoX5apBQ==
+        integrity: sha512-1Q/zvldl8kV5iceaDMX+D/nW+rdu+7RfVp8xyPn9VECKiyLovIVDcrETENyvFeVwhWb4f62QYe+GRo1zqaCcCw==
       }
     peerDependencies:
-      react: ^18.0.0 || ^19.0.0
-      react-dom: ^18.0.0 || ^19.0.0
+      react: ^19.0.0
+      react-dom: ^19.0.0
 
   react@19.2.3:
     resolution:
@@ -7337,7 +7337,7 @@ snapshots:
 
   react-is@17.0.2: {}
 
-  react-lib-tools@0.0.60(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@5.8.3):
+  react-lib-tools@0.0.67(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@5.8.3):
     dependencies:
       "@codemirror/lang-css": 6.3.1
       "@codemirror/lang-html": 6.4.11

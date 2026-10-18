@@ -4,6 +4,7 @@ import react from "@vitejs/plugin-react-swc";
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { getDevServerConfig } from "react-lib-tools/scripts/dev-server.js";
 import { defineConfig, type UserConfig } from "vite";
 import dts from "vite-plugin-dts";
 import svgr from "vite-plugin-svgr";
@@ -128,9 +129,10 @@ const websiteConfig: UserConfig = {
 
 // Allow iPhone to connect to the DEV site using a local IP
 if (process.env.NODE_ENV === "development") {
+  // The port is configured in package.json ("react-lib-tools": { "devServerPort" }), which scripts like compile:search-index also read
   websiteConfig.server = {
-    host: true,
-    port: 3000
+    ...getDevServerConfig(),
+    host: true
   };
 }
 
