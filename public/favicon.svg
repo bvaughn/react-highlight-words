@@ -11,7 +11,7 @@
   </style>
   <g fill="none" stroke-width="4" stroke-linecap="round">
     <path class="rhw-ink" d="M2.5 4h15" stroke="#1A1A1A" opacity="0.45" />
-    <path d="M2.5 10h11" stroke="#FDE047" />
+    <path class="rhw-ink" d="M2.5 10h11" stroke="#1A1A1A" />
     <path class="rhw-ink" d="M2.5 16h7" stroke="#1A1A1A" opacity="0.45" />
   </g>
 </svg>
