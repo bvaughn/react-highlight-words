@@ -40,20 +40,20 @@ And the `Highlighter` will mark all occurrences of search terms within the text:
 
 <img width="368" alt="screen shot 2015-12-19 at 8 23 43 am" src="https://cloud.githubusercontent.com/assets/29597/11914033/e3c319f6-a629-11e5-896d-1a5ce22c9ea2.png">
 
+<!-- react-lib-tools:api:begin -->
+
+## Components
+
 ### Highlighter
 
-<!-- Highlighter:description:begin -->
 Highlights all occurrences of one or more search terms within a larger body of text.
 
 Highlighted matches are wrapped in a `<mark>` element by default, and unhighlighted text is wrapped in a `<span>`.
 Both of these can be customized with the `highlightTag` and `unhighlightTag` props.
 
 ℹ️ Any other props (such as `title` or `data-*` attributes) are applied to the outer/wrapper `<span>`, and a `ref` is forwarded to it.
-<!-- Highlighter:description:end -->
 
 #### Required props
-
-<!-- Highlighter:required-props:begin -->
 
 <table>
   <thead>
@@ -80,11 +80,7 @@ RegExp search terms are used as-is (with their own flags).</p>
   </tbody>
 </table>
 
-<!-- Highlighter:required-props:end -->
-
 #### Optional props
-
-<!-- Highlighter:optional-props:begin -->
 
 <table>
   <thead>
@@ -190,7 +186,7 @@ Defaults to <code>span</code> but can also be a React component (class or functi
   </tbody>
 </table>
 
-<!-- Highlighter:optional-props:end -->
+<!-- react-lib-tools:api:end -->
 
 ### Custom highlight tag
 
